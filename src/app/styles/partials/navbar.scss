@@ -1,0 +1,73 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // flex-direction: row;
+  width: 100%;
+  max-width: 1200px; /* Center the navbar within the page */
+  margin: 0 auto; /* Center container horizontally */
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+.navbar-logo {
+  @media screen and (max-width: #{$tablet - 1px}) {
+    display: flex;
+    justify-content: flex-start;
+    background-color: red;
+  }
+  @media screen and (min-width: $tablet) {
+    display: none;
+  }
+}
+
+.navbar-center-logo {
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: yellow;
+    gap: 0;
+  }
+}
+
+.navbar-links-left,
+.navbar-links-right {
+  flex: 1; /* Take up remaining space */
+  display: flex;
+  &.navbar-links-left {
+    justify-content: flex-end; /* Align links to edges */
+  }
+  &.navbar-links-right {
+    justify-content: flex-start; /* Push links to the right edge */
+  }
+}
+
+.navbar-item {
+  margin: 0; /* Remove margin around links */
+}
+
+.navbar-item-last {
+  margin-left: auto;
+  max-width: calc(
+    100% - 1rem
+  ); /* Prevent the item from going beyond the screen */
+  overflow: hidden; /* Hide overflow, if any */
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
+    max-width: 100%; /* Use full width for smaller screens */
+  }
+}
+.navbar-login {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-height: 40px; /* Adjust logo size */
+}
