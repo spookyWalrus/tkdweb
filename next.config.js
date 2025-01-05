@@ -3,6 +3,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: false, // This should be `false` if you want ESLint to run during builds
   },
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;
