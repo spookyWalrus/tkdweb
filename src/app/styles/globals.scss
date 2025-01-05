@@ -1,23 +1,19 @@
-// $primary: #007bff;
-// $background: #ffffff;
-// $navbar-background-color: $background;
-// $navbar-item-hover-background-color: $primary;
+$primary: hsl(300, 9%, 96%);
+$background: #f5f3f5;
+$navbar-background-color: $background;
+$navbar-item-hover-background-color: $primary;
 
 @import "~bulma/bulma";
 @import "~bulma/sass/utilities";
 @import "partials/navbar";
 
-// :root {
-//   --foreground-rgb: 0, 0, 0;
-//   --background-start-rgb: 255, 255, 255;
-// }
-
 html,
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--background-start-rgb);
+  background-color: $background;
   color: rgb(var(--foreground-rgb));
+  overflow-x: hidden; /* Prevent scrolling caused by navbar overflow */
 }
 
 // write me stylings with Bulma library for default light mode  and dark mode
