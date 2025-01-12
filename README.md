@@ -1,3 +1,6 @@
+This is the front-end for TKD rawdon website.
+We use a headless React front-end and our content is managed by Wordpress, with a MySQL database. Since we use NextJS, our back-end is all managed through the the framework instead of setting up a designated back-end.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

@@ -1,12 +1,11 @@
 import { Inter } from "next/font/google";
-import "bulma/css/bulma.min.css";
-import "./styles/globals.scss";
+import "./styles/globals.css";
 import Navbar from "./components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Académie TKD CCS Rawdon",
+  title: "Académie Taekwondo Christien Sourdif, Rawdon",
   description: "Taekwondo School in Rawdon",
 };
 
