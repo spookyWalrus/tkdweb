@@ -1,4 +1,7 @@
-/** @type {import('tailwindcss').Config} */
+/**  @type {import('tailwindcss').Config} */
+
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}", // Note the addition of the `app` directory.
@@ -9,7 +12,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["InterVariable", ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
   plugins: [],
 };
