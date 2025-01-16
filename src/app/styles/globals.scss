@@ -3,7 +3,10 @@ $background: #f5f3f5;
 $navbar-background-color: $background;
 $navbar-item-hover-background-color: $primary;
 
-@use "bulma/bulma";
+// @import "~bulma/bulma";
+@use "bulma" as *;
+
+// @use "bulma/css/bulma.min.css";
 // @use "bulma/sass/utilities";
 // @use "bulma/sass/utilities/initial-variables";
 @use "partials/navbar";
