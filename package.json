@@ -22,13 +22,6 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "eslint": "^8",
-<<<<<<< HEAD
-    "eslint-config-next": "13.5.7",
-    "postcss": "^8.4.49",
-    "postcss-import": "^16.1.0",
-    "tailwindcss": "^3.4.17"
-=======
     "eslint-config-next": "13.5.7"
->>>>>>> 5d5438c (Changed import statements in globals.scss to use instead. Added im.)
   }
 }
