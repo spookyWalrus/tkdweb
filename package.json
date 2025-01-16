@@ -15,11 +15,9 @@
     "start": "npm run build-bulma && next start"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
-    "@heroicons/react": "^2.2.0",
     "axios": "^1.7.7",
     "cypress": "^12.17.4",
-    "bulma": "^1.0.2",
+    "bulma": "^1.0.3",
     "dotenv": "^16.4.5",
     "next": "13.5.7",
     "prop-types": "^15.8.1",

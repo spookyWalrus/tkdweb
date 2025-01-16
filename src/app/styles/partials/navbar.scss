@@ -45,7 +45,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-     background-color: yellow;
+    background-color: yellow;
     gap: 0;
     padding: 1rem;
   }
@@ -73,8 +73,8 @@
 
 .navbar-item-last {
   margin-left: auto;
-   max-width: 100%;
-   overflow: hidden;
+  max-width: 100%;
+  overflow: hidden;
   @media screen and (max-width: 767px) {
     margin-left: 0;
     max-width: 100%; /* Use full width for smaller screens */
