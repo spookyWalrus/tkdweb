@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import Image from "next/image";
 import "./styles/globals.css";
+=======
+>>>>>>> 5d5438c (Changed import statements in globals.scss to use instead. Added im.)
 import styles from "./styles/page.module.css";
+import Image from "next/image";
 
 export default function Home() {
   return (
