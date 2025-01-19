@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import "bulma/css/bulma.css";
 import "./styles/globals.scss";
 import Navbar from "./components/navbar";
 
