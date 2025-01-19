@@ -1,15 +1,9 @@
-$primary: hsl(300, 9%, 96%);
-$background: #f5f3f5;
-$navbar-background-color: $background;
-$navbar-item-hover-background-color: $primary;
-
-// @import "~bulma/bulma";
+@use "./variables" as *;
 @use "bulma" as *;
-
+@import "./partials/navbar.scss";
 // @use "bulma/css/bulma.min.css";
 // @use "bulma/sass/utilities";
 // @use "bulma/sass/utilities/initial-variables";
-@use "partials/navbar";
 
 html,
 body {
