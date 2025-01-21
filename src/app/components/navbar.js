@@ -21,6 +21,13 @@ export default function Navbar() {
           Login
         </Link>
       </div>
+      <div className="brandTitleBar">
+        <h1 className="brandTitleBarLeft">Academie Taekwondo</h1>
+        <h1 className="brandTitleBarLeftMobile">TKD</h1>
+        <div className="fakeLogo"></div>
+        <h1 className="brandTitleBarRight">Club Christian Sourdif</h1>
+        <h1 className="brandTitleBarRightMobile">CCS</h1>
+      </div>
       <nav
         className="navbar is-fixed-top"
         role="navigation"
