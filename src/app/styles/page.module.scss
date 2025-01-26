@@ -1,10 +1,16 @@
+@import "./variables.scss";
+@import "bulma/sass/utilities/initial-variables";
+
 .main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
   min-height: 100vh;
+  padding-top: $topBarHeight + $brandHeight;
+  @media screen and (min-width: $tablet) {
+    padding-top: calc(#{$navbarTotalHeight} + var(--bulma-navbar-height));
+  }
 }
 
 .description {
@@ -230,4 +236,37 @@
   to {
     transform: rotate(0deg);
   }
+}
+
+.HeroBlock {
+  display: flex;
+  justify-content: flex-start;
+  align-items: end;
+  height: auto;
+  width: 100vw;
+  margin: 0;
+  padding-top: 5%;
+  background-color: $foreground;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/images/tkd-wallblack.jpg");
+  /* background-image: url('https://5rings.ca/wp-content/uploads/2022/05/COMPETITIVE-OR-OLYMPIC-STYLE-TAEKWONDO-IN-KITCHENER-AND-WATERLOO-scaled.jpg'); */
+  color: $background;
+}
+.HeroHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 40%;
+  // @media screen and (max-width: 767px) {
+  //   width: 40%;
+  // }
+  margin: 7%;
+  color: $background;
+  background-color: transparent;
+}
+.HeroSubHeader {
+  color: hsl(300, 9%, 56%);
 }
