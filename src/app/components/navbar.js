@@ -22,11 +22,11 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="brandTitleBar">
-        <h1 className="brandTitleBarLeft">Academie Taekwondo</h1>
-        <h1 className="brandTitleBarLeftMobile">TKD</h1>
+        <h3 className="brandTitleBarLeft">Academie Taekwondo</h3>
+        <h3 className="brandTitleBarLeftMobile">TKD</h3>
         <div className="fakeLogo"></div>
-        <h1 className="brandTitleBarRight">Club Christian Sourdif</h1>
-        <h1 className="brandTitleBarRightMobile">CCS</h1>
+        <h3 className="brandTitleBarRight">Club Christian Sourdif</h3>
+        <h3 className="brandTitleBarRightMobile">CCS</h3>
       </div>
       <nav
         className="navbar is-fixed-top"
