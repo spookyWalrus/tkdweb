@@ -25,7 +25,6 @@
   position: fixed;
   justify-content: center;
   align-items: center;
-  top: $brandHeight;
   top: var(--top-bar-height, $brandHeight);
   width: 100%;
   height: $brandHeight;
@@ -35,10 +34,6 @@
   font-size: 1.5rem;
   font-weight: bold;
   z-index: 1050;
-  @media screen and (min-width: $tablet) {
-    background-color: $foreground;
-    height: 2rem;
-  }
 }
 .brandTitleBarLeft,
 .brandTitleBarRight {
@@ -58,9 +53,13 @@
 .fakeLogo {
   width: 100px;
   margin: 0;
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: #{$tablet - 1px}) {
     margin: 2rem;
   }
+}
+
+.navbar-burger {
+  margin-inline-start: 0;
 }
 
 .navbar.is-fixed-top {
@@ -121,31 +120,27 @@
   justify-content: center;
   margin: 0 auto;
   background-color: transparent;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 600px) and (max-width: $tablet) {
+    width: 10%;
+  }
+  @media screen and (min-width: $desktop) {
     display: none;
     top: 0;
   }
 }
 
 .navbar-center {
-  margin: 0 auto;
-  display: inline-block;
-  justify-content: center;
+  display: none;
   align-items: center;
-  padding: 1rem;
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
-  @media screen and (min-width: 768px) {
+  gap: 0;
+  @media screen and (min-width: 1024px) {
+    margin: 0 auto;
+    display: inline-block;
+    justify-content: center;
     align-items: center;
-    gap: 0;
+    padding: 1rem;
   }
 }
-
-.navbar-burger {
-  margin-inline-start: 0;
-}
-
 .navbar-center-logo {
   width: auto;
   height: auto;
@@ -161,9 +156,10 @@
   overflow: hidden;
   @media screen and (max-width: 767px) {
     margin-left: 0;
-    max-width: 100%; /* Use full width for smaller screens */
+    max-width: 100%;
   }
 }
+
 .navbar-login {
   display: flex;
   align-items: center;

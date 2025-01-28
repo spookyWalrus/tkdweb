@@ -34,9 +34,9 @@ export default function Navbar() {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a href="/" className="navbar-logo">
+          <a href="/">
             <Image
-              className="navbar-center-logo"
+              className="navbar-logo"
               src="/logos/tkdBasic-web.png"
               alt="Logo"
               width="100"
