@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@use "./variables.scss" as vars;
 @import "bulma/sass/utilities/initial-variables";
 
 .main {
@@ -7,10 +7,10 @@
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
-  padding-top: $topBarHeight + $brandHeight;
-  background-color: $foreground;
+  padding-top: vars.$topBarHeight + vars.$brandHeight;
+  background-color: vars.$foreground;
   @media screen and (min-width: $tablet) {
-    padding-top: calc(#{$navbarTotalHeight} + var(--bulma-navbar-height));
+    padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
   }
 }
 
@@ -242,16 +242,16 @@
 .HeroBlock {
   display: flex;
   justify-content: flex-start;
-  align-items: end;
+  align-items: flex-end;
   height: auto;
   width: 100vw;
   margin-top: 5%;
-  background-color: $foreground;
+  background-color: vars.$foreground;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url("/images/tkd-wallblack.jpg");
-  color: $background;
+  color: vars.$background;
 }
 .HeroHeader {
   display: flex;
@@ -260,7 +260,7 @@
   align-items: flex-start;
   width: 40%;
   margin: 7%;
-  color: $background;
+  color: vars.$background;
   background-color: transparent;
 }
 .HeroSubHeader {

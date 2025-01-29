@@ -4,41 +4,34 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footerLeft">
+    <footer className="footer grid">
+      <div className="cell">
         <h3>Academie Taekwondo</h3>
         <h3>Club Christian Sourdif</h3>
-        <h3>Rawdon, Quebec</h3>
       </div>
-      <div>
-        <Image
-          className="rawdonIcon"
-          src="/logos/rawdon-Rsymbol-colorNu.svg"
-          alt="RawdonLogo"
-          width={50}
-          height={50}
-        />
-      </div>
-      <div className="footerCenter">
-        <h1>© 2025</h1>
-        <h1>Academie Taekwondo</h1>
-        <h1>Club Christian Sourdif</h1>
-      </div>
-      <div>
-        <Image
-          className="facebookIcon"
-          src="/logos/Facebook_icon.svg"
-          alt="RawdonLogo"
-          width={50}
-          height={50}
-        />
-      </div>
-      <div className="footerRight">
-        <h1>Phone: 450-834-1234</h1>
-        <h1>
-          Email:
+      <div className="cell">
+        <h3>Phone: 450-834-1234</h3>
+        <h3>
           <Link href="mailto:ccstkd@gmail.com">ccstkd@gmail.com</Link>
-        </h1>
+        </h3>
+      </div>
+      <Image
+        className="footerIcons cell"
+        src="/logos/Facebook_icon.svg"
+        alt="RawdonLogo"
+        width={50}
+        height={50}
+      />
+      <Image
+        className="footerIcons cell"
+        src="/logos/rawdon-Rsymbol-colorNu.svg"
+        alt="RawdonLogo"
+        width={50}
+        height={50}
+      />
+      <div className="cell is-col-span-4 copyRight">
+        <h3>© 2025 TKD CCS</h3>
+        <h3>Developed by Zen Nakamura</h3>
       </div>
     </footer>
   );

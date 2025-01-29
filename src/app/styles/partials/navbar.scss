@@ -1,11 +1,11 @@
-// @use "./variables" as *;
+@use "../variables" as vars;
 @import "bulma/sass/utilities/initial-variables";
 
 .topBar {
-  background-color: $primary;
+  background-color: vars.$primary;
   position: fixed;
   width: 100%;
-  height: $topBarHeight;
+  height: vars.$topBarHeight;
   top: 0px;
   display: flex;
   justify-content: flex-end;
@@ -16,7 +16,7 @@
   z-index: 1050;
 }
 .topBarLinks {
-  color: $background;
+  color: vars.$background;
   padding: 0 1rem;
 }
 
@@ -25,16 +25,17 @@
   position: fixed;
   justify-content: center;
   align-items: center;
-  top: var(--top-bar-height, $brandHeight);
+  top: var(--top-bar-height, vars.$brandHeight);
   width: 100%;
-  height: $brandHeight;
-  color: $background;
-  background-color: $foreground;
+  height: vars.$brandHeight;
+  color: vars.$background;
+  background-color: vars.$foreground;
   padding: 0 1rem;
   font-size: 1.5rem;
   font-weight: bold;
   z-index: 1050;
 }
+
 .brandTitleBarLeft,
 .brandTitleBarRight {
   display: none;
@@ -64,12 +65,12 @@
 
 .navbar.is-fixed-top {
   background-color: transparent;
-  top: $navbarTotalHeight;
+  top: vars.$navbarTotalHeight;
   z-index: 1051;
   @media screen and (min-width: #{$tablet - 1px}) {
     height: 2rem;
     top: 4rem;
-    background-color: $foreground;
+    background-color: vars.$foreground;
   }
 }
 
