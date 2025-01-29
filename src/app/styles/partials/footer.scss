@@ -1,10 +1,18 @@
+@use "../variables" as vars;
+
 .footer {
-  width: 100%;
-  height: auto;
+  margin: 0;
+  padding-bottom: 2rem;
+  background-color: vars.$primary;
+  color: vars.$background;
+}
+.footerIcons {
+  display: block;
+  margin: 0 auto;
+}
+
+.copyRight {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: $primary;
-  color: $background;
+  flex-direction: column;
 }

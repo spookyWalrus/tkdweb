@@ -1,5 +1,5 @@
-@use "./variables" as *;
-@use "bulma" as *;
+@use "./variables" as vars;
+@use "bulma";
 @import "./partials/navbar.scss";
 @import "./partials/footer.scss";
 
@@ -8,11 +8,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: $background;
-  color: $foreground;
+  background-color: vars.$background;
+  color: vars.$foreground;
   box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  // overflow-x: hidden;
+  // overflow-y: scroll;
 }
 
 h1 {
@@ -21,9 +21,9 @@ h1 {
 h2 {
   font-size: clamp(12px, 4vw, 28px);
 }
-h3 {
-  // font-size: clamp(2rem, 4vw, 24px);
-}
+// h3 {
+// font-size: clamp(2rem, 4vw, 24px);
+// }
 
 // write me stylings with Bulma library for default light mode  and dark mode
 
