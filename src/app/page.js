@@ -1,5 +1,6 @@
 import styles from "./styles/page.module.scss";
 import Image from "next/image";
+import TwoCard from "./components/two-card";
 
 export default function Home() {
   return (
@@ -14,6 +15,10 @@ export default function Home() {
             of Taekwondo.
           </h2>
         </div>
+      </div>
+
+      <div className={styles.AboutBlock}>
+        <TwoCard />
       </div>
     </main>
   );

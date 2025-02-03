@@ -6,14 +6,14 @@ const Footer = () => {
   return (
     <footer className="footer grid">
       <div className="cell">
-        <h3>Academie Taekwondo</h3>
-        <h3>Club Christian Sourdif</h3>
+        <h4>Academie Taekwondo</h4>
+        <h4>Club Christian Sourdif</h4>
       </div>
       <div className="cell">
-        <h3>Phone: 450-834-1234</h3>
-        <h3>
+        <h4>Phone: 450-834-1234</h4>
+        <h4>
           <Link href="mailto:ccstkd@gmail.com">ccstkd@gmail.com</Link>
-        </h3>
+        </h4>
       </div>
       <Image
         className="footerIcons cell"
@@ -30,8 +30,8 @@ const Footer = () => {
         height={50}
       />
       <div className="cell is-col-span-4 copyRight">
-        <h3>© 2025 TKD CCS</h3>
-        <h3>Developed by Zen Nakamura</h3>
+        <h4>© 2025 TKD CCS</h4>
+        <h4>Developed by Zen Nakamura</h4>
       </div>
     </footer>
   );

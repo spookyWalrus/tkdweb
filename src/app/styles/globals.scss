@@ -11,6 +11,7 @@ body {
   background-color: vars.$background;
   color: vars.$foreground;
   box-sizing: border-box;
+  scroll-snap-type: y mandatory;
   // overflow-x: hidden;
   // overflow-y: scroll;
 }
@@ -21,9 +22,11 @@ h1 {
 h2 {
   font-size: clamp(12px, 4vw, 28px);
 }
-// h3 {
-// font-size: clamp(2rem, 4vw, 24px);
-// }
+
+h3 {
+  font-size: clamp(12px, 4vw, 24px);
+  font-weight: bold;
+}
 
 // write me stylings with Bulma library for default light mode  and dark mode
 
