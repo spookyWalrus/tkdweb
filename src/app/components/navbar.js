@@ -31,7 +31,7 @@ export default function Navbar() {
       <nav
         className="navbar is-fixed-top"
         role="navigation"
-        aria-label="main navigation"
+        aria-label="dropdown navigation"
       >
         <div className="navbar-brand">
           <a href="/">
@@ -62,11 +62,11 @@ export default function Navbar() {
           className={`navbar-menu ${navOpen ? "is-active" : ""}`}
         >
           <div className="navbar-container">
-            <div className="navbar-links-left navbar-start">
+            <div className="navbar-start navbar-links-left">
               <div className="navbar-item has-dropdown is-hoverable">
                 <div className="navbar-link">About us</div>
                 <div className="navbar-dropdown">
-                  <Link href="/" className="navbar-item navbar-item-link">
+                  <Link href="/" className="navbar-item">
                     Club history
                   </Link>
                   <Link href="/" className="navbar-item">
@@ -105,7 +105,7 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <div className="navbar-links-right navbar-end">
+            <div className="navbar-end navbar-links-right">
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">About Taekwondo</a>
                 <div className="navbar-dropdown">

@@ -93,16 +93,16 @@
 
 .navbar-links-left,
 .navbar-links-right {
-  flex: 1; /* Take up remaining space */
+  flex: 1;
   display: flex;
   &.navbar-links-left {
-    justify-content: flex-end; /* Align links to edges */
+    justify-content: flex-end;
     @media screen and (max-width: 767px) {
       justify-content: flex-start;
     }
   }
   &.navbar-links-right {
-    justify-content: flex-start; /* Push links to the right edge */
+    justify-content: flex-start;
   }
 }
 
@@ -124,6 +124,7 @@
   background-color: transparent;
   @media screen and (min-width: 600px) and (max-width: $tablet) {
     width: 10%;
+    height: auto;
   }
   @media screen and (min-width: $desktop) {
     display: none;
