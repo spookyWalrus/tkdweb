@@ -10,7 +10,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "cy:open": "cypress open",
-    "dev:turbo": "turbo dev"
+    "dev:turbo": "turbo dev --no-daemon"
   },
   "dependencies": {
     "axios": "^1.7.7",
