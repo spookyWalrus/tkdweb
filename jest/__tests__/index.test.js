@@ -7,7 +7,7 @@ jest.mock("next/image", () => ({
   default: ({ priority, ...props }) => <img {...props} />, // Mocking Image component as a simple <img> tag
 }));
 
-import Home from "../src/app/page";
+import Home from "../../src/app/page";
 
 describe("Home", () => {
   it("renders a div", () => {
