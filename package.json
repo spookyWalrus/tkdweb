@@ -10,13 +10,16 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "cy:open": "cypress open",
-    "dev:turbo": "turbo dev"
+    "dev:turbo": "turbo dev",
+    "lint:css": "stylelint '**/*.css'",
+    "prepare": "husky install"
   },
   "dependencies": {
     "axios": "^1.7.7",
     "cypress": "^12.17.4",
     "dotenv": "^16.4.5",
     "next": "13.5.7",
+    "prop-types": "^15.8.1",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -26,9 +29,32 @@
     "@testing-library/react": "^14.3.1",
     "eslint": "^8",
     "eslint-config-next": "13.5.7",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-cypress": "^3.0.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "husky": "^8.0.3",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.5.1",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "34.0",
     "ts-node": "^10.9.2",
     "turbo": "^1.10.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,scss}": [
+      "prettier --write",
+      "stylelint --fix"
+    ]
   }
 }

@@ -1,10 +1,12 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import Image from "next/image";
 
-// Mock next/image to prevent issues with `fetchPriority` prop
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ priority, ...props }) => <img {...props} />, // Mocking Image component as a simple <img> tag
+  default: ({ priority, alt, ...props }) => (
+    <Image alt={alt || ""} {...props} />
+  ), // Mocking Image component as a simple <Image /> tag
 }));
 
 import Home from "../../src/app/page";
