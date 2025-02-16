@@ -1,11 +1,13 @@
 "use client"; // Error components must be Client Components
-
+import PropTypes from "prop-types";
 import { useEffect } from "react";
 
 export default function Error({ error, reset }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error);
+    if (process.env.NODE_ENV === "development") {
+      console.error(error);
+    }
   }, [error]);
 
   return (
@@ -22,3 +24,8 @@ export default function Error({ error, reset }) {
     </div>
   );
 }
+
+Error.propTypes = {
+  error: PropTypes.instanceOf(Error).isRequired, // Ensures `error` is an Error object
+  reset: PropTypes.func.isRequired, // Ensures `reset` is a function
+};
