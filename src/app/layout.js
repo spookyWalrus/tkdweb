@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Inter } from "next/font/google";
 import "./styles/globals.scss";
 import Navbar from "./components/navbar";
