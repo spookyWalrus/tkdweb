@@ -1,0 +1,169 @@
+@use "../variables" as vars;
+@import "bulma/sass/utilities/initial-variables";
+
+.topBar {
+  background-color: vars.$primary;
+  position: fixed;
+  width: 100%;
+  height: vars.$topBarHeight;
+  top: 0px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.25rem 0rem;
+  @media screen and (min-width: #{$tablet - 1px}) {
+    padding: 0.25rem 1rem;
+  }
+  z-index: 1050;
+}
+.topBarLinks {
+  color: vars.$background;
+  padding: 0 1rem;
+}
+
+.brandTitleBar {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: var(--top-bar-height, vars.$brandHeight);
+  width: 100%;
+  height: vars.$brandHeight;
+  color: vars.$background;
+  background-color: vars.$foreground;
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 1050;
+}
+
+.brandTitleBarLeft,
+.brandTitleBarRight {
+  display: none;
+  @media screen and (min-width: #{$tablet - 1px}) {
+    display: flex;
+  }
+}
+.brandTitleBarLeftMobile,
+.brandTitleBarRightMobile {
+  display: flex;
+  @media screen and (min-width: #{$tablet - 1px}) {
+    display: none;
+  }
+}
+
+.fakeLogo {
+  width: 100px;
+  margin: 0;
+  @media screen and (min-width: #{$tablet - 1px}) {
+    margin: 2rem;
+  }
+}
+
+.navbar-burger {
+  margin-inline-start: 0;
+}
+
+.navbar.is-fixed-top {
+  background-color: transparent;
+  top: vars.$navbarTotalHeight;
+  z-index: 1051;
+  @media screen and (min-width: #{$tablet - 1px}) {
+    height: 2rem;
+    top: 4rem;
+    background-color: vars.$foreground;
+  }
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100vw;
+  max-width: none;
+  margin: 0 auto;
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100vw;
+    max-width: none;
+  }
+}
+
+.navbar-links-left,
+.navbar-links-right {
+  flex: 1;
+  display: flex;
+  &.navbar-links-left {
+    justify-content: flex-end;
+    @media screen and (max-width: 767px) {
+      justify-content: flex-start;
+    }
+  }
+  &.navbar-links-right {
+    justify-content: flex-start;
+  }
+}
+
+.navbar-brand {
+  min-height: 0;
+  background-color: vars.$foreground;
+}
+
+.navbar-logo {
+  top: -1.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: transparent;
+  @media screen and (min-width: 600px) and (max-width: $tablet) {
+    width: 10%;
+    height: auto;
+  }
+  @media screen and (min-width: $desktop) {
+    display: none;
+    top: 0;
+  }
+}
+
+.navbar-center {
+  display: none;
+  align-items: center;
+  gap: 0;
+  @media screen and (min-width: 1024px) {
+    margin: 0 auto;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+}
+.navbar-center-logo {
+  width: auto;
+  height: auto;
+}
+
+.navbar-item {
+  margin: 0;
+}
+
+.navbar-item-last {
+  margin-left: auto;
+  max-width: 100%;
+  overflow: hidden;
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}
+
+.navbar-login {
+  display: flex;
+  align-items: center;
+}

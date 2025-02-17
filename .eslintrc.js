@@ -27,10 +27,13 @@ module.exports = {
         "jest/__tests__/*.test.js",
         "*.css",
         "*.module.css",
+        "package-lock.json",
+        "*.json",
       ],
       rules: {
         "no-unused-vars": "off",
       },
     },
   ],
+  ignorePatterns: ["*.md"],
 };
