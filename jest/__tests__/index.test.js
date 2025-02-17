@@ -1,12 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import Image from "next/image";
 
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ priority, alt, ...props }) => (
-    <Image alt={alt || ""} {...props} />
-  ), // Mocking Image component as a simple <Image /> tag
+  default: (props) => <img {...props} />,
 }));
 
 import Home from "../../src/app/page";
