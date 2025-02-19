@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import LanguageSwitcher from "@/components/languageSwitcher";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -14,6 +15,7 @@ export default function Navbar() {
   return (
     <div>
       <div className="topBar">
+        {/* <LanguageSwitcher /> */}
         <Link href="/" className="topBarLinks">
           EN
         </Link>

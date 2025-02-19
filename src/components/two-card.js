@@ -1,6 +1,5 @@
 import Image from "next/image";
-// import "../styles/globals.scss";
-import "../styles/partials/two-card.scss";
+import "@/styles/partials/two-card.scss";
 
 export default function TwoCard() {
   return (

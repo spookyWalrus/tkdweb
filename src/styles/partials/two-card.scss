@@ -1,10 +1,12 @@
 @use "../variables.scss" as vars;
-@import "bulma/sass/utilities/initial-variables";
+
+@import url("bulma/sass/utilities/initial-variables");
 
 .twoCard {
   display: flex;
   flex-flow: row wrap;
   margin: 0 auto;
+
   @media screen and (min-width: $tablet) {
   }
 }
@@ -13,6 +15,7 @@
   display: flex;
   margin-bottom: 0;
   width: auto;
+
   @media screen and (min-width: $tablet) {
     width: 50%;
   }
@@ -27,6 +30,7 @@
   padding: 2rem;
   text-align: center;
   width: auto;
+
   @media screen and (min-width: $tablet) {
     width: 50%;
   }

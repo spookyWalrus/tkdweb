@@ -16,8 +16,8 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "no-unused-vars": "off",
-    "no-console": "warn",
     "prettier/prettier": ["error", { endOfLine: "auto" }],
+    "no-console": ["warn", { allow: ["error"] }],
   },
   overrides: [
     {

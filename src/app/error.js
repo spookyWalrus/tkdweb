@@ -1,31 +1,24 @@
-"use client"; // Error components must be Client Components
+"use client";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 
 export default function Error({ error, reset }) {
   useEffect(() => {
-    // Log the error to an error reporting service
     if (process.env.NODE_ENV === "development") {
-      console.error(error);
+      // console.error(error);
+      return () => console.error(error);
     }
   }, [error]);
 
   return (
     <div>
       <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
+      <button onClick={() => reset()}>Try again</button>
     </div>
   );
 }
 
 Error.propTypes = {
-  error: PropTypes.instanceOf(Error).isRequired, // Ensures `error` is an Error object
-  reset: PropTypes.func.isRequired, // Ensures `reset` is a function
+  error: PropTypes.instanceOf(Error).isRequired,
+  reset: PropTypes.func.isRequired,
 };

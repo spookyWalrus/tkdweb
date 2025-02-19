@@ -1,0 +1,16 @@
+{
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "HeroTitle": "Cultivate An Indomitable Spirit",
+    "HeroSubtitle": "We are dedicated to help you learn, develop and refine all aspects of Taekwondo"
+  },
+  "content": {
+    "intro": "We provide high-quality services to meet your needs.",
+    "aboutUs": "Our company has been delivering excellent solutions for over a decade.",
+    "contactUs": "Feel free to reach out to us with any questions or inquiries."
+  }
+}

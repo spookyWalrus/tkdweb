@@ -1,20 +1,24 @@
 @use "../variables" as vars;
-@import "bulma/sass/utilities/initial-variables";
+
+@import url("bulma/sass/utilities/initial-variables");
 
 .topBar {
   background-color: vars.$primary;
   position: fixed;
   width: 100%;
   height: vars.$topBarHeight;
-  top: 0px;
+  top: 0;
   display: flex;
   justify-content: flex-end;
-  padding: 0.25rem 0rem;
+  padding: 0.25rem 0;
+
   @media screen and (min-width: #{$tablet - 1px}) {
     padding: 0.25rem 1rem;
   }
+
   z-index: 1050;
 }
+
 .topBarLinks {
   color: vars.$background;
   padding: 0 1rem;
@@ -39,13 +43,16 @@
 .brandTitleBarLeft,
 .brandTitleBarRight {
   display: none;
+
   @media screen and (min-width: #{$tablet - 1px}) {
     display: flex;
   }
 }
+
 .brandTitleBarLeftMobile,
 .brandTitleBarRightMobile {
   display: flex;
+
   @media screen and (min-width: #{$tablet - 1px}) {
     display: none;
   }
@@ -54,6 +61,7 @@
 .fakeLogo {
   width: 100px;
   margin: 0;
+
   @media screen and (min-width: #{$tablet - 1px}) {
     margin: 2rem;
   }
@@ -67,6 +75,7 @@
   background-color: transparent;
   top: vars.$navbarTotalHeight;
   z-index: 1051;
+
   @media screen and (min-width: #{$tablet - 1px}) {
     height: 2rem;
     top: 4rem;
@@ -82,10 +91,10 @@
   width: 100vw;
   max-width: none;
   margin: 0 auto;
-  @media screen and (max-width: 767px) {
-    flex-direction: column;
+
+  @media screen and (width <= 767px) {
+    flex-flow: column wrap;
     align-items: stretch;
-    flex-wrap: wrap;
     width: 100vw;
     max-width: none;
   }
@@ -95,12 +104,15 @@
 .navbar-links-right {
   flex: 1;
   display: flex;
+
   &.navbar-links-left {
     justify-content: flex-end;
-    @media screen and (max-width: 767px) {
+
+    @media screen and (width <= 767px) {
       justify-content: flex-start;
     }
   }
+
   &.navbar-links-right {
     justify-content: flex-start;
   }
@@ -122,10 +134,12 @@
   justify-content: center;
   margin: 0 auto;
   background-color: transparent;
-  @media screen and (min-width: 600px) and (max-width: $tablet) {
+
+  @media screen and (width >= 600px) and (max-width: $tablet) {
     width: 10%;
     height: auto;
   }
+
   @media screen and (min-width: $desktop) {
     display: none;
     top: 0;
@@ -136,7 +150,8 @@
   display: none;
   align-items: center;
   gap: 0;
-  @media screen and (min-width: 1024px) {
+
+  @media screen and (width >= 1024px) {
     margin: 0 auto;
     display: inline-block;
     justify-content: center;
@@ -144,6 +159,7 @@
     padding: 1rem;
   }
 }
+
 .navbar-center-logo {
   width: auto;
   height: auto;
@@ -157,7 +173,8 @@
   margin-left: auto;
   max-width: 100%;
   overflow: hidden;
-  @media screen and (max-width: 767px) {
+
+  @media screen and (width <= 767px) {
     margin-left: 0;
     max-width: 100%;
   }

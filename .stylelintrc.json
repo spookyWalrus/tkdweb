@@ -3,6 +3,7 @@
   "rules": {
     "block-no-empty": true,
     "color-no-invalid-hex": true,
-    "selector-class-pattern": "^[a-zA-Z][a-zA-Z0-9]+$"
-  }
+    "selector-class-pattern": "^[a-zA-Z][a-zA-Z0-9-]+$"
+  },
+  "ignoreFiles": ["**/*.css", "**/*.scss"]
 }
