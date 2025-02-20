@@ -1,5 +1,5 @@
 @use "./variables.scss" as vars;
-@use "bulma/sass/utilities/initial-variables";
+@use "bulma/sass/utilities/initial-variables" as bulma;
 
 .main {
   display: flex;
@@ -9,7 +9,7 @@
   min-height: 100vh;
   padding-top: vars.$topBarHeight + vars.$brandHeight;
   background-color: vars.$background;
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
   }
 }
@@ -21,7 +21,7 @@
   height: auto;
   width: 100vw;
   margin-top: 5%;
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     margin-top: 0%;
   }
   background-color: vars.$foreground;

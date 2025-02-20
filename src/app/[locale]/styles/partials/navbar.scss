@@ -1,5 +1,5 @@
 @use "../variables" as vars;
-@use "bulma/sass/utilities/initial-variables";
+@use "bulma/sass/utilities/initial-variables" as bulma;
 
 .topBar {
   background-color: vars.$primary;
@@ -10,7 +10,7 @@
   display: flex;
   justify-content: flex-end;
   padding: 0.25rem 0rem;
-  @media screen and #{(width >= $tablet)} {
+  @media screen and (min-width: bulma.$tablet) {
     padding: 0.25rem 1rem;
   }
   z-index: 1050;
@@ -119,17 +119,17 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: auto;
+  width: 15%;
   height: auto;
   display: flex;
   justify-content: center;
   margin: 0 auto;
   background-color: transparent;
-  @media screen and (width >= 600px) and (width <= #{bulma.$tablet}) {
+  @media screen and (width >= 600px) and (width <= 1023px) {
     width: 10%;
     height: auto;
   }
-  @media screen and (width >= $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     display: none;
     top: 0;
   }
