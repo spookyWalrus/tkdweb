@@ -1,5 +1,5 @@
 @use "./variables.scss" as vars;
-@import "bulma/sass/utilities/initial-variables";
+@use "bulma/sass/utilities/initial-variables";
 
 .main {
   display: flex;
@@ -31,6 +31,7 @@
   background-image: url("/images/tkd-wallblack.jpg");
   color: vars.$background;
 }
+
 .HeroHeader {
   display: flex;
   flex-direction: column;
@@ -41,8 +42,9 @@
   color: vars.$background;
   background-color: transparent;
 }
+
 .HeroSubHeader {
-  color: hsl(300, 9%, 80%);
+  color: hsl(300deg 9% 80%);
 }
 
 .AboutBlock {

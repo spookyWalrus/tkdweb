@@ -1,5 +1,5 @@
 @use "../variables.scss" as vars;
-@import "bulma/sass/utilities/initial-variables";
+@use "bulma/sass/utilities/initial-variables";
 
 .twoCard {
   display: flex;

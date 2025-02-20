@@ -12,17 +12,22 @@
     "cy:open": "cypress open",
     "lint:css": "stylelint '**/*.css'",
     "prepare": "husky install",
-    "start": "npm run build-bulma && next start"
+    "start": "npm run build-bulma && next start",
+    "lint:scss": "stylelint '**/*.{scss,sass}'"
   },
   "dependencies": {
     "axios": "^1.7.7",
     "bulma": "^1.0.3",
     "cypress": "^12.17.4",
     "dotenv": "^16.4.5",
+    "i18next": "^24.2.2",
+    "i18next-resources-to-backend": "^1.2.1",
     "next": "13.5.7",
+    "next-i18n-router": "^5.5.1",
     "prop-types": "^15.8.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-i18next": "^15.4.1",
     "sass": "^1.83.4"
   },
   "devDependencies": {
@@ -41,10 +46,14 @@
     "lint-staged": "^14.0.1",
     "postcss": "^8.4.49",
     "postcss-import": "^15.1.0",
+    "postcss-scss": "^4.0.9",
     "prettier": "^3.5.1",
     "sass": "^1.83.1",
     "stylelint": "^15.11.0",
+    "stylelint-config-recommended-scss": "^11.0.0",
     "stylelint-config-standard": "34.0",
+    "stylelint-declaration-use-variable": "^1.7.3",
+    "stylelint-scss": "^4.7.0",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
     "turbo": "^1.10.0"

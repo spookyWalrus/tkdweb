@@ -6,7 +6,7 @@ jest.mock("next/image", () => ({
   default: (props) => <img {...props} />,
 }));
 
-import Home from "../../src/app/page";
+import Home from "../../src/app/[locale]/page";
 
 describe("Home", () => {
   it("renders a div", () => {

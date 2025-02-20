@@ -1,8 +1,19 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": ["stylelint-config-standard","stylelint-config-recommended-scss"],
+  "plugins" :["stylelint-scss","stylelint-declaration-use-variable"],
+  "customSyntax": "postcss-scss",
   "rules": {
-    "block-no-empty": true,
+    "block-no-empty": null,
     "color-no-invalid-hex": true,
-    "selector-class-pattern": "^[a-zA-Z][a-zA-Z0-9]+$"
+    "selector-class-pattern": "^[a-zA-Z][a-zA-Z0-9-]+$",
+    "scss/at-import-no-partial-leading-underscore": true,
+    "scss/at-import-partial-extension": null,
+    "scss/dollar-variable-pattern": "^[_a-z][a-zA-Z0-9-]+$",
+    "scss/at-mixin-pattern": "^[_a-z][a-zA-Z0-9-]+$",
+    "scss/media-feature-value-dollar-variable": null,
+    "media-query-no-invalid": null, 
+    "at-rule-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "length-zero-no-unit": null
   }
 }
