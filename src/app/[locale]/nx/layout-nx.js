@@ -1,13 +1,16 @@
 import PropTypes from "prop-types";
+import initTranslations from "@/i18n";
 import TranslationProvider from "@/TranslationProvider";
-import { initTranslations } from "@/i18n";
-import i18next from "i18next";
+
 import { Inter } from "next/font/google";
 import "./styles/globals.scss";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  fallback: ["system-ui", "Arial", "sans-serif"],
+});
 
 export const metadata = {
   title: "Académie Taekwondo Christien Sourdif, Rawdon",
@@ -15,14 +18,14 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children, params: { locale } }) {
-  // const namespaces = ["Hero Block"];
-  // console.log("Root. Locale is: ", locale);
-  const { t, resources } = await initTranslations(locale, []);
+  // console.log("Initializaing the locale from layout: ", locale);
+  // const nameSpaces = ["Hero Block"];
+  const { i18n } = await initTranslations(locale, []);
 
   return (
-    <html lang={locale}>
-      <body>
-        <TranslationProvider i18n={i18next}>
+    <html lang={locale || "en"}>
+      <body className={inter.className}>
+        <TranslationProvider i18n={i18n}>
           <Navbar />
           {children}
           <Footer />

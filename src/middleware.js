@@ -1,18 +1,16 @@
 import { i18nRouter } from "next-i18n-router";
 import i18nConfig from "i18nConfig";
+import { NextResponse } from "next/server";
 
 export function middleware(request) {
-  console.log("Current Path:", request.nextUrl.pathname);
-  console.log("Current Locale:", request.nextUrl.locale);
   let thePath = request.nextUrl.pathname;
 
   if (thePath === "/favicon.ico") {
-    return;
+    return NextResponse.next();
   }
-
   return i18nRouter(request, i18nConfig);
 }
 
 export const config = {
-  matcher: `/((?!api|static|.*//..*|_next|images|favicon.icon|logos|public).*)`,
+  matcher: "/((?!api|static|.*\\..*|_next|images|favicon.ico|logos|public).*)",
 };

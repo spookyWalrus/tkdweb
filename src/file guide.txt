@@ -1,0 +1,28 @@
+Files in /nx orgi and /nx orig comps are the first rendition of files that are closest to files 
+from https://i18nexus.com/tutorials/nextjs/react-i18next . These files do compile and work, however, 
+the TranslationProvider is based on the page.js and not at root layout.js
+
+Files that are in /nx are slightly refactored from chatgpt and wrap root layout.js. 
+Doesn't compile as it ends up in a loop somewhere, Run time Error: Maximum call stack size exceeded
+
+Files that are in current directory are the second suggested refactoring of files. Very similar 
+to files in /nx where chatgpt gave suggestion on how to not have recursive loop, but unfortunnately
+the site doesn't compile. Ends up ultimately with same call stack max out error.
+
+The layout.js file in /og directory is the file without any changes to accomodate i18next.js
+
+For all other examples of unmodfieid files, say, layout.js, look at source node of main branch where this
+branch, i18next, was based on
+
+
+React-i18next v15.4.1 is compatible with React 18+ and should work with Next.js v13.5.7.
+I18next v23.7.7 is compatible with react-i18next and Next.js.
+
+Upgraded react-i18next package while downgraded i18next package, to try remedy the other error
+that came up: "TypeError: (0 , react__WEBPACK_IMPORTED_MODULE_0__.createContext) is not a function"
+i18net dependencies were at:
+- i18next: 23.12.3
+- i18next-resources-to-backend: 1.2.1
+- next-i18n-router: 5.5.1
+- react-18next: 12.3.1
+- react + react-dom: 18.2.0

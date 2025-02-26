@@ -14,11 +14,13 @@ export default function TwoCard() {
         />
       </div>
       <div className="card-text">
-        <h3>Our Instructors</h3>
+        <h3>Be part of the family</h3>
         <p>
-          Our instructors are dedicated to helping you learn and develop your
-          Taekwondo skills. They are committed to helping you achieve your
-          goals.
+          To learn the discipline of Taekwondo, our vision is to develop mental
+          and physical fortitude through a friendly and approachable
+          environment. Our structured classes are given by experienced
+          instructors to guide your skill development. From young children to
+          seasoned adults, we have a place for you in our school.
         </p>
       </div>
     </div>
