@@ -1,0 +1,55 @@
+@use "./variables.scss" as vars;
+@import "bulma/sass/utilities/initial-variables";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: vars.$topBarHeight + vars.$brandHeight;
+  background-color: vars.$background;
+
+  @media screen and (min-width: $tablet) {
+    padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
+  }
+}
+
+.HeroBlock {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  height: auto;
+  width: 100vw;
+  margin-top: 5%;
+
+  @media screen and (min-width: $tablet) {
+    margin-top: 0%;
+  }
+
+  background-color: vars.$foreground;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/images/tkd-wallblack.jpg");
+  color: vars.$background;
+}
+
+.HeroHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 40%;
+  margin: 7%;
+  color: vars.$background;
+  background-color: transparent;
+}
+
+.HeroSubHeader {
+  color: hsl(300deg 9% 80%);
+}
+
+.AboutBlock {
+  margin: 7%;
+}
