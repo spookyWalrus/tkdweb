@@ -7,8 +7,6 @@
     "dev:turbo": "i18nexus pull && NEXT_SKIP_TURBOPACK=false next dev",
     "build": "i18nexus pull && next build",
     "lint": "next lint",
-    "test": "echo 'jest disabled' ",
-    "test:watch": "echo 'jest --watch disabled' ",
     "cy:open": "cypress open",
     "lint:css": "stylelint '**/*.css'",
     "prepare": "husky install",
