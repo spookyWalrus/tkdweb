@@ -1,9 +1,7 @@
 {
   "extends": "stylelint-config-standard-scss",
   "customSyntax": "postcss-scss",
-  "plugins": [
-    "stylelint-scss"
-  ],
+  "plugins": ["stylelint-scss"],
   "rules": {
     "block-no-empty": true,
     "color-no-invalid-hex": true,

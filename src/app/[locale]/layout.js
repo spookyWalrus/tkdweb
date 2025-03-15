@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import { notFound } from "next/navigation";
-import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
+import { loadTranslations } from "../../i18n/request";
 import { locales } from "../../i18n/routing";
 
 import { Inter } from "next/font/google";
@@ -17,40 +19,27 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { locale } = params;
-  const metadata = await getLocalizedMetadata(locale);
+  const metadata = await getTranslations({ locale, namespace: "Metadata" });
   return {
     title: metadata.title,
     description: metadata.description,
   };
 }
 
-async function getLocalizedMetadata(locale) {
-  const messages = (await import(`../../../locales/${locale}/Metadata.json`))
-    .default;
-  return {
-    title: messages.title,
-    description: messages.description,
-  };
-}
-
 export default async function RootLayout({ children, params }) {
-  const { locale } = await params;
+  const { locale } = params;
+  setRequestLocale(locale);
 
   if (!locales.includes(locale)) {
     notFound();
   }
 
-  let messages;
-  try {
-    messages = await getMessages(locale);
-  } catch (error) {
-    notFound();
-  }
+  const messages = await loadTranslations(locale);
 
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale || "fr"} messages={messages}>
           <Navbar />
           {children}
           <Footer />
@@ -66,3 +55,6 @@ RootLayout.propTypes = {
     locale: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+export const dynamic = "force-static";
+export const dynamicParams = false;

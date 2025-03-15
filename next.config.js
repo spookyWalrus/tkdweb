@@ -6,10 +6,13 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig = {
   eslint: {
-    ignoreDuringBuilds: false, // This should be `false` if you want ESLint to run during builds
+    ignoreDuringBuilds: false,
   },
   reactStrictMode: false,
   trailingSlash: false,
+  experimental: {
+    appDir: true,
+  },
 };
 
 module.exports = withNextIntl(nextConfig);

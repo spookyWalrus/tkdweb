@@ -1,10 +1,10 @@
 import { useTranslations } from "next-intl";
 import styles from "./styles/homepage.module.scss";
 import Image from "next/image";
-// import TwoCard from "../../components/two-card";
+import TwoCard from "../../components/two-card";
 
 export default function Home() {
-  const t = useTranslations("Hero Block");
+  const t = useTranslations("HeroBlock");
 
   return (
     <main className={styles.main}>
@@ -17,7 +17,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.AboutBlock}>{/* <TwoCard /> */}</div>
+      <div className={styles.AboutBlock}>
+        <TwoCard />
+      </div>
     </main>
   );
 }
