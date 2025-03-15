@@ -38,3 +38,6 @@ next-env.d.ts
 
 # Turborepo
 .turbo
+
+# translation files
+locales/**/*.json

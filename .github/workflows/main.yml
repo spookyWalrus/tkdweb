@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 16
 
       - name: Install dependencies
         run: npm install
@@ -31,6 +31,9 @@ jobs:
         run: npm run dev & # Starts the app in the background
         env:
           NODE_ENV: test
+
+      - name: Wait for server to be ready
+          run: npx wait-on http://localhost:3000
 
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v6
