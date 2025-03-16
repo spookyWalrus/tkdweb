@@ -1,7 +1,6 @@
 import { useRouter, usePathname } from "../i18n/navigation";
 import { useLocale } from "next-intl";
 import { useState, useEffect } from "react";
-//added comment
 
 export default function LangSwitcher() {
   const router = useRouter();

@@ -1,8 +1,10 @@
 import Image from "next/image";
-// import "../styles/globals.scss";
+import { useTranslations } from "next-intl";
 import "../app/[locale]/styles/partials/two-card.scss";
 
 export default function TwoCard() {
+  const t = useTranslations("AboutBlock");
+
   return (
     <div className="twoCard">
       <div className="cardImage">
@@ -14,12 +16,8 @@ export default function TwoCard() {
         />
       </div>
       <div className="card-text">
-        <h3>Our Instructors</h3>
-        <p>
-          Our instructors are dedicated to helping you learn and develop your
-          Taekwondo skills. They are committed to helping you achieve your
-          goals.
-        </p>
+        <h3>{t("AboutHeader")}</h3>
+        <p>{t("AboutBody")}</p>
       </div>
     </div>
   );

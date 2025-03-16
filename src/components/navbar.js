@@ -8,7 +8,6 @@ import Image from "next/image";
 
 export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
-  const [dropDown, setDropDown] = useState(true);
 
   const t = useTranslations("Navbar");
 
