@@ -1,11 +1,15 @@
 "use client";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import LangSwitcher from "./LangSwitcher";
+
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
-  const [dropDown, setDropDown] = useState(true);
+
+  const t = useTranslations("Navbar");
 
   const toggleMenu = () => {
     setNavOpen(!navOpen);
@@ -14,18 +18,19 @@ export default function Navbar() {
   return (
     <div>
       <div className="topBar">
-        <Link href="/" className="topBarLinks">
+        <LangSwitcher />
+        {/* <Link href="/" className="topBarLinks">
           EN
-        </Link>
+        </Link> */}
         <Link href="/" className="topBarLinks">
-          Login
+          {t("Login")}
         </Link>
       </div>
       <div className="brandTitleBar">
-        <h3 className="brandTitleBarLeft">Academie Taekwondo</h3>
+        <h3 className="brandTitleBarLeft">{t("Page Title Left")}</h3>
         <h3 className="brandTitleBarLeftMobile">TKD</h3>
         <div className="fakeLogo"></div>
-        <h3 className="brandTitleBarRight">Club Christian Sourdif</h3>
+        <h3 className="brandTitleBarRight">{t("Page Title Right")}</h3>
         <h3 className="brandTitleBarRightMobile">CCS</h3>
       </div>
       <nav
@@ -64,30 +69,30 @@ export default function Navbar() {
           <div className="navbar-container">
             <div className="navbar-start navbar-links-left">
               <div className="navbar-item has-dropdown is-hoverable">
-                <div className="navbar-link">About us</div>
+                <div className="navbar-link">{t("About Us.Head")}</div>
                 <div className="navbar-dropdown">
                   <Link href="/" className="navbar-item">
-                    Club history
+                    {t("About Us.Item 1")}
                   </Link>
                   <Link href="/" className="navbar-item">
-                    Our instructors
+                    {t("About Us.Item 2")}
                   </Link>
                 </div>
               </div>
               <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link">Courses</a>
+                <a className="navbar-link">{t("Courses.Head")}</a>
                 <div className="navbar-dropdown">
                   <Link href="/" className="navbar-item">
-                    Adult course
+                    {t("Courses.Item 1")}
                   </Link>
                   <Link href="/" className="navbar-item">
-                    Kids course
+                    {t("Courses.Item 2")}
                   </Link>
                   <Link href="/" className="navbar-item">
-                    Schedule/ Calendar
+                    {t("Courses.Item 3")}
                   </Link>
                   <Link href="/" className="navbar-item">
-                    Current news/events
+                    {t("Courses.Item 4")}
                   </Link>
                 </div>
               </div>
@@ -107,19 +112,19 @@ export default function Navbar() {
 
             <div className="navbar-end navbar-links-right">
               <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link">About Taekwondo</a>
+                <a className="navbar-link">{t("About Taekwondo.Head")}</a>
                 <div className="navbar-dropdown">
                   <Link href="/" className="navbar-item">
-                    History of Taekwondo
+                    {t("About Taekwondo.Item 1")}
                   </Link>
                   <Link href="/" className="navbar-item">
-                    Principles of Taekwondo
+                    {t("About Taekwondo.Item 2")}
                   </Link>
                   <Link href="/" className="navbar-item">
-                    Class conduct
+                    {t("About Taekwondo.Item 3")}
                   </Link>
                   <Link href="/" className="navbar-item">
-                    Vocabulary / glossary
+                    {t("About Taekwondo.Item 4")}
                   </Link>
                 </div>
               </div>

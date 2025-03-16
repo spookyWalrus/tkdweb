@@ -4,9 +4,8 @@ import { useEffect } from "react";
 
 export default function Error({ error, reset }) {
   useEffect(() => {
-    // Log the error to an error reporting service
     if (process.env.NODE_ENV === "development") {
-      console.error(error);
+      console.error(error); // eslint-disable-line no-console
     }
   }, [error]);
 

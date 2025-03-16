@@ -1,11 +1,10 @@
 $primary: #0056f6;
 $secondary: #d80032;
 $accent: #f2bb05;
-$background: hsl(300, 9%, 96%);
-$foreground: hsl(285, 40%, 4%);
+$background: hsl(300deg 9% 96%);
+$foreground: hsl(285deg 40% 4%);
 $navbar-background-color: $background;
 $navbar-item-hover-background-color: $primary;
-
 $topBarHeight: 2rem;
 $brandHeight: 2rem;
 $navbarTotalHeight: $topBarHeight + $brandHeight;

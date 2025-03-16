@@ -1,8 +1,16 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": "stylelint-config-standard-scss",
+  "customSyntax": "postcss-scss",
+  "plugins": ["stylelint-scss"],
   "rules": {
     "block-no-empty": true,
     "color-no-invalid-hex": true,
-    "selector-class-pattern": "^[a-zA-Z][a-zA-Z0-9]+$"
+    "selector-class-pattern": "^[a-zA-Z][a-zA-Z0-9-]+$",
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "no-invalid-position-at-import-rule": null,
+    "media-query-no-invalid": null,
+    "scss/media-feature-value-dollar-variable": "always",
+    "scss/dollar-variable-pattern": "^[a-z][a-zA-Z0-9-]+$"
   }
 }

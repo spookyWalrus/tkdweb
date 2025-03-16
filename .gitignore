@@ -9,6 +9,7 @@
 /coverage
 
 # next.js
+.next/
 /.next/
 /out/
 
@@ -25,7 +26,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env.local
+.env
 
 # vercel
 .vercel
@@ -36,3 +38,6 @@ next-env.d.ts
 
 # Turborepo
 .turbo
+
+# translation files
+locales/**/*.json
