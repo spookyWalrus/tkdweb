@@ -1,4 +1,4 @@
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import styles from "./styles/homepage.module.scss";
 import TwoCard from "../../components/two-card";
 

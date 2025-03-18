@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="footer grid">
+    <footer className="footer grid customFooter">
       <div className="cell">
         <h4>Academie Taekwondo</h4>
         <h4>Club Christian Sourdif</h4>
