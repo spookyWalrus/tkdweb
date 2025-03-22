@@ -128,7 +128,7 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-              <Link href="/" className="navbar-item">
+              <Link href="/contact" className="navbar-item">
                 Contact
               </Link>
             </div>
