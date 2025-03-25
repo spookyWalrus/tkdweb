@@ -1,19 +1,19 @@
 @use "./variables.scss" as vars;
 @import "bulma/sass/utilities/initial-variables";
 
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 100vh;
-  padding-top: vars.$topBarHeight + vars.$brandHeight;
-  background-color: vars.$background;
+// .main {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   align-items: center;
+//   min-height: 100vh;
+//   padding-top: vars.$topBarHeight + vars.$brandHeight;
+//   background-color: vars.$background;
 
-  @media screen and (min-width: $tablet) {
-    padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
-  }
-}
+//   @media screen and (min-width: $tablet) {
+//     padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
+//   }
+// }
 
 .HeroBlock {
   display: flex;
@@ -48,8 +48,4 @@
 
 .HeroSubHeader {
   color: hsl(300deg 9% 80%);
-}
-
-.AboutBlock {
-  margin: 7%;
 }

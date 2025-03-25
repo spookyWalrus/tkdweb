@@ -4,9 +4,10 @@ import TwoCard from "../../components/two-card";
 
 export default function Home() {
   const t = useTranslations("HeroBlock");
+  const t2 = useTranslations("AboutBlock");
 
   return (
-    <main className={styles.main}>
+    <main className="main">
       <div className={styles.HeroBlock}>
         <div className={styles.HeroHeader}>
           <h1>
@@ -16,8 +17,15 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.AboutBlock}>
-        <TwoCard />
+      <div className="twoCardMargin">
+        <TwoCard
+          imageSrc="/images/kyoExam1.jpg"
+          altText="exam"
+          heading={t2("AboutHeader")}
+          body={<p>{t2("AboutBody")}</p>}
+          // imgWidth="1000"
+          // imgHeight="1000"
+        />
       </div>
     </main>
   );
