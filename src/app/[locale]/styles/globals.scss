@@ -3,7 +3,8 @@
 @import "./partials/navbar";
 @import "./partials/footer";
 @import "./partials/langSwitcher";
-@import "./partials/contactUs";
+@import "./partials/contactForm";
+@import "./partials/two-card";
 
 html,
 body {
@@ -34,4 +35,22 @@ h3 {
   // font-size: clamp(12px, 4vw, 24px);
   font-size: clamp(0.632rem, 4vw, 1.263rem);
   font-weight: bold;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: vars.$topBarHeight + vars.$brandHeight;
+  background-color: vars.$background;
+
+  @media screen and (min-width: $tablet) {
+    padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
+  }
+}
+
+.twoCardMargin {
+  margin: 7%;
 }
