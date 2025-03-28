@@ -9,10 +9,6 @@ const nextConfig = {
     ignoreDuringBuilds: false,
   },
   reactStrictMode: false,
-  trailingSlash: false,
-  experimental: {
-    appDir: true,
-  },
 };
 
 module.exports = withNextIntl(nextConfig);
