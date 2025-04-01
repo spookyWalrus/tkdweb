@@ -1,33 +1,87 @@
+"use client";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function ContactForm() {
   const [status, setStatus] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [captchaToken, setCaptchaToken] = useState(null);
+
   const t = useTranslations("Contact");
-  let sending = t("ContactSending");
-  let success = t("ContactSuccess");
-  let failed = t("ContactFail");
+  let contactSend = t("ContactSend");
+  let contactSending = t("ContactSending");
+  let contactSuccess = t("ContactSuccess");
+  let contactFailed = t("ContactFail");
+
+  const validateForm = (data) => {
+    const newErrors = {};
+    if (!data.name || data.name.length < 2) {
+      newErrors.name = t("NameError");
+    }
+    if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
+      newErrors.email = t("EmailError");
+    }
+    if (!data.message || data.message.length < 10) {
+      newErrors.message = t("MessageError");
+    }
+    return newErrors;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const submitMail = async (e) => {
     e.preventDefault();
-    try {
-      setStatus(sending);
-      const formData = new FormData(e.target);
-      formData.append("access_key", "289101d9-a5e8-4394-8ccb-5c53d469a895");
+    setErrors({});
+    const validationErrors = validateForm(formData);
 
-      const res = await fetch("https://api.web3forms.com/submit", {
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    if (!captchaToken) {
+      setErrors((prev) => ({
+        ...prev,
+        captcha: t("CaptchaError"),
+      }));
+      return;
+    }
+
+    setStatus("submitting");
+
+    try {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          hCaptchaToken: captchaToken,
+        }),
       });
+      const result = await res.json();
+
       if (res.ok) {
-        setStatus(success);
-        e.target.reset();
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setCaptchaToken(null);
       } else {
-        setStatus(failed);
-        throw new Error("Failed to submit the form");
+        setStatus(contactFailed);
+        setErrors({ submit: result.error || contactFailed });
       }
     } catch (error) {
       setStatus("Error on submit");
+      setErrors({ submit: "Network error. Try again" });
     }
   };
 
@@ -39,7 +93,15 @@ export default function ContactForm() {
             {t("Name")}
           </label>
           <div className="control">
-            <input type="text" name="name" placeholder="Dolyo Chagi" required />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Dolyo Chagi"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            {errors.name && <p className="help is-danger">{errors.name}</p>}
           </div>
         </div>
         <div className="field">
@@ -50,17 +112,12 @@ export default function ContactForm() {
             <input
               type="email"
               name="email"
+              id="email"
               placeholder="dolyoChagi@mail.com"
-              required
+              value={formData.email}
+              onChange={handleChange}
             />
-          </div>
-        </div>
-        <div className="field">
-          <label htmlFor="subject" className="formLabel">
-            {t("Subject")}
-          </label>
-          <div className="control">
-            <input type="text" name="subject" required />
+            {errors.email && <p className="help is-danger">{errors.email}</p>}
           </div>
         </div>
         <div className="field">
@@ -68,22 +125,46 @@ export default function ContactForm() {
             {t("Message")}
           </label>
           <div className="control">
-            <textarea name="message" required />
+            <textarea
+              name="message"
+              id="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows={4}
+            />
+            {errors.message && (
+              <p className="help is-danger">{errors.message}</p>
+            )}
+          </div>
+        </div>
+        <div className="field">
+          <div className="controL">
+            <HCaptcha
+              sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY || ""}
+              onVerify={(token) => setCaptchaToken(token)}
+              onExpire={() => setCaptchaToken(null)}
+            />
+            {errors.captcha && (
+              <p className="help is-danger">{errors.captcha}</p>
+            )}
           </div>
         </div>
         <div className="field">
           <div className="control">
-            <button className="button" type="submit">
-              {t("Send")}
+            <button
+              className="button"
+              type="submit"
+              disabled={status === "submitting"}
+            >
+              {status === "submitting" ? contactSending : contactSend}
             </button>
+            {errors.submit && <p className="help is-danger">{errors.submit}</p>}
+            {status === "success" && (
+              <p className="help is-success sentMessage">{contactSuccess}</p>
+            )}
           </div>
         </div>
       </form>
-      {status && (
-        <div className="contactStatus">
-          <p>{status}</p>
-        </div>
-      )}
     </div>
   );
 }
