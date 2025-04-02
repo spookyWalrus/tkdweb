@@ -1,0 +1,17 @@
+@use "../variables" as vars;
+
+.singleLine {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 2em;
+}
+
+.contactBold {
+  font-weight: bold;
+  padding-right: 2em;
+}
+
+.isBlue {
+  color: vars.$primary;
+}

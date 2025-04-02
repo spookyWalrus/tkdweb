@@ -1,7 +1,8 @@
 "use client";
 import { useTranslations } from "next-intl";
-import TwoCardLeft from "@/components/two-card-left";
+import TwoCardNI from "@/components/two-card-noImg";
 import ContactForm from "@/components/contactForm";
+import ContactInfo from "@/components/contactInfo";
 
 export default function ContactUs() {
   const t = useTranslations("Contact");
@@ -9,13 +10,11 @@ export default function ContactUs() {
   return (
     <div className="main">
       <div className="twoCardMargin">
-        <TwoCardLeft
-          imageSrc={"/images/kyoExam1.jpg"}
-          altText="exam"
-          heading={t("ContactUs")}
-          body={<ContactForm />}
-          imgWidth="500"
-          imgHeight="500"
+        <TwoCardNI
+          heading={"How to reach us"}
+          body={<ContactInfo />}
+          heading2={t("ContactUs")}
+          body2={<ContactForm />}
         />
       </div>
     </div>
