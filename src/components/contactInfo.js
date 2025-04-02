@@ -7,7 +7,7 @@ import {
 import { useTranslations } from "next-intl";
 
 const ContactInfo = () => {
-  const t = useTranslations("ContactInfo");
+  const t = useTranslations("Contact");
   return (
     <div>
       <div className="icon-box">
