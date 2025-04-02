@@ -11,7 +11,7 @@ export default function ContactUs() {
     <div className="main">
       <div className="twoCardMargin">
         <TwoCardNI
-          heading={"How to reach us"}
+          heading={t("ContactInfo")}
           body={<ContactInfo />}
           heading2={t("ContactUs")}
           body2={<ContactForm />}
