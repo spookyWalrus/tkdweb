@@ -21,7 +21,7 @@ const TwoCard = ({
       </div>
       <div className="card-text">
         <h3>{heading}</h3>
-        <section>{body}</section>
+        <section className="cardSection">{body}</section>
       </div>
     </div>
   );

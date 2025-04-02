@@ -1,17 +1,35 @@
 @use "../variables" as vars;
 
-.singleLine {
-  display: flex;
-  justify-content: flex-start;
-  align-items: baseline;
-  gap: 2em;
+.icon-box {
+  display: grid;
+  grid-template-columns: 24px 80px 1fr; // [Icon] [Label] [Info]
+  align-items: start;
+
+  // align-items: baseline;
+  gap: 0.75em;
+  margin-bottom: 1em;
 }
 
 .contactBold {
+  grid-column: 2;
   font-weight: bold;
-  padding-right: 2em;
+  line-height: 1.3;
+  min-width: 80px;
 }
 
 .isBlue {
   color: vars.$primary;
+}
+
+.contactInfo {
+  grid-column: 3; // Always in third column
+  text-align: left; // Ensure left alignment
+
+  p {
+    margin: 0; // Remove <p> default margins
+  }
+}
+
+.icon {
+  grid-column: 1;
 }
