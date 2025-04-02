@@ -2,7 +2,7 @@
 
 .icon-box {
   display: grid;
-  grid-template-columns: 24px 80px 1fr; // [Icon] [Label] [Info]
+  grid-template-columns: 24px 1fr 1fr; // [Icon] [Label] [Info]
   align-items: start;
 
   // align-items: baseline;
