@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import styles from "./styles/homepage.module.scss";
-import TwoCard from "../../components/two-card";
+import TwoCard from "../../components/two-card-noImg";
 
 export default function Home() {
   const t = useTranslations("HeroBlock");
