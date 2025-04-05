@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { validateForm } from "@/utilities/validateForm";
 
 export default function ContactForm() {
   const [status, setStatus] = useState("");
@@ -19,20 +20,6 @@ export default function ContactForm() {
   let contactSuccess = t("ContactSuccess");
   let contactFailed = t("ContactFail");
 
-  const validateForm = (data) => {
-    const newErrors = {};
-    if (!data.name || data.name.length < 2) {
-      newErrors.name = t("NameError");
-    }
-    if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
-      newErrors.email = t("EmailError");
-    }
-    if (!data.message || data.message.length < 10) {
-      newErrors.message = t("MessageError");
-    }
-    return newErrors;
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -44,7 +31,7 @@ export default function ContactForm() {
   const submitMail = async (e) => {
     e.preventDefault();
     setErrors({});
-    const validationErrors = validateForm(formData);
+    const validationErrors = validateForm(formData, t);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
