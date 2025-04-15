@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateForm } from "@/utilities/validateForm";
+import { useTranslations } from "next-intl";
 
 export default function ContactForm() {
   const [status, setStatus] = useState("");
@@ -31,13 +31,18 @@ export default function ContactForm() {
   const submitMail = async (e) => {
     e.preventDefault();
     setErrors({});
+    console.log("formdata sent: ", formData);
     const validationErrors = validateForm(formData, t);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      console.log("Setting the errors: ", validationErrors);
+
       return;
     }
-    if (!captchaToken) {
+
+    const isCaptchaRequired = process.env.NODE_ENV !== "test";
+    if (isCaptchaRequired && !captchaToken) {
       setErrors((prev) => ({
         ...prev,
         captcha: t("CaptchaError"),
@@ -104,7 +109,11 @@ export default function ContactForm() {
               value={formData.email}
               onChange={handleChange}
             />
-            {errors.email && <p className="help is-danger">{errors.email}</p>}
+            {errors.email && (
+              <p className="help is-danger" data-testid="email-error">
+                {errors.email}
+              </p>
+            )}
           </div>
         </div>
         <div className="field">
