@@ -1,33 +1,41 @@
-@use "../variables.scss" as vars;
-@import "bulma/sass/utilities/initial-variables";
-
 .twoCard {
   display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap; // Allow wrapping on mobile
   margin: 0 auto;
+  gap: 2rem; // Add consistent spacing between image and text
 }
 
 .cardImage {
-  display: flex;
-  margin-bottom: 0;
-  width: auto;
+  flex: 1 1 100%; // Full width on mobile
+  min-width: 0; // Prevent flex children from overflowing
+  aspect-ratio: 1 / 1; // Enforce square ratio (adjust as needed)
+  overflow: hidden; // Ensure image respects container bounds
 
   @media screen and (min-width: $tablet) {
-    width: 50%;
+    flex: 1 1 50%; // 50% width on tablet+
+    aspect-ratio: auto; // Reset if needed
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Prevent distortion
   }
 }
 
 .card-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0;
+  flex: 1 1 100%;
   padding: 2rem;
   text-align: left;
   width: auto;
 
   @media screen and (min-width: $tablet) {
-    width: 50%;
+    flex: 1 1 40%; // Slightly less than 50% to account for padding/gap
+    display: flex;
+    flex-direction: column;
   }
+}
+
+.cardSection {
+  margin-top: 2em;
 }

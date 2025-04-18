@@ -18,6 +18,12 @@ module.exports = {
     "no-unused-vars": "off",
     "no-console": "warn",
     "prettier/prettier": ["error", { endOfLine: "auto" }],
+    "react/prop-types": "error",
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
   },
   overrides: [
     {

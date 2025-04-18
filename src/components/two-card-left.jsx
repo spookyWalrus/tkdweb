@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Image from "next/image";
 
-const TwoCard = ({
+const TwoCardLeft = ({
   imageSrc,
   altText,
   heading,
@@ -11,6 +11,10 @@ const TwoCard = ({
 }) => {
   return (
     <div className="twoCard">
+      <div className="card-text">
+        <h3>{heading}</h3>
+        <section className="cardSection">{body}</section>
+      </div>
       <div className="cardImage">
         <Image
           src={imageSrc}
@@ -19,15 +23,11 @@ const TwoCard = ({
           height={imgHeight}
         />
       </div>
-      <div className="card-text">
-        <h3>{heading}</h3>
-        <section className="cardSection">{body}</section>
-      </div>
     </div>
   );
 };
 
-TwoCard.propTypes = {
+TwoCardLeft.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   altText: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
@@ -36,4 +36,4 @@ TwoCard.propTypes = {
   imgHeight: PropTypes.string,
 };
 
-export default TwoCard;
+export default TwoCardLeft;
