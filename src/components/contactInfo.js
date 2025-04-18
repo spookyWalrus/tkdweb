@@ -5,6 +5,7 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "next-intl";
+import Map from "./map";
 
 const ContactInfo = () => {
   const t = useTranslations("Contact");
@@ -30,10 +31,12 @@ const ContactInfo = () => {
         </span>
         <span className="contactBold">{t("Address")}</span>
         <div className="contactInfo">
-          <p>1234 Main Street</p>
-          <p>City, State, 12345</p>
+          <p>3763 rue Albert</p>
+          <p>Rawdon (Québec)</p>
+          <p>Canada J0K 1S0 </p>
         </div>
       </div>
+      <Map />
     </div>
   );
 };
