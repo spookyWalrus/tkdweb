@@ -13,17 +13,24 @@ body {
   color: vars.$foreground;
   box-sizing: border-box;
   scroll-snap-type: y mandatory;
+
+  @media screen and (min-width: $desktop) {
+    font-size: 19px !important;
+  }
 }
 
 h1 {
-  font-size: clamp(16px, 5vw, 47px);
+  // font-size: clamp(16px, 5vw, 47px);
+  font-size: clamp(0.842rem, 5vw, 2.474rem);
 }
 
 h2 {
-  font-size: clamp(12px, 4vw, 28px);
+  // font-size: clamp(12px, 4vw, 28px);
+  font-size: clamp(0.632rem, 4vw, 1.474rem);
 }
 
 h3 {
-  font-size: clamp(12px, 4vw, 24px);
+  // font-size: clamp(12px, 4vw, 24px);
+  font-size: clamp(0.632rem, 4vw, 1.263rem);
   font-weight: bold;
 }
