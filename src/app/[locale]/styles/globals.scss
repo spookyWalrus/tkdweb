@@ -69,10 +69,13 @@ h3 {
 
 .mainMargin {
   margin: 7%;
-
-  // padding: 0 1rem;
+  width: 70%;
   word-break: break-word;
   overflow-wrap: break-word;
+
+  @media screen and (min-width: $tablet) {
+    width: 80%;
+  }
 }
 
 .bodyTextMarginTop {

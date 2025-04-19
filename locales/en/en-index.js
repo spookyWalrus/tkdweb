@@ -6,6 +6,7 @@ import Contact from "./Contact.json";
 import TKDHistory from "./TKDHistory.json";
 import WTF from "./WTF.json";
 import TKDPhilosophy from "./TKDPhilosophy.json";
+import ClassConduct from "./ClassConduct.json";
 
 export default {
   AboutBlock,
@@ -16,4 +17,5 @@ export default {
   TKDHistory,
   WTF,
   TKDPhilosophy,
+  ClassConduct,
 };

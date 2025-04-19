@@ -82,16 +82,16 @@ export default function Navbar() {
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">{t("Courses.Head")}</a>
                 <div className="navbar-dropdown">
-                  <Link href="/" className="navbar-item">
+                  <Link href="/courses" className="navbar-item">
                     {t("Courses.Item 1")}
                   </Link>
-                  <Link href="/" className="navbar-item">
+                  <Link href="/conduct" className="navbar-item">
                     {t("Courses.Item 2")}
                   </Link>
-                  <Link href="/" className="navbar-item">
+                  <Link href="/schedule" className="navbar-item">
                     {t("Courses.Item 3")}
                   </Link>
-                  <Link href="/" className="navbar-item">
+                  <Link href="/news" className="navbar-item">
                     {t("Courses.Item 4")}
                   </Link>
                 </div>
@@ -122,9 +122,6 @@ export default function Navbar() {
                   </Link>
                   <Link href="/" className="navbar-item">
                     {t("About Taekwondo.Item 3")}
-                  </Link>
-                  <Link href="/" className="navbar-item">
-                    {t("About Taekwondo.Item 4")}
                   </Link>
                 </div>
               </div>

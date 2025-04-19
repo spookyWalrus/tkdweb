@@ -19,7 +19,6 @@ export default function LangSwitcher() {
   };
 
   return (
-    // <div className="select no-caret">
     <div>
       <select className="custom-select" value={lang} onChange={langSetter}>
         <option value="en">ENG</option>
