@@ -7,6 +7,14 @@
 @import "./partials/two-card";
 @import "./partials/contactInfo";
 @import "./partials/map";
+@import "./partials/historyPhil";
+
+@font-face {
+  font-family: Euljiro;
+  src: url("/fonts/BMEULJIROTTF.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 html,
 body {
@@ -45,14 +53,28 @@ h3 {
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
-  padding-top: vars.$topBarHeight + vars.$brandHeight;
+
+  // padding-top: vars.$topBarHeight + vars.$brandHeight;
+  padding-top: 6rem;
   background-color: vars.$background;
 
   @media screen and (min-width: $tablet) {
     padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
   }
+
+  @media screen and (min-width: $desktop) {
+    padding-top: vars.$topBarHeight + vars.$brandHeight;
+  }
 }
 
-.twoCardMargin {
+.mainMargin {
   margin: 7%;
+}
+
+.bodyTextMarginTop {
+  margin-top: 2rem;
+}
+
+.inlineImage {
+  display: inline-flex;
 }
