@@ -1,0 +1,37 @@
+@mixin column-cel {
+  flex: none;
+  padding: 1rem;
+  width: 50%;
+  text-align: center;
+  padding-bottom: 1rem;
+
+  @media screen and (min-width: $tablet) {
+    width: 20%;
+  }
+}
+
+.columnCel {
+  @include column-cel;
+}
+
+.celPhrase {
+  @include column-cel;
+
+  @media screen and (min-width: $tablet) {
+    width: 50%;
+  }
+}
+
+.transHead {
+  // color: vars.$primary;
+  font-weight: 500;
+}
+
+.columns {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.noLPadding {
+  padding-left: 0;
+}

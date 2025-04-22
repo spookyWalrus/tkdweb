@@ -21,14 +21,14 @@
   align-items: flex-end;
   height: auto;
   width: 100vw;
-  margin-top: 4%;
+  margin-top: 2%;
 
   @media screen and (min-width: $tablet) {
     margin-top: 0%;
   }
 
   @media screen and (min-width: $desktop) {
-    margin-top: 5%;
+    margin-top: 4%;
   }
 
   background-color: vars.$foreground;
