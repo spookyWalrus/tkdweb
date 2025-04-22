@@ -9,7 +9,7 @@ export default function ContactUs() {
 
   return (
     <div className="main">
-      <div className="twoCardMargin">
+      <div className="mainMargin">
         <TwoCardNI
           heading={t("ContactInfo")}
           body={<ContactInfo />}

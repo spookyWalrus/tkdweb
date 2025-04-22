@@ -17,7 +17,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="twoCardMargin">
+      <div className="mainMargin">
         <TwoCard
           imageSrc="/images/kyoExam1.jpg"
           altText="exam"

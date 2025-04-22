@@ -1,0 +1,23 @@
+.underTrans {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-right: 2rem;
+  white-space: nowrap;
+}
+
+.inlineImageCustom {
+  display: block;
+
+  @media screen and (min-width: $tablet) {
+    display: inline-flex;
+  }
+}
+
+.adjustLeft {
+  text-align: left;
+
+  @media screen and (min-width: $tablet) {
+    text-align: center;
+  }
+}

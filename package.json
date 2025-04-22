@@ -4,14 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:turbo": "i18nexus pull && NEXT_SKIP_TURBOPACK=false next dev",
-    "build": "i18nexus pull && next build",
+    "dev:turbo": "dotenv -- bash -c 'I18NEXUS_API_KEY=\"$I18NEXUS_API_KEY1\" i18nexus pull && I18NEXUS_API_KEY=\"$I18NEXUS_API_KEY2\" i18nexus pull && NEXT_SKIP_TURBOPACK=false next dev' ",
     "lint": "next lint",
     "cy:open": "cypress open",
     "lint:css": "stylelint '**/*.css'",
     "test": "jest",
     "test:watch": "jest --watch",
     "prepare": "husky install",
+    "build": "dotenv -- bash -c 'I18NEXUS_API_KEY=\"$I18NEXUS_API_KEY1\" i18nexus pull && I18NEXUS_API_KEY=\"$I18NEXUS_API_KEY2\" i18nexus pull && next build' ",
     "start": "next start"
   },
   "dependencies": {
