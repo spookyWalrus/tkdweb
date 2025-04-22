@@ -7,6 +7,8 @@ import TKDHistory from "./TKDHistory.json";
 import WTF from "./WTF.json";
 import TKDPhilosophy from "./TKDPhilosophy.json";
 import ClassConduct from "./ClassConduct.json";
+import Vocab from "./Vocab.json";
+import Vocab2 from "./Vocab2.json";
 
 export default {
   AboutBlock,
@@ -18,4 +20,6 @@ export default {
   WTF,
   TKDPhilosophy,
   ClassConduct,
+  Vocab,
+  Vocab2,
 };

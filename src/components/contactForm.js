@@ -31,12 +31,10 @@ export default function ContactForm() {
   const submitMail = async (e) => {
     e.preventDefault();
     setErrors({});
-    console.log("formdata sent: ", formData);
     const validationErrors = validateForm(formData, t);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      console.log("Setting the errors: ", validationErrors);
 
       return;
     }

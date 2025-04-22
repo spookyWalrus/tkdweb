@@ -120,7 +120,7 @@ export default function Navbar() {
                   <Link href="/philosophy" className="navbar-item">
                     {t("About Taekwondo.Item 2")}
                   </Link>
-                  <Link href="/" className="navbar-item">
+                  <Link href="/vocab" className="navbar-item">
                     {t("About Taekwondo.Item 3")}
                   </Link>
                 </div>

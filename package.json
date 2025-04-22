@@ -4,14 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:turbo": "i18nexus pull && NEXT_SKIP_TURBOPACK=false next dev",
-    "build": "i18nexus pull && next build",
+    "dev:turbo": "node scripts/i18n-pull.js && NEXT_SKIP_TURBOPACK=false next dev",
     "lint": "next lint",
     "cy:open": "cypress open",
     "lint:css": "stylelint '**/*.css'",
     "test": "jest",
     "test:watch": "jest --watch",
     "prepare": "husky install",
+    "build": "node scripts/i18n-pull.js && next build",
     "start": "next start"
   },
   "dependencies": {

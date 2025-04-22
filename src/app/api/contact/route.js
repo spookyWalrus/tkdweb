@@ -44,7 +44,6 @@ export async function POST(request) {
       );
     }
   } catch (error) {
-    console.log("Contact form error:", error);
     return NextResponse.json(
       { error: "Failed to process request" },
       { status: 500 }

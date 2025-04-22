@@ -3,7 +3,7 @@ import { routing } from "./routing";
 import { notFound } from "next/navigation";
 
 export async function loadTranslations(locale) {
-  const messages = {};
+  // const messages = {};
 
   try {
     const modules = await import(`../../locales/${locale}/${locale}-index.js`);

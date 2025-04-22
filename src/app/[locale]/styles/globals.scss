@@ -8,6 +8,7 @@
 @import "./partials/contactInfo";
 @import "./partials/map";
 @import "./partials/historyPhil";
+@import "./partials/vocab";
 
 @font-face {
   font-family: Euljiro;
@@ -84,4 +85,16 @@ h3 {
 
 .inlineImage {
   display: inline-flex;
+}
+
+.eulFont {
+  font-family: Euljiro, sans-serif;
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 1;
+
+  &SM {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
 }

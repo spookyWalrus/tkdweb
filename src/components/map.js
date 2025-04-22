@@ -42,7 +42,6 @@ const Map = () => {
         console.error("Google Maps initialization error:", error);
       }
     };
-    console.log("key is: ", MAP_API_KEY);
     initMap();
   }, []);
 
