@@ -39,7 +39,7 @@ const Map = () => {
 
         setTheMap(mapInstance);
       } catch (error) {
-        console.error("Google Maps initialization error:", error);
+        return error;
       }
     };
     initMap();
