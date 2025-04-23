@@ -22,9 +22,9 @@ export default function Navbar() {
         {/* <Link href="/" className="topBarLinks">
           EN
         </Link> */}
-        <Link href="/" className="topBarLinks">
+        {/* <Link href="/" className="topBarLinks">
           {t("Login")}
-        </Link>
+        </Link> */}
       </div>
       <div className="brandTitleBar">
         <h3 className="brandTitleBarLeft">{t("Page Title Left")}</h3>
@@ -72,27 +72,27 @@ export default function Navbar() {
                 <div className="navbar-link">{t("About Us.Head")}</div>
                 <div className="navbar-dropdown">
                   <Link href="/" className="navbar-item">
-                    {t("About Us.Item 1")}
+                    {t("About Us.TheClub")}
                   </Link>
                   <Link href="/" className="navbar-item">
-                    {t("About Us.Item 2")}
+                    {t("About Us.Instructors")}
                   </Link>
                 </div>
               </div>
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">{t("Courses.Head")}</a>
                 <div className="navbar-dropdown">
-                  <Link href="/courses" className="navbar-item">
-                    {t("Courses.Item 1")}
+                  <Link href="#" className="navbar-item">
+                    {t("Courses.ClassesPricing")}
                   </Link>
                   <Link href="/conduct" className="navbar-item">
-                    {t("Courses.Item 2")}
+                    {t("Courses.Conduct")}
                   </Link>
-                  <Link href="/schedule" className="navbar-item">
-                    {t("Courses.Item 3")}
+                  <Link href="#" className="navbar-item">
+                    {t("Courses.Schedule")}
                   </Link>
-                  <Link href="/news" className="navbar-item">
-                    {t("Courses.Item 4")}
+                  <Link href="#" className="navbar-item">
+                    {t("Courses.News")}
                   </Link>
                 </div>
               </div>
