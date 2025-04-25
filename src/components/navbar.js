@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { getPathname, usePathname } from "../i18n/navigation";
 import LangSwitcher from "./LangSwitcher";
 
 import Link from "next/link";
@@ -15,13 +16,18 @@ export default function Navbar() {
     setNavOpen(!navOpen);
   };
 
+  let pathname = usePathname();
+
+  useEffect(() => {
+    if (navOpen) {
+      setNavOpen(!navOpen);
+    }
+  }, [pathname]);
+
   return (
     <div>
       <div className="topBar">
         <LangSwitcher />
-        {/* <Link href="/" className="topBarLinks">
-          EN
-        </Link> */}
         {/* <Link href="/" className="topBarLinks">
           {t("Login")}
         </Link> */}
