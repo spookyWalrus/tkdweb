@@ -9,6 +9,7 @@
 @import "./partials/map";
 @import "./partials/historyPhil";
 @import "./partials/vocab";
+@import "./partials/courseFee";
 
 @font-face {
   font-family: Euljiro;
@@ -33,17 +34,17 @@ body {
 }
 
 h1 {
-  // font-size: clamp(16px, 5vw, 47px);
+  font-size: clamp(16px, 5vw, 47px);
   font-size: clamp(0.842rem, 5vw, 2.474rem);
 }
 
 h2 {
-  // font-size: clamp(12px, 4vw, 28px);
+  font-size: clamp(12px, 4vw, 28px);
   font-size: clamp(0.632rem, 4vw, 1.474rem);
 }
 
 h3 {
-  // font-size: clamp(12px, 4vw, 24px);
+  font-size: clamp(12px, 4vw, 24px);
   font-size: clamp(0.632rem, 4vw, 1.263rem);
   font-weight: bold;
 }
@@ -70,12 +71,12 @@ h3 {
 
 .mainMargin {
   margin: 7%;
-  width: 70%;
+  width: auto;
   word-break: break-word;
   overflow-wrap: break-word;
 
   @media screen and (min-width: $tablet) {
-    width: 80%;
+    width: auto;
   }
 }
 
@@ -97,4 +98,8 @@ h3 {
     font-size: 1.5rem;
     font-weight: bold;
   }
+}
+
+.underline {
+  text-decoration: underline;
 }

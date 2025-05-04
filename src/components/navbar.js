@@ -88,7 +88,7 @@ export default function Navbar() {
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">{t("Courses.Head")}</a>
                 <div className="navbar-dropdown">
-                  <Link href="#" className="navbar-item">
+                  <Link href="/course" className="navbar-item">
                     {t("Courses.ClassesPricing")}
                   </Link>
                   <Link href="/conduct" className="navbar-item">
