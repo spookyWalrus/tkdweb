@@ -2,122 +2,131 @@ import { useTranslations } from "next-intl";
 import SessionStart from "../../../components/courseFeeFunctions";
 
 export default function CourseFees() {
-  // const t = useTranslations("CourseFees");
+  const t = useTranslations("CourseFees");
+
+  function mapSpaces(text) {
+    return text.split("\n").map((line, index) => {
+      return (
+        <p key={index}>
+          {line}
+          <br />
+        </p>
+      );
+    });
+  }
   return (
     <div className="main">
       <div className="mainMargin">
+        <div className="centerHeader">
+          <h2>{t("Header")}</h2>
+        </div>
         <div>
-          <h3>Course schedule</h3>
-          <p>3 sessions per school year (Fall, Winter, Spring).</p>
-          <p>Length of 1 session: 12 weeks, minimum of 24 classes.</p>
-          <p>3 classes per week, 1 hour class.</p>
+          <h3>{t("Schedule.Title")}</h3>
+          <div>{mapSpaces(t("Schedule.Top"))}</div>
+
           <SessionStart />
-          <br />
-          <p>
-            On days of extreme weather, class may be cancelled.
-            <br />
-            Please consult the <a>current news / events </a> page for up-to-date
-            information.
-          </p>
         </div>
         <div className="bodyTextMarginTop">
+          <h3>{t("Schedule.TableHeader")}</h3>
           <table className="table is-striped">
             <thead className="thead">
               <tr>
                 <th></th>
-                <th className="tableHead">Tuesday</th>
-                <th className="tableHead">Thursday</th>
-                <th className="tableHead">Saturday</th>
+                <th className="tableHead">{t("Schedule.Tuesday")}</th>
+                <th className="tableHead">{t("Schedule.Thursday")}</th>
+                <th className="tableHead">{t("Schedule.Saturday")}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th>
-                  Beginners
-                  <br /> Kids 12yr- and/or adults
+                  {t("Schedule.Beginner")}
+                  <br />
+                  <p className="noBold">{t("Schedule.BeginnerDesc")}</p>
                 </th>
                 <td>
-                  Start: 18:30 <br />
+                  18:30 <br />
                 </td>
                 <td>
-                  Start: 18:30 <br />
+                  18:30 <br />
                 </td>
-                <td>Start: 13h</td>
+                <td>13:00</td>
               </tr>
               <tr>
                 <th>
-                  Advanced
-                  <br /> 12yr+ and/or adults
+                  {t("Schedule.Advanced")}
+                  <br />
+                  <p className="noBold">{t("Schedule.AdvancedDesc")}</p>
                 </th>
                 <td>
-                  Start: 18:30 <br />
+                  18:30 <br />
                 </td>
                 <td>
-                  Start: 18:30 <br />
+                  18:30 <br />
                 </td>
-                <td>Start: 13h</td>
+                <td>13:00</td>
               </tr>
               <tr>
-                <th>Black belt or color belts</th>
+                <th>{t("Schedule.Belts")}</th>
                 <td>
-                  Start: 19:45 <br />
+                  19:45 <br />
                 </td>
                 <td>
-                  Start: 19:45 <br />
+                  19:45 <br />
                 </td>
-                <td>Start: 13h</td>
+                <td>13:00</td>
               </tr>
             </tbody>
           </table>
-          <p>
-            Advanced belts or adults can attend classes at 18:30 and 19:45 in
-            succession.
-          </p>
-          <p>Attendance of Saturday classes flexible.</p>
-          <p className="underline">Saturdays count as two classes.</p>
+          <div>{mapSpaces(t("Schedule.Comment"))}</div>
         </div>
         <div className="bodyTextMarginTop">
-          <h3>Course fees</h3>
+          <h3>{t("Fees.Title")}</h3>
           <table className="table is-striped">
             <thead className="thead">
               <tr>
                 <th></th>
-                <th>Cost per session / per person</th>
-                <th>
-                  Family rate per session <br />
-                  (3 ppl or more)
+                <th className="tableHead">{t("Fees.SessionCost")}</th>
+                <th className="tableHead">
+                  {t("Fees.FamilyRate")}
+                  <br />
+                  <p className="noBold">{t("Fees.FamilyRateDesc")}</p>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th>
-                  Recreational <br />
-                  (beginners 4yrs+, parents w/Kids)
+                  {t("Fees.RecCat")}
+                  <br />
+                  <p className="noBold">{t("Fees.RecCatDesc")}</p>
                 </th>
                 <td>85$</td>
                 <td>Family price$</td>
               </tr>
               <tr>
                 <th>
-                  Competitive <br />
-                  (children 4yrs+, parents w/Kids)
+                  {t("Fees.CompCat")}
+                  <br />
+                  <p className="noBold">{t("Fees.CompCatDesc")}</p>
                 </th>
                 <td>100$ </td>
                 <td>Family price$</td>
               </tr>
               <tr>
                 <th>
-                  Advanced <br />
-                  (children 12yrs+, adults or any advanced level)
+                  {t("Fees.AdvCat")}
+                  <br />
+                  <p className="noBold">{t("Fees.AdvCatDesc")}</p>
                 </th>
                 <td>100$ </td>
                 <td>Family price$</td>
               </tr>
               <tr>
                 <th>
-                  Advanced <br />
-                  (black belt or Poom)
+                  {t("Fees.BBeltCat")}
+                  <br />
+                  <p className="noBold">{t("Fees.BBeltCatDesc")}</p>
                 </th>
                 <td>120$ </td>
                 <td>Family price$</td>
@@ -126,56 +135,29 @@ export default function CourseFees() {
           </table>
         </div>
         <div>
-          <h3 className="bodyTextMarginTop">Additional costs</h3>
+          <h3 className="bodyTextMarginTop">{t("Fees.AddCos")}</h3>
           <div>
-            <h4 className="underline">Equipment</h4>
-            <p>Basic uniform (Dobuk):40$</p>
-            <p>
-              Sparring equipment (competitive level) (Head gear, body
-              protection, arm and leg protection): 100$
-            </p>
+            <h4 className="underline">{t("Fees.Eqp")}</h4>
+            <p>{t("Fees.Dobuk")} (Dobuk) : 40$</p>
+            <p>{t("Fees.Protection")} : 100$</p>
             <br />
-            <p>
-              Purchase of uniform or equipment to be arranged in person with
-              instructors after registration.
-            </p>
+            <p>{t("Fees.GearPurchase")}</p>
           </div>
         </div>
         <div className="bodyTextMarginTop">
-          <h4 className="underline">Fees</h4>
-          <p>
-            Quebec TKD association fee per person / year (color belts) : 40$
-          </p>
-          <p>Quebec TKD association fee per person /year (black belts) : 40$</p>
+          <h4 className="underline">{t("Fees.Fees")}</h4>
+          <p>{t("Fees.QTKDclr")} : 40$</p>
+          <p>{t("Fees.QTKDblk")} : 50$</p>
         </div>
         <div className="bodyTextMarginTop">
-          <h4 className="underline">Exams</h4>
-          <p>
-            Costs of exams vary between what level a student is moving up to.
-          </p>
-          <p>Exam fees due on weeks leading up to or day of exam.</p>
-          <p>Cost of exam for color belts: 30$</p>
-          <p> Cost of exam for black belt: 50$</p>
-          <br />
-          <p>
-            Exam advancement based on attendance and progression of development
-            evaluated by instructors.
-          </p>
+          <h4 className="underline">{t("Fees.Exams")}</h4>
+          <p>{t("Fees.ExamClrBelt")} : 30$</p>
+          <p>{t("Fees.ExamBlkBelt")} : 30$</p>
+          <div>{mapSpaces(t("Fees.ExamComment"))}</div>
         </div>
         <div className="bodyTextMarginTop">
-          <p>Try out courses offered, please make inquiries.</p>
-          <p>Registration can be done in person.</p>
-          <div>
-            <p>Payments possible with cash, cheque or e-transfer.</p>
-            <br />
-            <p>
-              <bold>E-transfer payments made to:</bold>
-            </p>
-            <p>ccstkdrawdon@gmail.com</p>
-            <p>Question: Paiement</p>
-            <p>Response: tkd</p>
-            <p>Please leave a comment and specify what the payment is for.</p>
-          </div>
+          <div>{mapSpaces(t("FinalComment"))}</div>
+          <div>{mapSpaces(t("PayInfo"))}</div>
         </div>
       </div>
     </div>

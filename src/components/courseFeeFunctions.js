@@ -1,8 +1,11 @@
 "use client";
 import NewSeason from "../utilities/getDate";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const SessionStart = () => {
+  const t = useTranslations("CourseFees");
+  const space = " ";
   const newSeason = NewSeason();
   const [date, setDate] = useState(null);
   const [err, setError] = useState(null);
@@ -28,7 +31,9 @@ const SessionStart = () => {
   return (
     <div>
       <h4>
-        The first class for the {newSeason} session starts on:
+        <span>{t("Schedule.FirstClass")} </span> {space}
+        {newSeason} {space}
+        <span>{t("Schedule.FirstClass2")} </span>
         <span className="blinkyText">{date || "Loading"}</span>
       </h4>
     </div>

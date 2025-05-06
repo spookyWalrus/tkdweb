@@ -9,6 +9,7 @@ import TKDPhilosophy from "./TKDPhilosophy.json";
 import ClassConduct from "./ClassConduct.json";
 import Vocab from "./Vocab.json";
 import Vocab2 from "./Vocab2.json";
+import CourseFees from "./CourseFees.json";
 
 export default {
   AboutBlock,
@@ -22,4 +23,5 @@ export default {
   ClassConduct,
   Vocab,
   Vocab2,
+  CourseFees,
 };

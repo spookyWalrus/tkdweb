@@ -70,13 +70,15 @@ h3 {
 }
 
 .mainMargin {
-  margin: 7%;
+  margin: 8%;
+  margin-top: 2%;
   width: auto;
   word-break: break-word;
   overflow-wrap: break-word;
 
-  @media screen and (min-width: $tablet) {
-    width: auto;
+  @media screen and (min-width: $desktop) {
+    margin: 18%;
+    margin-top: 7%;
   }
 }
 
@@ -102,4 +104,8 @@ h3 {
 
 .underline {
   text-decoration: underline;
+}
+
+table {
+  width: 100%;
 }
