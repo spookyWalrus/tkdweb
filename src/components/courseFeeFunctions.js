@@ -18,6 +18,7 @@ const SessionStart = () => {
           throw new Error("Failed to fetch start date");
         }
         const data = await response.json();
+        console.log("api call result: ", data);
         let dateOnly = data.data.date;
         let exactDate = dateOnly.split(" ");
         setDate(exactDate[0]);
