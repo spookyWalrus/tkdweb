@@ -8,6 +8,7 @@ const TwoCard = ({
   body,
   imgWidth = "1000",
   imgHeight = "1000",
+  className,
 }) => {
   return (
     <div className="twoCard">
@@ -17,6 +18,7 @@ const TwoCard = ({
           alt={altText}
           width={imgWidth}
           height={imgHeight}
+          className={className}
         />
       </div>
       <div className="card-text">
@@ -34,6 +36,7 @@ TwoCard.propTypes = {
   body: PropTypes.node.isRequired,
   imgWidth: PropTypes.string,
   imgHeight: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default TwoCard;

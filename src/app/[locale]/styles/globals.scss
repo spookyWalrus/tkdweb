@@ -10,6 +10,8 @@
 @import "./partials/historyPhil";
 @import "./partials/vocab";
 @import "./partials/courseFee";
+@import "./partials/instructors";
+@import "./partials/oneCard";
 
 @font-face {
   font-family: Euljiro;
@@ -70,16 +72,25 @@ h3 {
 }
 
 .mainMargin {
-  margin: 8%;
-  margin-top: 2%;
-  width: auto;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  margin: 2% 8%;
+  width: 90%;
+  max-width: 90%; // Prevents edge-case overflow
 
   @media screen and (min-width: $desktop) {
-    margin: 18%;
-    margin-top: 7%;
+    margin: 7% 18%;
+    width: 80%;
   }
+
+  // margin: 8%;
+  // margin-top: 2%;
+  // width: auto;
+  // word-break: break-word;
+  // overflow-wrap: break-word;
+
+  // @media screen and (min-width: $desktop) {
+  //   margin: 18%;
+  //   margin-top: 7%;
+  // }
 }
 
 .bodyTextMarginTop {

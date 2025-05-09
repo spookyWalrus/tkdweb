@@ -1,0 +1,19 @@
+.card-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  justify-items: center;
+
+  @media screen and (min-width: $tablet) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.centerCard {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.roundedImage {
+  border-radius: 10px;
+}
