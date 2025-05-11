@@ -75,7 +75,7 @@ $smallTablet: 600px;
 .navbar.is-fixed-top {
   background-color: transparent;
   top: vars.$navbarTotalHeight;
-  z-index: 1051;
+  z-index: 101;
 
   @media screen and (min-width: $tablet) {
     height: 2rem;
