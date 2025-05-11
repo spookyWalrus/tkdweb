@@ -5,7 +5,7 @@ export default function CourseFees() {
   const t = useTranslations("CourseFees");
 
   function mapSpaces(text) {
-    return text.split("\n").map((line, index) => {
+    return text.split("*n*").map((line, index) => {
       return (
         <p key={index}>
           {line}
