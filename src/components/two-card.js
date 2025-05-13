@@ -5,6 +5,7 @@ const TwoCard = ({
   imageSrc,
   altText,
   heading,
+  subHeader,
   body,
   imgWidth = "1000",
   imgHeight = "1000",
@@ -23,6 +24,7 @@ const TwoCard = ({
       </div>
       <div className="card-text">
         <h3>{heading}</h3>
+        <p className="cardSubHeader">{subHeader}</p>
         <section className="cardSection">{body}</section>
       </div>
     </div>
@@ -33,6 +35,7 @@ TwoCard.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   altText: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
+  subHeader: PropTypes.string,
   body: PropTypes.node.isRequired,
   imgWidth: PropTypes.string,
   imgHeight: PropTypes.string,

@@ -42,7 +42,7 @@ OneCard.propTypes = {
   altText: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   position: PropTypes.node.isRequired,
-  blurb: PropTypes.node.isRequired,
+  blurb: PropTypes.string,
   imgWidth: PropTypes.string,
   imgHeight: PropTypes.string,
 };

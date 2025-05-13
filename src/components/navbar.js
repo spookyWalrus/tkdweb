@@ -94,6 +94,9 @@ export default function Navbar() {
                   <Link href="/conduct" className="navbar-item">
                     {t("Courses.Conduct")}
                   </Link>
+                  {/* <Link href="#" className="navbar-item">
+                    {t("Courses.Schedule")}
+                  </Link> */}
                   <Link href="#" className="navbar-item">
                     {t("Courses.News")}
                   </Link>

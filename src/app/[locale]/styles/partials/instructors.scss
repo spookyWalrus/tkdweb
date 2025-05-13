@@ -5,12 +5,12 @@
   justify-items: center;
 
   @media screen and (min-width: $tablet) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
 .centerCard {
-  width: 60%;
+  width: 40%;
   margin: 0 auto;
 }
 
