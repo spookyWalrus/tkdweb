@@ -1,24 +1,16 @@
 import Image from "next/image";
 import PropTypes from "prop-types";
 
-const OneCard = ({
-  imageSrc,
-  altText,
-  name,
-  position,
-  blurb,
-  imgWidth,
-  imgHeight,
-}) => {
+const OneCard = ({ imageSrc, altText, name, position, blurb, blurbclass }) => {
   return (
     <div className="card oneCardCustom">
       <div className="card-image">
-        <figure className="image is-4by5">
+        <figure className="image ">
           <Image
             src={imageSrc}
             alt={altText}
-            width={imgWidth}
-            height={imgHeight}
+            width={300}
+            height={375}
             className="portraitStyle"
           />
         </figure>
@@ -27,12 +19,19 @@ const OneCard = ({
         <div className="media">
           <div className="media-content">
             <p className="title is-size-6">{name}</p>
-            <p className="subtitle is-size-6">{position}</p>
-            <p className="subtitle is-size-7">{blurb}</p>
+            <div className="drop-card">
+              <p
+                className={`subtitle is-size-6 drop-card-top drop-card-subtitle ${blurbclass}`}
+              >
+                {/* <p className="subtitle is-size-6 drop-card-top drop-card-subtitle"> */}
+                {position}
+              </p>
+              <p className="subtitle is-size-7 drop-card-under drop-card-subtitle">
+                {blurb}
+              </p>
+            </div>
           </div>
         </div>
-
-        {/* <div className="content">{blurb}</div> */}
       </div>
     </div>
   );
@@ -43,8 +42,8 @@ OneCard.propTypes = {
   name: PropTypes.string.isRequired,
   position: PropTypes.node.isRequired,
   blurb: PropTypes.string,
-  imgWidth: PropTypes.string,
-  imgHeight: PropTypes.string,
+  blurbclass: PropTypes.string,
+  // imgHeight: PropTypes.string,
 };
 
 export default OneCard;
