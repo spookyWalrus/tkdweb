@@ -80,7 +80,7 @@ export default function Navbar() {
                   <Link href="/" className="navbar-item">
                     {t("About Us.TheClub")}
                   </Link>
-                  <Link href="/" className="navbar-item">
+                  <Link href="/instructors" className="navbar-item">
                     {t("About Us.Instructors")}
                   </Link>
                 </div>
