@@ -15,7 +15,6 @@ export default function LangSwitcher() {
   useEffect(() => {
     const handler = () => setIsActive(false);
     window.addEventListener("click", handler);
-    console.log("toggled");
     return () => window.removeEventListener("click", handler);
   }, []);
 
@@ -34,7 +33,6 @@ export default function LangSwitcher() {
       id="custom-dropdown"
     >
       <div className="dropdown-trigger">
-        {/* <a className="button" aria-haspopup="true" onClick={togs}> */}
         <a className="menuLang" aria-haspopup="true" onClick={togs}>
           <span>{menuLang}</span>
         </a>
@@ -58,7 +56,7 @@ export default function LangSwitcher() {
               >
                 <FontAwesomeIcon icon={faCheck} />
               </span>
-              <span>Engrish</span>
+              <span>ENG</span>
             </span>
           </a>
           <a
@@ -78,7 +76,7 @@ export default function LangSwitcher() {
               >
                 <FontAwesomeIcon icon={faCheck} />
               </span>
-              <span>Furenchi</span>
+              <span>FRA</span>
             </span>
           </a>
         </div>
