@@ -42,12 +42,3 @@ table > tbody > tr > th {
   font-weight: 400;
   font-size: 0.8rem;
 }
-
-.centerHeader {
-  text-align: center;
-  padding: 1rem;
-
-  @media screen and (min-width: $desktop) {
-    padding: 2rem;
-  }
-}

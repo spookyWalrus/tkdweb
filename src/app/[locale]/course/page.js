@@ -18,16 +18,15 @@ export default function CourseFees() {
     <div className="main">
       <div className="mainMargin">
         <div className="centerHeader">
-          <h2>{t("Header")}</h2>
+          <h3>{t("Header")}</h3>
         </div>
         <div>
-          <h3>{t("Schedule.Title")}</h3>
+          <h4>{t("Schedule.Title")}</h4>
           <div>{mapSpaces(t("Schedule.Top"))}</div>
-
           <SessionStart />
         </div>
         <div className="bodyTextMarginTop">
-          <h3>{t("Schedule.TableHeader")}</h3>
+          <h4>{t("Schedule.TableHeader")}</h4>
           <table className="table is-striped">
             <thead className="thead">
               <tr>
@@ -81,7 +80,7 @@ export default function CourseFees() {
           <div>{mapSpaces(t("Schedule.Comment"))}</div>
         </div>
         <div className="bodyTextMarginTop">
-          <h3>{t("Fees.Title")}</h3>
+          <h4>{t("Fees.Title")}</h4>
           <table className="table is-striped">
             <thead className="thead">
               <tr>
@@ -135,9 +134,9 @@ export default function CourseFees() {
           </table>
         </div>
         <div>
-          <h3 className="bodyTextMarginTop">{t("Fees.AddCos")}</h3>
+          <h4 className="bodyTextMarginTop">{t("Fees.AddCos")}</h4>
           <div>
-            <h4 className="underline">{t("Fees.Eqp")}</h4>
+            <h5 className="underline">{t("Fees.Eqp")}</h5>
             <p>{t("Fees.Dobuk")} (Dobuk) : 40$</p>
             <p>{t("Fees.Protection")} : 100$</p>
             <br />
@@ -145,19 +144,19 @@ export default function CourseFees() {
           </div>
         </div>
         <div className="bodyTextMarginTop">
-          <h4 className="underline">{t("Fees.Fees")}</h4>
+          <h5 className="underline">{t("Fees.Fees")}</h5>
           <p>{t("Fees.QTKDclr")} : 40$</p>
           <p>{t("Fees.QTKDblk")} : 50$</p>
         </div>
         <div className="bodyTextMarginTop">
-          <h4 className="underline">{t("Fees.Exams")}</h4>
+          <h5 className="underline">{t("Fees.Exams")}</h5>
           <p>{t("Fees.ExamClrBelt")} : 30$</p>
           <p>{t("Fees.ExamBlkBelt")} : 30$</p>
           <div>{mapSpaces(t("Fees.ExamComment"))}</div>
         </div>
         <div className="bodyTextMarginTop">
           <div>{mapSpaces(t("FinalComment"))}</div>
-          <div>{mapSpaces(t("PayInfo"))}</div>
+          <h6>{mapSpaces(t("PayInfo"))}</h6>
         </div>
       </div>
     </div>

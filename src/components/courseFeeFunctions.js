@@ -31,12 +31,12 @@ const SessionStart = () => {
 
   return (
     <div>
-      <h4>
+      <h6>
         <span>{t("Schedule.FirstClass")} </span> {space}
         {newSeason} {space}
         <span>{t("Schedule.FirstClass2")} </span>
         <span className="blinkyText">{date || "Loading"}</span>
-      </h4>
+      </h6>
     </div>
   );
 };
