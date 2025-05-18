@@ -29,25 +29,37 @@ body {
   color: vars.$foreground;
   box-sizing: border-box;
   scroll-snap-type: y mandatory;
+  font-size: 16px;
 
-  @media screen and (min-width: $desktop) {
-    font-size: 19px !important;
+  @media screen and (min-width: $tablet) {
+    font-size: 19px;
   }
 }
 
 h1 {
-  font-size: clamp(16px, 5vw, 47px);
-  font-size: clamp(0.842rem, 5vw, 2.474rem);
+  font-size: $size-1;
 }
 
 h2 {
-  font-size: clamp(12px, 4vw, 28px);
-  font-size: clamp(0.632rem, 4vw, 1.474rem);
+  font-size: $size-2;
 }
 
 h3 {
-  font-size: clamp(12px, 4vw, 24px);
-  font-size: clamp(0.632rem, 4vw, 1.263rem);
+  font-size: $size-3;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: $size-4;
+}
+
+h5 {
+  font-size: $size-5;
+  font-weight: bold;
+}
+
+h6 {
+  font-size: $size-6;
   font-weight: bold;
 }
 
