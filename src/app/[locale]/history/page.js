@@ -8,7 +8,9 @@ export default function History() {
     <div className="main">
       <div className="mainMargin">
         <div>
-          <h3>{t("History Header")}</h3>
+          <div className="centerHeader">
+            <h3>{t("History Header")}</h3>
+          </div>
           <p>{t("History-p1")}</p>
           <br />
           <p>{t("History-p2")}</p>
@@ -19,7 +21,7 @@ export default function History() {
           <br />
         </div>
         <div className="bodyTextMarginTop">
-          <h3>{t2("WTF Header")}</h3>
+          <h4>{t2("WTF Header")}</h4>
           <div className="inlineImage">
             <Image
               src="/images/wt-logo.jpg"
