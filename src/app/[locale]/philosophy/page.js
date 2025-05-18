@@ -6,7 +6,9 @@ export default function Philosophy() {
   return (
     <div className="main">
       <div className="mainMargin">
-        <h3>{t("Philosophy Header")}</h3>
+        <div className="centerHeader">
+          <h3>{t("Philosophy Header")}</h3>
+        </div>
         <p>{t("Philosophy Top")}</p>
         <br />
         <div className="inlineImage">
