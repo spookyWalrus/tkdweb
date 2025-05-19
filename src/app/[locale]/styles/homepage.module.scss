@@ -32,11 +32,18 @@
   }
 
   background-color: vars.$foreground;
-  background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
+  background-size: 130%;
+  background-position: 95% 110%;
   background-image: url("/images/tkd-wallblack.jpg");
   color: vars.$background;
+  z-index: 3;
+  position: relative;
+
+  @media screen and (min-width: $tablet) {
+    background-size: 70%;
+    background-position: 70% 80%;
+  }
 }
 
 .HeroHeader {
@@ -44,12 +51,25 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 40%;
+
+  // width: 40%;
+  width: 70%;
   margin: 7%;
   color: vars.$background;
   background-color: transparent;
+
+  @media screen and (min-width: $tablet) {
+    width: 40%;
+    padding: 5rem 0 5rem 5rem;
+    margin: 6% 0 0 6%;
+  }
 }
 
 .HeroSubHeader {
   color: hsl(300deg 9% 80%);
+  width: 50%;
+
+  @media screen and (min-width: $tablet) {
+    width: 100%;
+  }
 }

@@ -12,7 +12,7 @@ const TwoCardLeft = ({
   return (
     <div className="twoCard">
       <div className="card-text">
-        <h3>{heading}</h3>
+        <h4>{heading}</h4>
         <section className="cardSection">{body}</section>
       </div>
       <div className="cardImage">
