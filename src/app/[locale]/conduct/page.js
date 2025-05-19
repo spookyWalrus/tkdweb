@@ -8,7 +8,9 @@ export default function Conduct() {
     <div className="main">
       <div className="mainMargin">
         <div>
-          <h3>{t("Conduct.Header")}</h3>
+          <div className="centerHeader">
+            <h3>{t("Conduct.Header")}</h3>
+          </div>
           <ol>
             <li>{t("Conduct.1")}</li>
             <li>{t("Conduct.2")}</li>

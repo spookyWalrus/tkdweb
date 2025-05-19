@@ -34,7 +34,7 @@ function Instructors() {
             altText="instructor-trainer"
             name="Marie-France Instructor"
             position={t("Card.trainTitle") + ", 6th Dan"}
-            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurbclass={checkBlurb(t("Card.trainTitle"))}
             blurb={t("Card.blurbMF")}
           />
           <OneCard
@@ -42,7 +42,7 @@ function Instructors() {
             altText="instructor"
             name="Zoey Instructor"
             position={t("Card.insTitle") + ", 5th Dan"}
-            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurbclass={checkBlurb(t("Card.blurbZY"))}
             blurb={t("Card.blurbZY")}
           />
           <OneCard
@@ -50,15 +50,14 @@ function Instructors() {
             altText="instructor"
             name="Good instructor"
             position={t("Card.assTitle") + ", 1st Dan"}
-            blurbclass={checkBlurb(t("Card.assTitle"))}
-            blurb={""}
+            blurbclass={checkBlurb("")}
           />
           <OneCard
             imageSrc="/images/kat1.jpg"
             altText="instructor"
             name="Katrine instructor"
             position={t("Card.assTitle") + ", 1st Dan"}
-            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurbclass={checkBlurb(t("Card.blurbKR"))}
             blurb={t("Card.blurbKR")}
           />
           <OneCard
@@ -66,7 +65,7 @@ function Instructors() {
             altText="instructor"
             name="Laurie Roy"
             position={t("Card.assTitle") + ", 1st Dan"}
-            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurbclass={checkBlurb(t("Card.blurbLR"))}
             blurb={t("Card.blurbLR")}
           />
         </div>
