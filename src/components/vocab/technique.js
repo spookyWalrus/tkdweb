@@ -6,7 +6,7 @@ export default function Technique() {
   return (
     <div className="section noLPadding">
       <div className="has-text-left">
-        <h3>{t("Technique.header")}</h3>
+        <h4>{t("Technique.header")}</h4>
       </div>
       <div className="columns is-mobile is-multiline ">
         <div className="columnCel">

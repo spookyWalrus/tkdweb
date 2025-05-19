@@ -18,7 +18,7 @@ const OneCard = ({ imageSrc, altText, name, position, blurb, blurbclass }) => {
       <div className="card-content customOneCardContent">
         <div className="media">
           <div className="media-content">
-            <p className="title is-size-6">{name}</p>
+            <h5 className="title is-size-6">{name}</h5>
             <div className="drop-card">
               <p
                 className={`subtitle is-size-6 drop-card-top drop-card-subtitle ${blurbclass}`}

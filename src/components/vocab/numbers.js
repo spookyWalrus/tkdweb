@@ -6,7 +6,7 @@ export default function Numbers() {
   return (
     <div className="section noLPadding">
       <div className="has-text-left">
-        <h3>{t("Numbers.header")}</h3>
+        <h4>{t("Numbers.header")}</h4>
       </div>
       <div className="columns is-mobile is-multiline ">
         <div className="columnCel">

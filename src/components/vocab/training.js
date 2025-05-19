@@ -6,7 +6,7 @@ export default function Training() {
   return (
     <div className="section noLPadding">
       <div className="has-text-left">
-        <h3>{t("Training.header")}</h3>
+        <h4>{t("Training.header")}</h4>
       </div>
       <div className="columns is-mobile is-multiline ">
         <div className="columnCel">

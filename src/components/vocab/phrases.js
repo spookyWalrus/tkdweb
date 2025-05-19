@@ -6,12 +6,12 @@ export default function Phrases() {
   return (
     <div className="section noLPadding">
       <div className="has-text-left">
-        <h3>{t("Phrases.header")}</h3>
+        <h4>{t("Phrases.header")}</h4>
       </div>
       <br />
       <div className="columns is-mobile is-multiline ">
         <div className="celPhrase">
-          <h4 className="transHead">{t("Phrases.BowToInstructor")}</h4>
+          <p className="transHead">{t("Phrases.BowToInstructor")}</p>
           <span>
             <p className="eulFontSM">겨루기. 차렷. 경례!</p>
           </span>
@@ -20,7 +20,7 @@ export default function Phrases() {
           </span>
         </div>
         <div className="celPhrase">
-          <h4 className="transHead">{t("Phrases.BowToMaster")}</h4>
+          <p className="transHead">{t("Phrases.BowToMaster")}</p>
           <span>
             <p className="eulFontSM">범님사기. 차렷. 경례!</p>
           </span>
@@ -29,7 +29,7 @@ export default function Phrases() {
           </span>
         </div>
         <div className="celPhrase">
-          <h4 className="transHead">{t("Phrases.BowToGrandMaster")}</h4>
+          <p className="transHead">{t("Phrases.BowToGrandMaster")}</p>
           <span>
             <p className="eulFontSM">관장님기. 차렷. 경례!</p>
           </span>

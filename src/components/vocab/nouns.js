@@ -6,7 +6,7 @@ export default function Nouns() {
   return (
     <div className="section noLPadding">
       <div className="has-text-left">
-        <h3>{t("Nouns.header")}</h3>
+        <h4>{t("Nouns.header")}</h4>
       </div>
       <div className="columns is-mobile is-multiline ">
         <div className="columnCel">

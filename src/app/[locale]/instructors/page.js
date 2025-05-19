@@ -15,6 +15,9 @@ function Instructors() {
   return (
     <div className="main">
       <div className="mainMargin">
+        <div className="centerHeader">
+          <h3>{t("Card.Header")}</h3>
+        </div>
         <div className="centerCard">
           <OneCard
             imageSrc="/images/gM1.jpg"
@@ -32,7 +35,7 @@ function Instructors() {
             name="Marie-France Instructor"
             position={t("Card.trainTitle") + ", 6th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
-            blurb={t("Card.assTitle")}
+            blurb={t("Card.blurbMF")}
           />
           <OneCard
             imageSrc="/images/zoey2.jpg"
@@ -40,7 +43,7 @@ function Instructors() {
             name="Zoey Instructor"
             position={t("Card.insTitle") + ", 5th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
-            blurb={t("Card.assTitle")}
+            blurb={t("Card.blurbZY")}
           />
           <OneCard
             imageSrc="/images/instructor1.jpg"
@@ -48,7 +51,7 @@ function Instructors() {
             name="Good instructor"
             position={t("Card.assTitle") + ", 1st Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
-            blurb={t("Card.assTitle")}
+            blurb={""}
           />
           <OneCard
             imageSrc="/images/kat1.jpg"
@@ -56,7 +59,7 @@ function Instructors() {
             name="Katrine instructor"
             position={t("Card.assTitle") + ", 1st Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
-            blurb={t("Card.assTitle")}
+            blurb={t("Card.blurbKR")}
           />
           <OneCard
             imageSrc="/images/laur1.jpg"
@@ -64,11 +67,11 @@ function Instructors() {
             name="Laurie Roy"
             position={t("Card.assTitle") + ", 1st Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
-            blurb={t("Card.assTitle")}
+            blurb={t("Card.blurbLR")}
           />
         </div>
         <div className="bodyTextMarginTop">
-          <h3>{t("InsCond.Header")}</h3>
+          <h4>{t("InsCond.Header")}</h4>
           <div>
             <ol>
               <li>{t("InsCond.1")}</li>

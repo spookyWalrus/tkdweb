@@ -7,7 +7,7 @@ export default function Kicks() {
   return (
     <div className="section noLPadding">
       <div className="has-text-left">
-        <h3>{t("Kicks.header")}</h3>
+        <h4>{t("Kicks.header")}</h4>
       </div>
       <div className="columns is-mobile is-multiline ">
         <div className="columnCel">

@@ -6,7 +6,7 @@ export default function Commands() {
   return (
     <div className="section noLPadding">
       <div className="has-text-left">
-        <h3>{t("Commands.header")}</h3>
+        <h4>{t("Commands.header")}</h4>
       </div>
       <div className="columns is-mobile is-multiline ">
         <div className="columnCel">
