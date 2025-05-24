@@ -1,75 +1,84 @@
 @use "./variables.scss" as vars;
 @import "bulma/sass/utilities/initial-variables";
 
-// .main {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   align-items: center;
-//   min-height: 100vh;
-//   padding-top: vars.$topBarHeight + vars.$brandHeight;
-//   background-color: vars.$background;
-
-//   @media screen and (min-width: $tablet) {
-//     padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
-//   }
-// }
-
 .HeroBlock {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  height: auto;
-  width: 100vw;
-  margin-top: 2%;
+  background-color: vars.$foreground;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: 100% 100%;
+  background-image: url("/images/tkd-HeroBack.png");
 
-  @media screen and (min-width: $tablet) {
-    margin-top: 0%;
+  @media screen and (min-width: vars.$smallTablet) {
+    background-size: 60%;
   }
 
   @media screen and (min-width: $desktop) {
     margin-top: 4%;
   }
+}
 
-  background-color: vars.$foreground;
-  background-repeat: no-repeat;
-  background-size: 130%;
-  background-position: 95% 110%;
-  background-image: url("/images/tkd-wallblack.jpg");
-  color: vars.$background;
-  z-index: 3;
-  position: relative;
+.HeroTitles {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  margin: 0% 5%;
 
   @media screen and (min-width: $tablet) {
-    background-size: 70%;
-    background-position: 70% 80%;
+    margin: 0 5%;
   }
 }
 
 .HeroHeader {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-
-  // width: 40%;
-  width: 70%;
-  margin: 7%;
   color: vars.$background;
   background-color: transparent;
 
   @media screen and (min-width: $tablet) {
-    width: 40%;
-    padding: 5rem 0 5rem 5rem;
-    margin: 6% 0 0 6%;
+    width: 50%;
+  }
+
+  @media screen and (min-width: $desktop) {
+    padding-top: 5rem;
   }
 }
 
 .HeroSubHeader {
   color: hsl(300deg 9% 80%);
   width: 50%;
+  padding: 0 1.5rem 1rem 0;
 
   @media screen and (min-width: $tablet) {
-    width: 100%;
+    width: 55%;
+    padding: 1rem 2.5rem 1rem 0;
+  }
+}
+
+.HeroImage {
+  position: relative;
+  width: 75%;
+  bottom: 40%;
+  left: 30%;
+}
+
+.HeroSubHeader > h2 {
+  padding-bottom: 4%;
+}
+
+.HeroBlock > .HeroTitles > .HeroSubHeader > a.joinus {
+  width: 50%;
+}
+
+.filler {
+  padding: 10rem 0 6rem;
+
+  @media screen and (min-width: vars.$smallTablet) {
+    padding-bottom: 13rem;
+  }
+
+  @media screen and (min-width: $tablet) {
+    padding-bottom: 13rem;
+  }
+
+  @media screen and (min-width: $desktop) {
+    padding-bottom: 17rem;
   }
 }

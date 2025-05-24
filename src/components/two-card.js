@@ -23,7 +23,7 @@ const TwoCard = ({
         />
       </div>
       <div className="card-text">
-        <h3>{heading}</h3>
+        <h4>{heading}</h4>
         <p className="cardSubHeader">{subHeader}</p>
         <section className="cardSection">{body}</section>
       </div>
