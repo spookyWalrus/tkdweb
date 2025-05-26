@@ -13,7 +13,7 @@ export default function Home() {
           <h1 className={styles.HeroHeader}>{t("HeroHeader")}</h1>
           <div className={styles.HeroSubHeader}>
             <h2>{t("HeroSubHeader")}</h2>
-            <a className={`button ${styles.joinus}`}>Join us!</a>
+            <a className={`button ${styles.joinus}`}>{t("JoinUs")}</a>
           </div>
           <div className={styles.filler}> </div>
         </div>
@@ -21,12 +21,10 @@ export default function Home() {
 
       <div className="mainMargin">
         <TwoCardLeft
-          imageSrc="/images/kyoExam1.jpg"
+          imageSrc="/images/kyoExam.jpg"
           altText="exam"
           heading={t2("AboutHeader")}
           body={<p>{t2("AboutBody")}</p>}
-          // imgWidth="1000"
-          // imgHeight="1000"
         />
       </div>
     </main>

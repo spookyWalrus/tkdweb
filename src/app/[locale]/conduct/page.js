@@ -35,7 +35,7 @@ export default function Conduct() {
         </div>
         <div className="bodyTextMarginTop">
           <Image
-            src="/images/wideJunbei.jpg"
+            src="/images/wideJunbei2.jpg"
             width={750}
             height={550}
             alt="junbei"

@@ -25,7 +25,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <div>
+    <div className="header">
       <div className="topBar">
         <LangSwitcher />
         {/* <Link href="/" className="topBarLinks">
@@ -33,11 +33,15 @@ export default function Navbar() {
         </Link> */}
       </div>
       <div className="brandTitleBar">
-        <h3 className="brandTitleBarLeft">{t("Page Title Left")}</h3>
-        <h3 className="brandTitleBarLeftMobile">TKD</h3>
-        <div className="fakeLogo"></div>
-        <h3 className="brandTitleBarRight">{t("Page Title Right")}</h3>
-        <h3 className="brandTitleBarRightMobile">CCS</h3>
+        <div className="titleBox">
+          <p className="brandTitleBarLeft">{t("Page Title Left")}</p>
+          <h3 className="brandTitleBarLeftMobile">Taekwondo</h3>
+        </div>
+        <div className="fakeLogo"> </div>
+        <div className="titleBox2">
+          <p className="brandTitleBarRight">{t("Page Title Right")}</p>
+          <h3 className="brandTitleBarRightMobile">Christien Sourdif</h3>
+        </div>
       </div>
       <nav
         className="navbar is-fixed-top"
@@ -85,7 +89,7 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-              <div className="navbar-item has-dropdown is-hoverable">
+              <div className="navbar-item has-dropdown is-hoverable shortlist">
                 <a className="navbar-link">{t("Courses.Head")}</a>
                 <div className="navbar-dropdown">
                   <Link href="/course" className="navbar-item">
@@ -94,11 +98,9 @@ export default function Navbar() {
                   <Link href="/conduct" className="navbar-item">
                     {t("Courses.Conduct")}
                   </Link>
-                  {/* <Link href="#" className="navbar-item">
-                    {t("Courses.Schedule")}
-                  </Link> */}
-                  <Link href="#" className="navbar-item">
+                  <Link href="#" className="navbar-item wraptext">
                     {t("Courses.News")}
+                    {/* News */}
                   </Link>
                 </div>
               </div>
