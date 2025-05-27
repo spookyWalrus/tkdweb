@@ -53,6 +53,7 @@
 .titleBox {
   width: 45%;
   text-align: center;
+  padding-left: 11%;
 
   @media screen and (min-width: vars.$smallTablet) {
     text-align: right;
@@ -60,11 +61,12 @@
 }
 
 .titleBox2 {
-  width: 45%;
+  width: 50%;
   text-align: center;
-  padding-left: 6%;
+  padding-left: 7%;
 
   @media screen and (min-width: vars.$smallTablet) {
+    width: 45%;
     padding-left: 0;
     text-align: left;
   }
