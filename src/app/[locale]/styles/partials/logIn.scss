@@ -1,0 +1,31 @@
+.loginBlock {
+  width: 65%;
+  margin: 0 auto;
+
+  @media screen and (min-width: vars.$smallTablet) {
+    width: 35%;
+  }
+}
+
+.contactForm > .field > .control.controlCenter {
+  text-align: center;
+}
+
+.passwordNote {
+  font-size: 0.7rem;
+  color: hsl(300deg 0.5% 42.2%);
+}
+
+.loginBlock > .contactForm > .field > .control > a.passwordNoteReset {
+  font-size: 0.7rem;
+  color: hsl(300deg 0.5% 42.2%);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.loginBlock > .contactForm > .field > .control > a.passwordNoteReset:hover {
+  // .passwordNoteReset:hover {
+  // color: blue !important;
+  color: blue;
+  text-decoration: none;
+}

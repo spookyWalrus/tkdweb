@@ -11,6 +11,7 @@ import Vocab from "./Vocab.json";
 import Vocab2 from "./Vocab2.json";
 import CourseFees from "./CourseFees.json";
 import Instructors from "./Instructors.json";
+import LoginRegister from "./LoginRegister.json";
 
 export default {
   AboutBlock,
@@ -26,4 +27,5 @@ export default {
   Vocab2,
   CourseFees,
   Instructors,
+  LoginRegister,
 };
