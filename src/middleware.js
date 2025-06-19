@@ -1,32 +1,40 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
+import { NextResponse } from "next/server";
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
-const middleware = createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+const supaMiddleware = async (req) => {
+  const res = NextResponse.next();
+  const supabase = createMiddlewareClient({ req, res });
+  const { error } = await supabase.auth.getUser();
+  if (error) {
+    return NextResponse.redirect(
+      new URL(
+        `/login?from=${encodeURIComponent(req.nextUrl.pathname)}`,
+        req.url
+      )
+    );
+  }
+
+  return res;
+};
 
 export default function middleWareHandler(req) {
-  const response = middleware(req);
-  return response;
+  const pathname = req.nextUrl.pathname;
+
+  if (
+    ["login", "register", "member"].some((path) => pathname.startsWith(path))
+  ) {
+    supaMiddleware(req);
+  }
+  // const supaResponse = supaMiddleware(req);
+  // if (supaResponse?.status === 403) return supaResponse;
+
+  return intlMiddleware(req);
 }
 
 export const config = {
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };
-// matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
-// matcher: ["/", "/(fr|en)/:path*"],
-// };
-
-// matcher: [
-// Enable a redirect to a matching locale at the root
-// "/",
-
-// Set a cookie to remember the previous locale for
-// all requests that have a locale prefix
-// "/(fr|en)/:path*",
-
-// Enable redirects that add missing locales
-// (e.g. `/pathnames` -> `/en/pathnames`)
-// "/((?!_next|_vercel|.*\\..*).*)",
-
-// "/((?!api|_next|_vercel|.*\\..*).*)",
-// ],
-// };

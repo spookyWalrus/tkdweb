@@ -2,21 +2,28 @@
 import { useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 function Login() {
+  const searchParams = useSearchParams();
+
   const [status, setStatus] = useState("");
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
-    message: "",
+    password: "",
   });
   const [errors, setErrors] = useState({});
   const [captchaToken, setCaptchaToken] = useState(null);
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
+  const currentLocale = useLocale();
+  const router = useRouter();
+  const supabase = createClientComponentClient();
+
   // let loginSend = t("loginSend");
   // let loginSending = t("loginSending");
   // let loginSuccess = t("loginSuccess");
@@ -32,6 +39,19 @@ function Login() {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const { email, password } = formData;
+
+  const handleSignUp = async () => {
+    await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+    router.push("/member/account");
   };
 
   const submitForm = async (e) => {
@@ -58,23 +78,28 @@ function Login() {
     // };
 
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          // hCaptchaToken: captchaToken,
-        }),
+      const res = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
-      const result = await res.json();
 
-      if (res.ok) {
+      const { data, error } = res;
+      if (!error) {
         setStatus("success");
-        setFormData({ email: "", pw: "" });
-        // setCaptchaToken(null);
+        // window.location.href = "/dashboard"; // or whatever page on succesful login, maybe use useRouter() instead here?
+
+        const safeRoutes = [
+          `${currentLocale}/member/profile`,
+          `${currentLocale}/member/account`,
+        ];
+        const from = safeRoutes.includes(searchParams.get("from"))
+          ? searchParams.get("from")
+          : `${currentLocale}/member/account`;
+        router.push(from);
+        // router.push("/home");
       } else {
         setStatus(loginFailed);
-        setErrors({ submit: result.error || loginFailed });
+        setErrors({ submit: error || loginFailed });
       }
     } catch (error) {
       setStatus("Error on submit");
@@ -98,7 +123,7 @@ function Login() {
               </label>
               <div className="control">
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   name="email"
                   placeholder="dolyochagi@taekwondo.com"
@@ -111,7 +136,7 @@ function Login() {
               </div>
             </div>
             <div className="field">
-              <label htmlFor="pw" className="formLabel">
+              <label htmlFor="password" className="formLabel">
                 Password
               </label>
               {/* <p className="help passwordNote">
@@ -119,19 +144,19 @@ function Login() {
               </p> */}
               <div className="control">
                 <input
-                  type="pw "
-                  name="pw"
-                  id="pw"
-                  placeholder="mysecret"
-                  value={formData.pw}
+                  type="password "
+                  name="password"
+                  id="password"
+                  placeholder="secret password"
+                  value={formData.password}
                   onChange={handleChange}
                 />
                 <Link href="/loginRecovery" className="passwordNoteReset">
                   {t2("Login.ForgotPW")}
                 </Link>
-                {errors.pw && (
-                  <p className="help is-danger" data-testid="pw-error">
-                    {errors.pw}
+                {errors.password && (
+                  <p className="help is-danger" data-testid="password-error">
+                    {errors.password}
                   </p>
                 )}
               </div>
@@ -151,6 +176,9 @@ function Login() {
             </div> */}
             <div className="field">
               <div className="control controlCenter">
+                <button className="button" onClick={handleSignUp}>
+                  Sign Up
+                </button>
                 <button
                   className="button"
                   type="submit"
