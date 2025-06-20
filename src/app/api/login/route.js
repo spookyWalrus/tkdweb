@@ -1,30 +1,43 @@
-import { supabase, setAuthCookies } from "@/lib/auth";
 import { NextResponse } from "next/server";
-import crypto from "crypto";
+import { cookies } from "next/headers";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 
-export async function POST(req) {
-  const { email, password } = await req.json();
+export async function POST(request) {
+  const action = request.nextUrl.searchParams.get("action");
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  const requestUrl = new URL(request.url);
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const name = formData.get("name");
+  const cookieStore = cookies();
+  const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+  const success = NextResponse.json({ success: true });
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 401 });
+  if (action == "signup") {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      name,
+      options: {
+        emailRedirectTo: `${requestUrl.origin}/auth/callback`,
+      },
+    });
+    if (!error) {
+      return success;
+    } else {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
   }
-
-  const csrfToken = crypto.randomBytes(32).toString("hex");
-  const response = NextResponse.json({ user: data.user, csrfToken });
-
-  setAuthCookies(response, data.session);
-
-  response.cookies.set("csrf-token", csrfToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    path: "/",
-  });
-
-  return response;
+  if (action == "login") {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (!error) {
+      return success;
+    } else {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+  }
 }

@@ -7,7 +7,9 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 // import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-function Login() {
+function Signup() {
+  // const searchParams = useSearchParams();
+
   const [status, setStatus] = useState("");
   const [inputData, setInputData] = useState({
     email: "",
@@ -19,16 +21,18 @@ function Login() {
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
+  // const currentLocale = useLocale();
   const router = useRouter();
+  // const supabase = createClientComponentClient();
 
   // let loginSend = t("loginSend");
   // let loginSending = t("loginSending");
   // let loginSuccess = t("loginSuccess");
   // let loginFailed = t("loginFail");
-  let loginSend = "Log in";
-  let loginSending = "Logging in";
-  let loginSuccess = "Log in Success";
-  let loginFailed = "Log in Fail";
+  let loginSend = "Sign up";
+  let loginSending = "Signing up";
+  let loginSuccess = "Sign up Success";
+  let loginFailed = "Sign up Fail";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,9 +42,11 @@ function Login() {
     }));
   };
 
-  const validateForm = async (e) => {
+  const validateForm = (e) => {
+    console.log("validating form");
     e.preventDefault();
     setErrors({});
+    setStatus("submitting");
     const validationErrors = validateLogin(inputData, t);
 
     if (Object.keys(validationErrors).length > 0) {
@@ -89,11 +95,30 @@ function Login() {
     <div className="main">
       <div className="mainMargin">
         <div className="centerHeader">
-          <h3>{t2("Login.Header")}</h3>
-          {/* <h3>Member Log In</h3> */}
+          {/* <h3>{t2("Login.Header")}</h3> */}
+          <h3>Sign up to CCS Taekwondo Academy</h3>
         </div>
         <div className="loginBlock">
           <form onSubmit={submitForm} className="contactForm">
+            <div className="field">
+              <label htmlFor="name" className="formLabel">
+                {t("Name")}
+              </label>
+              <div className="control">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Kick Yourface"
+                  value={inputData.name}
+                  onChange={handleChange}
+                />
+                {errors.email && (
+                  <p className="help is-danger">{errors.email}</p>
+                )}
+              </div>
+            </div>
+
             <div className="field">
               <label htmlFor="email" className="formLabel">
                 {t("Email")}
@@ -127,9 +152,11 @@ function Login() {
                   value={inputData.password}
                   onChange={handleChange}
                 />
-                <Link href="/loginRecovery" className="passwordNoteReset">
-                  {t2("Login.ForgotPW")}
-                </Link>
+                <p className="help passwordNote">
+                  Must be min. 8 characters long, uppercase and lower case
+                  letters,1 number and 1 symbol
+                </p>
+
                 {errors.password && (
                   <p className="help is-danger" data-testid="password-error">
                     {errors.password}
@@ -151,22 +178,20 @@ function Login() {
               </div>
             </div> */}
             <div className="control controlCenter">
-              <div>
-                <button
-                  className="button"
-                  data-action="login"
-                  type="submit"
-                  onClick={submitForm}
-                >
-                  {status === "submitting" ? loginSending : loginSend}
-                </button>
-                {errors.submit && (
-                  <p className="help is-danger">{errors.submit}</p>
-                )}
-                {status === "success" && (
-                  <p className="help is-success sentMessage">{loginSuccess}</p>
-                )}
-              </div>
+              <button
+                className="button"
+                data-action="signup"
+                type="submit"
+                onClick={submitForm}
+              >
+                {status === "submitting" ? loginSending : loginSend}
+              </button>
+              {errors.submit && (
+                <p className="help is-danger">{errors.submit}</p>
+              )}
+              {status === "success" && (
+                <p className="help is-success sentMessage">{loginSuccess}</p>
+              )}
             </div>
           </form>
         </div>
@@ -175,4 +200,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

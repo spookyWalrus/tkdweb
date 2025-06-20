@@ -23,11 +23,13 @@ const supaMiddleware = async (req) => {
 
 export default function middleWareHandler(req) {
   const pathname = req.nextUrl.pathname;
+  const publicMemberPaths = ["/member"];
 
   if (
-    ["login", "register", "member"].some((path) => pathname.startsWith(path))
+    ["member"].some((path) => pathname.startsWith(path)) &&
+    !publicMemberPaths.includes(pathname)
   ) {
-    supaMiddleware(req);
+    return supaMiddleware(req);
   }
   // const supaResponse = supaMiddleware(req);
   // if (supaResponse?.status === 403) return supaResponse;
