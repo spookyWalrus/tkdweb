@@ -5,7 +5,6 @@ import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 function Login() {
   const [status, setStatus] = useState("");

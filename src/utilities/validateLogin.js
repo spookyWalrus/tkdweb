@@ -15,6 +15,11 @@ export const validateLogin = (data, t) => {
       newErrors.password = t("PWError") || "Invalid password";
     }
   }
+  if (!data.name) {
+    newErrors.name = t("NameRequired") || "Name required";
+  } else if (!/^[a-zA-Z]+(?: [a-zA-Z]+)+$/.test(data.name)) {
+    newErrors.name = t("NameError") || "Please enter first and last name";
+  }
 
   return newErrors;
 };

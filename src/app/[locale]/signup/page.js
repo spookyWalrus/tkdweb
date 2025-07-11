@@ -5,7 +5,6 @@ import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 function Signup() {
   // const searchParams = useSearchParams();
@@ -31,7 +30,7 @@ function Signup() {
   // let loginFailed = t("loginFail");
   let loginSend = "Sign up";
   let loginSending = "Signing up";
-  let loginSuccess = "Sign up Success";
+  let loginSuccess = "Check your email to confirm sign up";
   let loginFailed = "Sign up Fail";
 
   const handleChange = (e) => {
@@ -43,7 +42,6 @@ function Signup() {
   };
 
   const validateForm = (e) => {
-    console.log("validating form");
     e.preventDefault();
     setErrors({});
     setStatus("submitting");
@@ -84,7 +82,7 @@ function Signup() {
           const { error } = await res.json();
           throw new Error(error?.message || "Auth fail");
         }
-        router.push("/member/account");
+        setStatus("success");
       } catch (err) {
         setErrors(err.message || "Network error. Try again");
       }
@@ -113,9 +111,7 @@ function Signup() {
                   value={inputData.name}
                   onChange={handleChange}
                 />
-                {errors.email && (
-                  <p className="help is-danger">{errors.email}</p>
-                )}
+                {errors.name && <p className="help is-danger">{errors.name}</p>}
               </div>
             </div>
 
