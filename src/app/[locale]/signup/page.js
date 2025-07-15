@@ -20,18 +20,25 @@ function Signup() {
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
-  // const currentLocale = useLocale();
   const router = useRouter();
-  // const supabase = createClientComponentClient();
 
-  // let loginSend = t("loginSend");
-  // let loginSending = t("loginSending");
-  // let loginSuccess = t("loginSuccess");
-  // let loginFailed = t("loginFail");
-  let loginSend = "Sign up";
-  let loginSending = "Signing up";
-  let loginSuccess = "Check your email to confirm sign up";
-  let loginFailed = "Sign up Fail";
+  let signUpSend = "Sign up";
+  let signUpSending = "Signing up";
+  let signUpSuccess = "Check your email to confirm sign up";
+  let signUpFail = "Sign up Failed";
+
+  const isThisATest = process.env.NEXT_PUBLIC_HCAPTCHA_TEST;
+
+  const showStatus = () => {
+    switch (status) {
+      case "success":
+        return <p className="help is-success sentMessage">{signUpSuccess}</p>;
+      case "fail":
+        return <p className="help is-fail sentMessage">{signUpFail}</p>;
+      default:
+        return null;
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,32 +48,35 @@ function Signup() {
     }));
   };
 
-  const validateForm = (e) => {
-    e.preventDefault();
+  function checkHCaptcha() {
+    if (!captchaToken) {
+      setErrors((prev) => ({
+        ...prev,
+        captcha: t("CaptchaError"),
+      }));
+      return;
+    } else {
+      return true;
+    }
+  }
+
+  const validateForm = () => {
     setErrors({});
     setStatus("submitting");
     const validationErrors = validateLogin(inputData, t);
 
     if (Object.keys(validationErrors).length > 0) {
+      console.log("validation? : ", validationErrors);
       setErrors(validationErrors);
       return;
     } else {
-      return true;
+      checkHCaptcha();
     }
-
-    // const isCaptchaRequired = process.env.NODE_ENV !== "test";
-    // if (isCaptchaRequired && !captchaToken) {
-    //   setErrors((prev) => ({
-    //     ...prev,
-    //     captcha: t("CaptchaError"),
-    //   }));
-    //   return;
-    // }
   };
 
   const submitForm = async (e) => {
     e.preventDefault();
-    if (validateForm) {
+    if (validateForm()) {
       const actionType = e.target.dataset.action;
       const formData = new FormData();
       formData.append("email", inputData.email);
@@ -111,7 +121,14 @@ function Signup() {
                   value={inputData.name}
                   onChange={handleChange}
                 />
-                {errors.name && <p className="help is-danger">{errors.name}</p>}
+                {errors.name && (
+                  <p
+                    className="help is-danger nameError"
+                    data-testid="name-error"
+                  >
+                    {errors.name}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -129,7 +146,12 @@ function Signup() {
                   onChange={handleChange}
                 />
                 {errors.email && (
-                  <p className="help is-danger">{errors.email}</p>
+                  <p
+                    className="help is-danger emailError"
+                    data-testid="email-error"
+                  >
+                    {errors.email}
+                  </p>
                 )}
               </div>
             </div>
@@ -154,25 +176,33 @@ function Signup() {
                 </p>
 
                 {errors.password && (
-                  <p className="help is-danger" data-testid="password-error">
+                  <p
+                    className="help is-danger PWError"
+                    data-testid="password-error"
+                  >
                     {errors.password}
                   </p>
                 )}
               </div>
             </div>
-
-            {/* <div className="field">
-              <div className="control">
+            <div className="field">
+              <div className="control h-captcha">
                 <HCaptcha
-                  sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY || ""}
+                  sitekey={
+                    isThisATest
+                      ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_KEY
+                      : process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY
+                  }
                   onVerify={(token) => setCaptchaToken(token)}
                   onExpire={() => setCaptchaToken(null)}
+                  data-testid="hcaptcha-widget"
                 />
                 {errors.captcha && (
                   <p className="help is-danger">{errors.captcha}</p>
                 )}
               </div>
-            </div> */}
+            </div>
+
             <div className="control controlCenter">
               <button
                 className="button"
@@ -180,14 +210,19 @@ function Signup() {
                 type="submit"
                 onClick={submitForm}
               >
-                {status === "submitting" ? loginSending : loginSend}
+                {status === "submitting" ? signUpSending : signUpSend}
               </button>
               {errors.submit && (
                 <p className="help is-danger">{errors.submit}</p>
               )}
-              {status === "success" && (
-                <p className="help is-success sentMessage">{loginSuccess}</p>
+              {/* {status === "success" && (
+                <p className="help is-success sentMessage">{signUpSuccess}</p>
               )}
+               {status === "fail" && (
+                <p className="help is-success sentMessage">{signUpFail}</p>
+              )} */}
+
+              {showStatus()}
             </div>
           </form>
         </div>

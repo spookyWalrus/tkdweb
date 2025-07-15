@@ -9,6 +9,7 @@ export const validateForm = (data, t) => {
   if (!data.message || data.message.length < 10) {
     newErrors.message = t("MessageError");
   }
+
   return newErrors;
 };
 
