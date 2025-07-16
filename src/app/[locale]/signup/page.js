@@ -7,8 +7,6 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function Signup() {
-  // const searchParams = useSearchParams();
-
   const [status, setStatus] = useState("");
   const [inputData, setInputData] = useState({
     email: "",
@@ -25,7 +23,7 @@ function Signup() {
   let signUpSend = "Sign up";
   let signUpSending = "Signing up";
   let signUpSuccess = "Check your email to confirm sign up";
-  let signUpFail = "Sign up Failed";
+  let signUpFail = "Sign up Failed.Try again or make contact directly.";
 
   const isThisATest = process.env.NEXT_PUBLIC_HCAPTCHA_TEST;
 
@@ -48,7 +46,21 @@ function Signup() {
     }));
   };
 
-  function checkHCaptcha() {
+  // function checkHCaptcha() {
+  //   if (!captchaToken) {
+  //     setErrors((prev) => ({
+  //       ...prev,
+  //       captcha: t("CaptchaError"),
+  //     }));
+  //     return;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+
+  const verifyCaptcha = async (e) => {
+    e.prevent.default;
+
     if (!captchaToken) {
       setErrors((prev) => ({
         ...prev,
@@ -56,9 +68,39 @@ function Signup() {
       }));
       return;
     } else {
-      return true;
+      try {
+        const response = await fetch("/api/confirmCapcha", {
+          method: "POST",
+          headers: "application/json",
+          body: JSON.stringify({
+            token: captchaToken,
+            test: isThisATest,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setErrors((prev) => ({
+            ...prev,
+            captcha: t("CaptchaError"),
+          }));
+          if (process.env.NODE_ENV == "development") {
+            console.error("Captcha verification failed:", data);
+            console.error("Error details:", data.details);
+            console.error("hCaptcha response:", data.hcaptchaResponse);
+          }
+          return;
+        } else {
+          return true;
+        }
+      } catch (error) {
+        if (process.env.NODE_ENV == "development") {
+          console.error("Network error", error);
+        }
+      }
     }
-  }
+  };
 
   const validateForm = () => {
     setErrors({});
@@ -66,11 +108,11 @@ function Signup() {
     const validationErrors = validateLogin(inputData, t);
 
     if (Object.keys(validationErrors).length > 0) {
-      console.log("validation? : ", validationErrors);
+      console.error("validation? : ", validationErrors);
       setErrors(validationErrors);
       return;
     } else {
-      checkHCaptcha();
+      verifyCaptcha();
     }
   };
 
@@ -190,8 +232,8 @@ function Signup() {
                 <HCaptcha
                   sitekey={
                     isThisATest
-                      ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_KEY
-                      : process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY
+                      ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
+                      : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
                   }
                   onVerify={(token) => setCaptchaToken(token)}
                   onExpire={() => setCaptchaToken(null)}

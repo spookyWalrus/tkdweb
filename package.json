@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:turbo": "node scripts/i18n-pull.js && NEXT_SKIP_TURBOPACK=false next dev ",
+    "dev:turbo": "node scripts/i18n-pull.js && NEXT_SKIP_TURBOPACK=false next dev",
     "lint": "next lint",
     "cy:open": "cypress open",
     "lint:css": "stylelint '**/*.css'",

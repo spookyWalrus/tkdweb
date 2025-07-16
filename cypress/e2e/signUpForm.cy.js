@@ -8,9 +8,9 @@ describe("Sign up for tkd", () => {
       expect(interception.response.statusCode).to.eq(200);
     });
     cy.get(".h-captcha", { timeout: 1000 }).should("be.visible");
-    cy.get('[data-testid="hcaptcha-widget"], iframe', { timeout: 5000 }).should(
-      "be.visible"
-    );
+    cy.get('[data-testid="hcaptcha-widget"], iframe', { timeout: 5000 })
+      .should("be.visible")
+      .click();
 
     cy.get("input[name='name']").type("Guy Dude");
     cy.get("input[name='email']").type("guy@maill.com");

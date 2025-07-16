@@ -1,10 +1,8 @@
 export const validateLogin = (data, t) => {
   const newErrors = {};
   if (!data.email) {
-    // newErrors.email = t("EmailRequired") || "Email required";
     newErrors.email = "EmailError" || "Email required";
   } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-    // newErrors.email = t("EmailError") || "Invalid email";
     newErrors.email = t("EmailError") || "Email invalid";
   }
 
@@ -15,7 +13,6 @@ export const validateLogin = (data, t) => {
       /^(?=.*[0-9])(?=.*[!@#$%^&*()_=+{};:,<.>/?\\|~`'"[\]-]).{8,}$/;
     if (!passwordRegex.test(data.password)) {
       newErrors.password = t("PWError") || "Password invalid";
-      // newErrors.password = t("PWError") || "Invalid password";
     }
   }
   if (!data.name) {
