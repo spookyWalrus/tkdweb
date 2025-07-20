@@ -1,7 +1,7 @@
 export const validateLogin = (data, t) => {
   const newErrors = {};
   if (!data.email) {
-    newErrors.email = "EmailError" || "Email required";
+    newErrors.email = t("EmailError") || "Email required";
   } else if (!/\S+@\S+\.\S+/.test(data.email)) {
     newErrors.email = t("EmailError") || "Email invalid";
   }

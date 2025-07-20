@@ -1,4 +1,4 @@
-export const validateForm = (data, t) => {
+export const validateContactForm = (data, t) => {
   const newErrors = {};
   if (!data.name || data.name.length < 2) {
     newErrors.name = t("NameError");
@@ -13,4 +13,4 @@ export const validateForm = (data, t) => {
   return newErrors;
 };
 
-export const _testExports = { validateForm };
+export const _testExports = { validateContactForm };

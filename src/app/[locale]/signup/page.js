@@ -5,6 +5,7 @@ import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { PulseLoader } from "react-spinners";
 
 function Signup() {
   const [status, setStatus] = useState("");
@@ -252,7 +253,17 @@ function Signup() {
                 type="submit"
                 onClick={submitForm}
               >
-                {status === "submitting" ? signUpSending : signUpSend}
+                {status === "submitting" ? (
+                  // signUpSending
+                  <PulseLoader
+                    color="#fffff"
+                    loading={signUpSending}
+                    size={20}
+                    aria-label="Loading spinner"
+                  />
+                ) : (
+                  signUpSend
+                )}
               </button>
               {errors.submit && (
                 <p className="help is-danger">{errors.submit}</p>

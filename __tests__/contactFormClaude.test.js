@@ -4,7 +4,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ContactForm from "@/components/contactForm";
-import * as validateFormModule from "@/utilities/validateForm";
+import * as validateFormModule from "@/utilities/validateContactForm";
 
 // Mock the next-intl useTranslations hook
 jest.mock("next-intl", () => ({
@@ -252,7 +252,7 @@ describe("ContactForm", () => {
 
   test("fixes a bug in the original code where formdata is referenced incorrectly", () => {
     // Mock console.log to check if the bug would be triggered
-    console.log = jest.fn();
+    console.error = jest.fn();
 
     // Mock validateForm to avoid real validation
     const validateFormSpy = jest.spyOn(validateFormModule, "validateForm");
@@ -289,6 +289,9 @@ describe("ContactForm", () => {
 
     // The original code has a bug: it logs "formdata" but the variable is named "formData"
     // This test would fail if we were using the original code
-    expect(console.log).not.toHaveBeenCalledWith("formdata sent: ", undefined);
+    expect(console.error).not.toHaveBeenCalledWith(
+      "formdata sent: ",
+      undefined
+    );
   });
 });
