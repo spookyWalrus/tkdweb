@@ -19,6 +19,7 @@ function Signup() {
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
+
   const router = useRouter();
 
   let signUpSend = "Sign up";
@@ -91,10 +92,10 @@ function Signup() {
     }
   };
 
-  const validateForm = async () => {
+  const validateForm = async (action) => {
     setErrors({});
     setStatus("submitting");
-    const validationErrors = validateLogin(inputData, t);
+    const validationErrors = validateLogin(inputData, t, action);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -113,12 +114,12 @@ function Signup() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const isFormValid = await validateForm();
+    const actionType = e.target.dataset.action;
+    const isFormValid = await validateForm(actionType);
     if (!isFormValid) {
       return;
     }
 
-    const actionType = e.target.dataset.action;
     const formData = new FormData();
     formData.append("email", inputData.email);
     formData.append("password", inputData.password);
@@ -255,12 +256,16 @@ function Signup() {
               >
                 {status === "submitting" ? (
                   // signUpSending
-                  <PulseLoader
-                    color="#fffff"
-                    loading={signUpSending}
-                    size={20}
-                    aria-label="Loading spinner"
-                  />
+                  <>
+                    <span>{signUpSending}</span>
+                    <PulseLoader
+                      color="white"
+                      loading={signUpSending}
+                      size={10}
+                      aria-label="Loading spinner"
+                      margin={5}
+                    />
+                  </>
                 ) : (
                   signUpSend
                 )}
