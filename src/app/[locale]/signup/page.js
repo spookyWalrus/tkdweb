@@ -4,7 +4,7 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function Signup() {
   const [status, setStatus] = useState("");
@@ -46,98 +46,99 @@ function Signup() {
     }));
   };
 
-  // function checkHCaptcha() {
-  //   if (!captchaToken) {
-  //     setErrors((prev) => ({
-  //       ...prev,
-  //       captcha: t("CaptchaError"),
-  //     }));
-  //     return;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
-  const verifyCaptcha = async (e) => {
-    e.prevent.default;
-
+  const verifyCaptcha = async () => {
     if (!captchaToken) {
       setErrors((prev) => ({
         ...prev,
         captcha: t("CaptchaError"),
       }));
-      return;
-    } else {
-      try {
-        const response = await fetch("/api/confirmCapcha", {
-          method: "POST",
-          headers: "application/json",
-          body: JSON.stringify({
-            token: captchaToken,
-            test: isThisATest,
-          }),
+      return false;
+    }
+    try {
+      const response = await fetch("/api/confirmCaptcha", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: captchaToken,
+          test: isThisATest,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrors((prev) => ({
+          ...prev,
+          captcha: data.error || t("CaptchaError"),
+        }));
+        setStatus("fail");
+        return false;
+      } else {
+        setErrors((prev) => {
+          const { captcha, ...rest } = prev;
+          return rest;
         });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          setErrors((prev) => ({
-            ...prev,
-            captcha: t("CaptchaError"),
-          }));
-          if (process.env.NODE_ENV == "development") {
-            console.error("Captcha verification failed:", data);
-            console.error("Error details:", data.details);
-            console.error("hCaptcha response:", data.hcaptchaResponse);
-          }
-          return;
-        } else {
-          return true;
-        }
-      } catch (error) {
-        if (process.env.NODE_ENV == "development") {
-          console.error("Network error", error);
-        }
+        return true;
       }
+    } catch (error) {
+      setErrors((prev) => ({
+        ...prev,
+        captcha: "Network error. Try again.",
+      }));
+      setStatus("fail");
+      return false;
     }
   };
 
-  const validateForm = () => {
+  const validateForm = async () => {
     setErrors({});
     setStatus("submitting");
     const validationErrors = validateLogin(inputData, t);
 
     if (Object.keys(validationErrors).length > 0) {
-      console.error("validation? : ", validationErrors);
       setErrors(validationErrors);
-      return;
-    } else {
-      verifyCaptcha();
+      setStatus("");
+      return false;
     }
+
+    const captchaValid = await verifyCaptcha();
+    if (!captchaValid) {
+      setStatus("fail");
+      return false;
+    }
+
+    return true;
   };
 
   const submitForm = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      const actionType = e.target.dataset.action;
-      const formData = new FormData();
-      formData.append("email", inputData.email);
-      formData.append("password", inputData.password);
-      formData.append("name", inputData.name);
+    const isFormValid = await validateForm();
+    if (!isFormValid) {
+      return;
+    }
 
-      try {
-        const res = await fetch(`/api/login?action=${actionType}`, {
-          method: "post",
-          body: formData,
-        });
-        if (!res.ok) {
-          const { error } = await res.json();
-          throw new Error(error?.message || "Auth fail");
-        }
-        setStatus("success");
-      } catch (err) {
-        setErrors(err.message || "Network error. Try again");
+    const actionType = e.target.dataset.action;
+    const formData = new FormData();
+    formData.append("email", inputData.email);
+    formData.append("password", inputData.password);
+    formData.append("name", inputData.name);
+
+    try {
+      const res = await fetch(`/api/login?action=${actionType}`, {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error?.message || "Authentication fail");
       }
+      setStatus("success");
+    } catch (err) {
+      setErrors((prev) => ({
+        ...prev,
+        submit: err.message || "Network error. Try again",
+      }));
+      setStatus("fail");
     }
   };
 
@@ -145,7 +146,6 @@ function Signup() {
     <div className="main">
       <div className="mainMargin">
         <div className="centerHeader">
-          {/* <h3>{t2("Login.Header")}</h3> */}
           <h3>Sign up to CCS Taekwondo Academy</h3>
         </div>
         <div className="loginBlock">
@@ -257,13 +257,6 @@ function Signup() {
               {errors.submit && (
                 <p className="help is-danger">{errors.submit}</p>
               )}
-              {/* {status === "success" && (
-                <p className="help is-success sentMessage">{signUpSuccess}</p>
-              )}
-               {status === "fail" && (
-                <p className="help is-success sentMessage">{signUpFail}</p>
-              )} */}
-
               {showStatus()}
             </div>
           </form>

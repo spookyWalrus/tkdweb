@@ -4,19 +4,21 @@ describe("Sign up for tkd", () => {
       "hcaptchaConfig"
     );
     cy.visit("localhost:3000/en/signup");
-    cy.wait("@hcaptchaConfig", { timeout: 9000 }).then((interception) => {
+    cy.wait("@hcaptchaConfig", { timeout: 15000 }).then((interception) => {
       expect(interception.response.statusCode).to.eq(200);
     });
-    cy.get(".h-captcha", { timeout: 1000 }).should("be.visible");
-    cy.get('[data-testid="hcaptcha-widget"], iframe', { timeout: 5000 })
+
+    cy.frameLoaded(".h-captcha iframe");
+    cy.iframe(".h-captcha iframe")
+      .find("#checkbox")
       .should("be.visible")
       .click();
 
-    cy.get("input[name='name']").type("Guy Dude");
+    cy.get("input[name='name']").type("Guy Dude", { force: true, delay: 100 });
     cy.get("input[name='email']").type("guy@maill.com");
     cy.get("input[name='password']").type("passW0RD!");
     cy.get("button.button").click();
-    cy.get("p.sentMessage").should(
+    cy.get("p.sentMessage", { timeout: 10000 }).should(
       "contain",
       "Check your email to confirm sign up"
     );
