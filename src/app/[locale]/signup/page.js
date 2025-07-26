@@ -9,6 +9,7 @@ import { PulseLoader } from "react-spinners";
 
 function Signup() {
   const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [inputData, setInputData] = useState({
     email: "",
     password: "",
@@ -25,9 +26,11 @@ function Signup() {
   let signUpSend = "Sign up";
   let signUpSending = "Signing up";
   let signUpSuccess = "Check your email to confirm sign up";
-  let signUpFail = "Sign up Failed.Try again or make contact directly.";
+  let signUpFail = "Sign up Failed.Try again or contact administration.";
 
-  const isThisATest = process.env.NEXT_PUBLIC_HCAPTCHA_TEST;
+  let isThisATest =
+    process.env.NODE_ENV === "test" ||
+    process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   const showStatus = () => {
     switch (status) {
@@ -114,6 +117,7 @@ function Signup() {
 
   const submitForm = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const actionType = e.target.dataset.action;
     const isFormValid = await validateForm(actionType);
     if (!isFormValid) {
@@ -135,6 +139,7 @@ function Signup() {
         throw new Error(errorData.error?.message || "Authentication fail");
       }
       setStatus("success");
+      setIsSubmitting(false);
     } catch (err) {
       setErrors((prev) => ({
         ...prev,
@@ -242,7 +247,7 @@ function Signup() {
                   data-testid="hcaptcha-widget"
                 />
                 {errors.captcha && (
-                  <p className="help is-danger">{errors.captcha}</p>
+                  <p className="help is-danger hcapError">{errors.captcha}</p>
                 )}
               </div>
             </div>
@@ -253,14 +258,15 @@ function Signup() {
                 data-action="signup"
                 type="submit"
                 onClick={submitForm}
+                disabled={false}
               >
-                {status === "submitting" ? (
-                  // signUpSending
+                {isSubmitting ? (
+                  // {status === "submitting" ? (
                   <>
                     <span>{signUpSending}</span>
                     <PulseLoader
-                      color="white"
-                      loading={signUpSending}
+                      color="blue"
+                      loading={isSubmitting}
                       size={10}
                       aria-label="Loading spinner"
                       margin={5}
