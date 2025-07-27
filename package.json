@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "node scripts/i18n-pull.js && NEXT_SKIP_TURBOPACK=false next dev",
+    "dev:test": "node scripts/i18n-pull.js && NEXT_SKIP_TURBOPACK=false && NEXT_PUBLIC_HCAPTCHA_TEST=true next dev -- -H test.tkdweb.com",
     "lint": "next lint",
     "cy:open": "cypress open",
     "lint:css": "stylelint '**/*.css'",

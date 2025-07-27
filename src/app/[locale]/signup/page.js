@@ -23,7 +23,7 @@ function Signup() {
 
   const router = useRouter();
 
-  let signUpSend = "Sign up";
+  let signUpSend = status === "success" ? "Successful sign up " : "Sign up";
   let signUpSending = "Signing up";
   let signUpSuccess = "Check your email to confirm sign up";
   let signUpFail = "Sign up Failed.Try again or contact administration.";
@@ -95,7 +95,7 @@ function Signup() {
     }
   };
 
-  const validateForm = async (action) => {
+  const validateForm = async (action, e) => {
     setErrors({});
     setStatus("submitting");
     const validationErrors = validateLogin(inputData, t, action);
@@ -103,12 +103,16 @@ function Signup() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setStatus("");
+      setIsSubmitting(false);
+      e.target.disabled = false;
       return false;
     }
 
     const captchaValid = await verifyCaptcha();
     if (!captchaValid) {
       setStatus("fail");
+      setIsSubmitting(false);
+      e.target.disabled = false;
       return false;
     }
 
@@ -119,7 +123,8 @@ function Signup() {
     e.preventDefault();
     setIsSubmitting(true);
     const actionType = e.target.dataset.action;
-    const isFormValid = await validateForm(actionType);
+    e.target.disabled = true;
+    const isFormValid = await validateForm(actionType, e);
     if (!isFormValid) {
       return;
     }
@@ -146,6 +151,7 @@ function Signup() {
         submit: err.message || "Network error. Try again",
       }));
       setStatus("fail");
+      e.target.disabled = false;
     }
   };
 
@@ -261,7 +267,6 @@ function Signup() {
                 disabled={false}
               >
                 {isSubmitting ? (
-                  // {status === "submitting" ? (
                   <>
                     <span>{signUpSending}</span>
                     <PulseLoader

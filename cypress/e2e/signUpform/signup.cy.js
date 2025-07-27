@@ -3,7 +3,7 @@ describe("Sign up for tkd", () => {
     cy.intercept("POST", "https://api.hcaptcha.com/checksiteconfig*").as(
       "hcaptchaConfig"
     );
-    cy.visit("localhost:3000/en/signup");
+    cy.visit("test.tkdweb.com:3000/en/signup");
     cy.wait("@hcaptchaConfig", { timeout: 15000 }).then((interception) => {
       expect(interception.response.statusCode).to.eq(200);
     });
@@ -29,4 +29,9 @@ describe("Sign up for tkd", () => {
       "Check your email to confirm sign up"
     );
   });
+
+  // check user flow: tab moves to next field, hitting enter moves to next input field, disabled state of
+  // button works as it should (also test if disabled state becomes enabled when submit fails)
+
+  // cy.get("button.button").should("contain", "Successful sign up");
 });

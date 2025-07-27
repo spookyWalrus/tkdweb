@@ -10,6 +10,7 @@ export async function POST(request) {
 
     if (test) {
       captchaSecret = process.env.HCAPTCHA_TEST_KEY;
+      console.warn("test mode");
     }
 
     const verifyResponse = await fetch("https://api.hcaptcha.com/siteverify", {

@@ -3,7 +3,7 @@ describe("Form validations", () => {
     cy.intercept("POST", "https://api.hcaptcha.com/checksiteconfig*").as(
       "hcaptchaConfig"
     );
-    cy.visit("localhost:3000/en/signup");
+    cy.visit("test.tkdweb.com:3000/en/signup");
     cy.wait("@hcaptchaConfig", { timeout: 15000 }).then((interception) => {
       expect(interception.response.statusCode).to.eq(200);
     });
