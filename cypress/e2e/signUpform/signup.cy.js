@@ -1,13 +1,16 @@
 describe("Sign up for tkd", () => {
   beforeEach(() => {
-    cy.intercept("POST", "https://api.hcaptcha.com/checksiteconfig*").as(
-      "hcaptchaConfig"
-    );
-    cy.visit("test.tkdweb.com:3000/en/signup");
-    cy.wait("@hcaptchaConfig", { timeout: 15000 }).then((interception) => {
-      expect(interception.response.statusCode).to.eq(200);
-    });
+    cy.intercept("POST", "**/api/signup", (req) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          req.continue((res) => {
+            resolve(res);
+          });
+        }, 3000);
+      });
+    }).as("signupDelay");
 
+    cy.visit("test.tkdweb.com:3000/en/signup");
     cy.frameLoaded(".h-captcha iframe");
   });
 
@@ -22,9 +25,16 @@ describe("Sign up for tkd", () => {
     cy.iframe(".h-captcha iframe").find(".check").should("be.visible");
 
     cy.get("button.button").click();
-    cy.get('button[data-action= "signup"]').should("contain", "Signing up");
+    cy.get('button[data-action= "signup"]').should("contain", "Signing Up");
+    // cy.get('button[data-action= "signup"').should("contain")
+    //   .invoke("text")
+    //   .then((initialText) => {
+    //     cy.get("button.button").click();
+    //     cy.get("button.button").should("not.contain", initialText);
+    //     cy.get('button[data-action= "signup"]').should("contain", "Signing Up");
+    //   });
 
-    cy.get("p.sentMessage", { timeout: 20000 }).should(
+    cy.get("p.sentMessage", { timeout: 2000 }).should(
       "contain",
       "Check your email to confirm sign up"
     );

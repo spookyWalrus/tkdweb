@@ -3,8 +3,6 @@ import { useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { PulseLoader } from "react-spinners";
 
 function Signup() {
@@ -21,12 +19,8 @@ function Signup() {
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
 
-  const router = useRouter();
-
-  let signUpSend = status === "success" ? "Successful sign up " : "Sign up";
-  let signUpSending = "Signing up";
-  let signUpSuccess = "Check your email to confirm sign up";
-  let signUpFail = "Sign up Failed.Try again or contact administration.";
+  let signUpSend =
+    status === "success" ? t2("Login.Success") : t2("Login.SignUp");
 
   let isThisATest =
     process.env.NODE_ENV === "test" ||
@@ -35,9 +29,13 @@ function Signup() {
   const showStatus = () => {
     switch (status) {
       case "success":
-        return <p className="help is-success sentMessage">{signUpSuccess}</p>;
+        return (
+          <p className="help is-success sentMessage">
+            {t2("Login.SignUpSuccess")}
+          </p>
+        );
       case "fail":
-        return <p className="help is-fail sentMessage">{signUpFail}</p>;
+        return <p className="help is-fail sentMessage">{t2("SignUpFail")}</p>;
       default:
         return null;
     }
@@ -213,7 +211,7 @@ function Signup() {
 
             <div className="field">
               <label htmlFor="password" className="formLabel">
-                Password
+                {t2("Login.Password")}
               </label>
 
               <div className="control">
@@ -226,8 +224,9 @@ function Signup() {
                   onChange={handleChange}
                 />
                 <p className="help passwordNote">
-                  Must be min. 8 characters long, uppercase and lower case
-                  letters,1 number and 1 symbol
+                  {t2("Login.PasswordRules")}
+                  {/* Must be min. 8 characters long, uppercase and lower case
+                  letters,1 number and 1 symbol */}
                 </p>
 
                 {errors.password && (
@@ -268,7 +267,7 @@ function Signup() {
               >
                 {isSubmitting ? (
                   <>
-                    <span>{signUpSending}</span>
+                    <span>{t2("Login.SigningUp")}</span>
                     <PulseLoader
                       color="blue"
                       loading={isSubmitting}
