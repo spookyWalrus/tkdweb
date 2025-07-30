@@ -8,6 +8,11 @@ export async function GET(request) {
   const type = searchParams.get("type");
 
   try {
+    if (token_hash.startsWith("mock_") && type === "mock_email") {
+      return NextResponse.redirect(
+        new URL("/auth-pages/auth-confirm", request.url)
+      );
+    }
     if (token_hash && type) {
       const supabase = createRouteHandlerClient({ cookies });
       const { data, error } = await supabase.auth.verifyOtp({

@@ -26,13 +26,6 @@ describe("Sign up for tkd", () => {
 
     cy.get("button.button").click();
     cy.get('button[data-action= "signup"]').should("contain", "Signing Up");
-    // cy.get('button[data-action= "signup"').should("contain")
-    //   .invoke("text")
-    //   .then((initialText) => {
-    //     cy.get("button.button").click();
-    //     cy.get("button.button").should("not.contain", initialText);
-    //     cy.get('button[data-action= "signup"]').should("contain", "Signing Up");
-    //   });
 
     cy.get("p.sentMessage", { timeout: 2000 }).should(
       "contain",
