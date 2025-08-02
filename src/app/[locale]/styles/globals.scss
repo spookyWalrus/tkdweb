@@ -12,6 +12,7 @@
 @import "./partials/courseFee";
 @import "./partials/instructors";
 @import "./partials/oneCard";
+@import "./partials/login";
 
 @font-face {
   font-family: Euljiro;
@@ -101,7 +102,7 @@ h6 {
   max-width: 90%; // Prevents edge-case overflow
 
   @media screen and (min-width: $desktop) {
-    margin: 7% 18%;
+    margin: 10% 18%;
     width: 80%;
   }
 }
