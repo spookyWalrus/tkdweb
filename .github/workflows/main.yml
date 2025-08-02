@@ -39,4 +39,5 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          env: NEXT_PUBLIC_HCAPTCHA_TEST: true
+        env:
+          NEXT_PUBLIC_HCAPTCHA_TEST: true
