@@ -22,6 +22,14 @@ function Signup() {
   let signUpSend =
     status === "success" ? t2("Login.Success") : t2("Login.SignUp");
 
+  let lang = useLocale();
+  let signingUp;
+  if (lang === "en") {
+    signingUp = t2("Login.SigningUp");
+  } else if (lang === "fr") {
+    signingUp = "Inscription en cours";
+  }
+
   let isThisATest =
     process.env.NODE_ENV === "test" ||
     process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
@@ -35,7 +43,16 @@ function Signup() {
           </p>
         );
       case "fail":
-        return <p className="help is-fail sentMessage">{t2("SignUpFail")}</p>;
+        setStatus(false);
+        return (
+          <p className="help is-fail sentMessage">{t2("Login.SignUpFail")}</p>
+        );
+      case "error":
+        return (
+          <p className="help is-danger sentMessage">
+            {t2("Login.AuthenticationFail")}
+          </p>
+        );
       default:
         return null;
     }
@@ -138,8 +155,10 @@ function Signup() {
         body: formData,
       });
       if (!res.ok) {
+        setStatus("fail");
         const errorData = await res.json();
-        throw new Error(errorData.error?.message || "Authentication fail");
+        setStatus("error");
+        throw new Error(errorData.message || "Authentication failed");
       }
       setStatus("success");
       setIsSubmitting(false);
@@ -148,9 +167,9 @@ function Signup() {
         ...prev,
         submit: err.message || "Network error. Try again",
       }));
-      setStatus("fail");
-      e.target.disabled = false;
     }
+    setIsSubmitting(false);
+    e.target.disabled = false;
   };
 
   return (
@@ -267,7 +286,7 @@ function Signup() {
               >
                 {isSubmitting ? (
                   <>
-                    <span>{t2("Login.SigningUp")}</span>
+                    <span>{signingUp}</span>
                     <PulseLoader
                       color="blue"
                       loading={isSubmitting}
@@ -280,9 +299,6 @@ function Signup() {
                   signUpSend
                 )}
               </button>
-              {errors.submit && (
-                <p className="help is-danger">{errors.submit}</p>
-              )}
               {showStatus()}
             </div>
           </form>

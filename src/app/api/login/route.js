@@ -26,7 +26,7 @@ export async function POST(request) {
     if (!error) {
       return success;
     } else {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json({ error }, { status: 400 });
     }
   }
   if (action == "login") {
