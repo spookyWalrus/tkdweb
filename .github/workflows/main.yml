@@ -37,12 +37,6 @@ jobs:
           NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true
 
-      - name: Start Next.js app for Cypress
-        run: npm run dev -- --host 0.0.0.0 --port 3000 &
-        env:
-          NODE_ENV: test
-
-        # Run Cypress tests
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v4
         with:
@@ -52,12 +46,3 @@ jobs:
         env:
           NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true
-
-        # Clean up server process
-      - name: Kill server
-        if: always()
-        run: |
-          if [ -f server.pid ]; then
-            kill $(cat server.pid) || true
-            rm server.pid
-          fi
