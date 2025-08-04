@@ -20,6 +20,12 @@ function runI18nexusPull(apiKey, keyName) {
     process.exit(1);
   }
 }
+console.log("Available I18NEXUS environment variables:");
+Object.keys(process.env)
+  .filter((key) => key.startsWith("I18NEXUS"))
+  .forEach((key) =>
+    console.log(`${key}: ${process.env[key] ? "Present" : "Missing"}`)
+  );
 
 const API_KEY1 = process.env.I18NEXUS_API_KEY1;
 const API_KEY2 = process.env.I18NEXUS_API_KEY2;
