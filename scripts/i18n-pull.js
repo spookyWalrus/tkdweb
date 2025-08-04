@@ -8,7 +8,7 @@ function runI18nexusPull(apiKey, keyName) {
   }
 
   try {
-    execSync(`I18NEXUS_API_KEY="${apiKey}" i18nexus pull`, {
+    execSync(`I18NEXUS_API_KEY="${apiKey}" npx i18nexus pull`, {
       stdio: "inherit",
     });
     console.log(`Successfully pulled translations with ${keyName}`);

@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install i18nexus CLI
+        run: npm install -g i18nexus-cli
+
       - name: Run ESLint
         run: npm run lint
 
