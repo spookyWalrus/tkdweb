@@ -35,7 +35,7 @@ jobs:
           echo "I18NEXUS_API_KEY2=${{ secrets.I18NEXUS_API_KEY2 }}" >> .env.local
 
       - name: Pull translations (i18nexus)
-        run: node i18n-pull.js
+        run: node scripts/i18n-pull.js
 
       - name: Build Next.js app
         run: npm run build
