@@ -34,14 +34,14 @@ jobs:
           echo "I18NEXUS_API_KEY1=${{ secrets.I18NEXUS_API_KEY1 }}" >> .env.local
           echo "I18NEXUS_API_KEY2=${{ secrets.I18NEXUS_API_KEY2 }}" >> .env.local
 
+      - name: Pull translations (i18nexus)
+        run: node your-script.js # Your script will use .env.local
+
       - name: Build Next.js app
         run: npm run build
         env:
           NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true
-
-      - name: Pull translations (i18nexus)
-        run: node your-script.js # Your script will use .env.local
 
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v4
