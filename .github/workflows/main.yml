@@ -37,8 +37,8 @@ jobs:
       - name: Pull translations (i18nexus)
         run: npm run pull-translations
         env:
-          I18NEXUS_API_KEY1: ${{ secrets.I18NEXUS_API_KEY1 }}
-          I18NEXUS_API_KEY2: ${{ secrets.I18NEXUS_API_KEY2 }}
+          I18NEXUS_API_KEY1: ${{ secrets.I18NEXUS_API_KEY1 }} # gg:ignore
+          I18NEXUS_API_KEY2: ${{ secrets.I18NEXUS_API_KEY2 }} # gg:ignore
 
       - name: Build Next.js app
         run: npm run build

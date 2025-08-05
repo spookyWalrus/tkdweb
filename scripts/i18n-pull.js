@@ -21,8 +21,8 @@ function runI18nexusPull(apiKey, keyName) {
   }
 }
 
-const API_KEY1 = process.env.I18NEXUS_API_KEY1;
-const API_KEY2 = process.env.I18NEXUS_API_KEY2;
+const API_KEY1 = process.env.I18NEXUS_API_KEY1; // gg:ignore
+const API_KEY2 = process.env.I18NEXUS_API_KEY2; // gg:ignore
 
 runI18nexusPull(API_KEY1, "I18NEXUS_API_KEY1");
 runI18nexusPull(API_KEY2, "I18NEXUS_API_KEY2");
