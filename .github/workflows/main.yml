@@ -11,12 +11,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
+
+      - name: Clear webpack cache
+        run: rm -rf .next/cache
 
       - name: Install dependencies
         run: npm install
