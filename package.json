@@ -11,7 +11,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prepare": "husky install",
-    "build": "node scripts/i18n-pull.js && next build ",
+    "build:with-translations": "node scripts/i18n-pull.js && next build ",
+    "pull-translations": "node scripts/i18n-pull.js",
+    "build": "next build",
     "start": "next start"
   },
   "dependencies": {

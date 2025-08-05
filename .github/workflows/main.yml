@@ -30,15 +30,8 @@ jobs:
       # - name: Run Jest Unit Tests
       #   run: npm test
 
-      - name: Create .env.local for testing
-        run: |
-          echo "NODE_ENV=test" >> .env.local
-          echo "NEXT_PUBLIC_HCAPTCHA_TEST=true" >> .env.local
-          echo "I18NEXUS_API_KEY1=${{ secrets.I18NEXUS_API_KEY1 }}" >> .env.local
-          echo "I18NEXUS_API_KEY2=${{ secrets.I18NEXUS_API_KEY2 }}" >> .env.local
-
       - name: Pull translations (i18nexus)
-        run: node scripts/i18n-pull.js
+        run: npm run pull-translations
         env:
           I18NEXUS_API_KEY1: ${{ secrets.I18NEXUS_API_KEY1 }}
           I18NEXUS_API_KEY2: ${{ secrets.I18NEXUS_API_KEY2 }}
