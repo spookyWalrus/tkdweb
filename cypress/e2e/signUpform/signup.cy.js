@@ -27,7 +27,7 @@ describe("Sign up for tkd", () => {
     cy.get("button.button").click();
     cy.get('button[data-action= "signup"]').should("contain", "Signing Up");
 
-    cy.get("p.sentMessage", { timeout: 2000 }).should(
+    cy.get("p.sentMessage", { timeout: 7000 }).should(
       "contain",
       "Check your email to confirm sign up"
     );

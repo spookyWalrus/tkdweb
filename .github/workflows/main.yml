@@ -23,7 +23,7 @@ jobs:
         run: rm -rf .next/cache
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install i18nexus CLI
         run: npm install -g i18nexus-cli

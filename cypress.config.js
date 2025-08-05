@@ -18,4 +18,5 @@ module.exports = defineConfig({
       bundler: "webpack",
     },
   },
+  video: process.env.CI ? false : true,
 });
