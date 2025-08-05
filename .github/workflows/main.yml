@@ -42,7 +42,9 @@ jobs:
       - name: Build Next.js app
         run: npm run build
         env:
-          NODE_ENV: test
+          NODE_ENV: production
+          NEXT_TELEMETRY_DISABLED: 1
+          DISABLE_WEBPACK_CACHE: true
           NEXT_PUBLIC_HCAPTCHA_TEST: true
 
       - name: Run Cypress E2E Tests
