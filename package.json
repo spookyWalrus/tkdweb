@@ -11,7 +11,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prepare": "husky install",
-    "build": "node scripts/i18n-pull.js && next build ",
+    "build:with-translations": "node scripts/i18n-pull.js && next build ",
+    "pull-translations": "node scripts/i18n-pull.js",
+    "build": "next build",
     "start": "next start"
   },
   "dependencies": {
@@ -31,7 +33,6 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.83.4",
     "sharp": "^0.32.6"
   },
   "devDependencies": {
@@ -54,7 +55,7 @@
     "postcss-import": "^15.1.0",
     "postcss-scss": "4.0",
     "prettier": "^3.5.1",
-    "sass": "^1.83.1",
+    "sass": "^1.77.0",
     "stylelint": "^15.11.0",
     "stylelint-config-standard": "34.0",
     "stylelint-config-standard-scss": "11.0",
