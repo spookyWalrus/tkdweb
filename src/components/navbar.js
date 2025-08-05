@@ -19,9 +19,7 @@ export default function Navbar() {
   let pathname = usePathname();
 
   useEffect(() => {
-    if (navOpen) {
-      setNavOpen(!navOpen);
-    }
+    setNavOpen(false);
   }, [pathname]);
 
   return (
