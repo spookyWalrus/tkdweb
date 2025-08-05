@@ -11,15 +11,22 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
+          cache: "npm"
+
+      - name: Clear webpack cache
+        run: rm -rf .next/cache
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install i18nexus CLI
+        run: npm install -g i18nexus-cli
 
       - name: Run ESLint
         run: npm run lint
@@ -27,17 +34,26 @@ jobs:
       # - name: Run Jest Unit Tests
       #   run: npm test
 
-      - name: Start Next.js app for Cypress
-        run: npm run dev & # Starts the app in the background
+      - name: Pull translations (i18nexus)
+        run: npm run pull-translations
         env:
-          NODE_ENV: test
+          I18NEXUS_API_KEY1: ${{ secrets.I18NEXUS_API_KEY1 }} # gg:ignore
+          I18NEXUS_API_KEY2: ${{ secrets.I18NEXUS_API_KEY2 }} # gg:ignore
 
-      - name: Wait for server to be ready
-        run: npx wait-on http://localhost:3000
+      - name: Build Next.js app
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_TELEMETRY_DISABLED: 1
+          DISABLE_WEBPACK_CACHE: true
 
       - name: Run Cypress E2E Tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v4
         with:
           browser: chrome
+          start: npm run dev
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
         env:
+          NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true
