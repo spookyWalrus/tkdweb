@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 16.17
           cache: "npm"
 
       - name: Clear webpack cache
@@ -50,14 +50,15 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
       - name: Run Cypress E2E Tests
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v3
         with:
           browser: chrome
           start: npm run dev
           wait-on: "http://127.0.01:3000"
-          wait-on-timeout: 300
-          config: pageLoadTimeout=120000,defaultCommandTimeout=15000
-          command-prefix: "percy exec -- npx"
+          wait-on-timeout: 120
+          config: pageLoadTimeout=60000,defaultCommandTimeout=10000
+          # enable debugging
+          # command-prefix: "percy exec -- npx"
 
         env:
           NODE_ENV: test
@@ -65,8 +66,8 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           # Enable debugging
-          DEBUG: "cypress:*,wait-on:*"
-          CYPRESS_DEBUG: "true"
+          # DEBUG: "cypress:*,wait-on:*"
+          # CYPRESS_DEBUG: "true"
           # Next.js debugging
-          DEBUG_COLORS: "true"
-          FORCE_COLOR: "1"
+          # DEBUG_COLORS: "true"
+          # FORCE_COLOR: "1"
