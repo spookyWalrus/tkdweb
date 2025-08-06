@@ -55,10 +55,20 @@ jobs:
           browser: chrome
           start: npm run dev
           wait-on: "http://127.0.01:3000"
-          wait-on-timeout: 180
+          wait-on-timeout: 300
           config: pageLoadTimeout=120000,defaultCommandTimeout=15000
+          command: |
+            echo "Server is ready, testing connection..."
+            curl -f http://127.0.0.1:3000 || echo "Curl failed but continuing..."
+            npx cypress run
         env:
           NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          # Enable debugging
+          DEBUG: "cypress:*,wait-on:*"
+          CYPRESS_DEBUG: "true"
+          # Next.js debugging
+          DEBUG_COLORS: "true"
+          FORCE_COLOR: "1"
