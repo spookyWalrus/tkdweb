@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 export async function GET(request) {
@@ -8,12 +7,15 @@ export async function GET(request) {
   const type = searchParams.get("type");
 
   try {
-    if (token_hash.startsWith("mock_") && type === "mock_email") {
+    if (token_hash?.startsWith("mock_") && type === "mock_email") {
       return NextResponse.redirect(
         new URL("/auth-pages/auth-confirm", request.url)
       );
     }
     if (token_hash && type) {
+      const { createRouteHandlerClient } = await import(
+        "@supabase/auth-helpers-nextjs"
+      );
       const supabase = createRouteHandlerClient({ cookies });
       const { data, error } = await supabase.auth.verifyOtp({
         type,
