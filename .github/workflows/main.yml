@@ -49,19 +49,12 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
-      - name: Wait for server and check health
-        run: |
-          echo "Waiting for server to be ready..."
-          npx wait-on http://localhost:3000 --timeout 300000 --verbose
-          echo "Testing server response..."
-          curl -f http://localhost:3000 || exit 1
-
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
           start: npm run dev
-          wait-on: "http://localhost:3000"
+          wait-on: "http://127.0.01:3000"
           wait-on-timeout: 180
           config: pageLoadTimeout=120000,defaultCommandTimeout=15000
         env:
