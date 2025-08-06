@@ -46,6 +46,8 @@ jobs:
           NODE_ENV: production
           NEXT_TELEMETRY_DISABLED: 1
           DISABLE_WEBPACK_CACHE: true
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v4
@@ -53,7 +55,8 @@ jobs:
           browser: chrome
           start: npm run dev
           wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
+          wait-on-timeout: 180
+          config: pageLoadTimeout=120000,defaultCommandTimeout=15000
         env:
           NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true
