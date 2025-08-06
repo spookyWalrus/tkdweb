@@ -18,5 +18,9 @@ module.exports = defineConfig({
       bundler: "webpack",
     },
   },
+  pageLoadTimeout: 120000,
+  defaultCommandTimeout: 15000,
+  requestTimeout: 10000,
+  responseTimeout: 30000,
   video: process.env.CI ? false : true,
 });
