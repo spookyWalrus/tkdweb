@@ -57,10 +57,8 @@ jobs:
           wait-on: "http://127.0.01:3000"
           wait-on-timeout: 300
           config: pageLoadTimeout=120000,defaultCommandTimeout=15000
-          command: |
-            echo "Server is ready, testing connection..."
-            curl -f http://127.0.0.1:3000 || echo "Curl failed but continuing..."
-            npx cypress run
+          command-prefix: "percy exec -- npx"
+
         env:
           NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true
