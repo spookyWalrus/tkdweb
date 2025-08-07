@@ -49,6 +49,25 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
+      - name: Warm up Next.js compilation
+        run: |
+          npm run dev &
+          SERVER_PID=$!
+          echo "Waiting for dev server..."
+          sleep 15
+
+          # Pre-compile the problematic route with a mock request
+          curl -f "http://127.0.0.1:3000/auth/confirm?token_hash=mock_warmup&type=mock_email" || echo "Warmup request completed"
+
+          kill $SERVER_PID
+          wait $SERVER_PID 2>/dev/null || true
+          echo "Dev server stopped, compilation cache warmed up"
+        env:
+          NODE_ENV: test
+          NEXT_PUBLIC_HCAPTCHA_TEST: true
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v3
         with:
@@ -57,7 +76,6 @@ jobs:
           wait-on: "http://127.0.01:3000"
           wait-on-timeout: 120
           config: pageLoadTimeout=60000,defaultCommandTimeout=10000
-
         env:
           NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true

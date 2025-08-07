@@ -17,12 +17,24 @@ const nextConfig = {
       fs: false,
     };
 
+    config.ignoreWarnings = [
+      {
+        module: /node_modules\/@supabase\/realtime-js/,
+        message:
+          /Critical dependency: the request of a dependency is an expression/,
+      },
+    ];
+
     return config;
   },
   eslint: {
     ignoreDuringBuilds: false,
   },
   reactStrictMode: false,
+  experimental: {
+    // Reduce compilation time
+    optimizePackageImports: ["@supabase/supabase-js"],
+  },
 };
 
 module.exports = withNextIntl(nextConfig);
