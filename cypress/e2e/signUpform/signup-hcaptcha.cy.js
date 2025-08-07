@@ -3,8 +3,8 @@ describe("hCaptcha testing", () => {
     cy.intercept("POST", "https://api.hcaptcha.com/checksiteconfig*").as(
       "hcaptchaConfig"
     );
-    cy.visit("test.tkdweb.com:3000/en/signup");
-    cy.wait("@hcaptchaConfig", { timeout: 15000 }).then((interception) => {
+    cy.visit("/en/signup");
+    cy.wait("@hcaptchaConfig", { timeout: 30000 }).then((interception) => {
       expect(interception.response.statusCode).to.eq(200);
     });
 

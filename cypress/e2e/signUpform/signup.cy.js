@@ -6,11 +6,11 @@ describe("Sign up for tkd", () => {
           req.continue((res) => {
             resolve(res);
           });
-        }, 3000);
+        }, 30000);
       });
     }).as("signupDelay");
 
-    cy.visit("test.tkdweb.com:3000/en/signup");
+    cy.visit("/en/signup");
     cy.frameLoaded(".h-captcha iframe");
   });
 
@@ -27,7 +27,7 @@ describe("Sign up for tkd", () => {
     cy.get("button.button").click();
     cy.get('button[data-action= "signup"]').should("contain", "Signing Up");
 
-    cy.get("p.sentMessage", { timeout: 7000 }).should(
+    cy.get("p.sentMessage", { timeout: 10000 }).should(
       "contain",
       "Check your email to confirm sign up"
     );

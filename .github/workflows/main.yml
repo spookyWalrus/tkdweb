@@ -75,7 +75,6 @@ jobs:
           start: npm run dev
           wait-on: "http://127.0.01:3000"
           wait-on-timeout: 120
-          config: pageLoadTimeout=60000,defaultCommandTimeout=10000
         env:
           NODE_ENV: test
           NEXT_PUBLIC_HCAPTCHA_TEST: true
