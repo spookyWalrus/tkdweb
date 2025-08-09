@@ -67,6 +67,8 @@ jobs:
           NEXT_PUBLIC_HCAPTCHA_TEST: true
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY: ${{ secrets.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY }}
+          HCAPTCHA_TEST_KEY: ${{ secrets.HCAPTCHA_TEST_KEY }}
 
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v3
@@ -80,6 +82,8 @@ jobs:
           NEXT_PUBLIC_HCAPTCHA_TEST: true
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY: ${{ secrets.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY }}
+          HCAPTCHA_TEST_KEY: ${{ secrets.HCAPTCHA_TEST_KEY }}
           # Enable debugging
           # DEBUG: "cypress:*,wait-on:*"
           # CYPRESS_DEBUG: "true"
