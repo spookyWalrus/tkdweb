@@ -15,6 +15,8 @@ describe("hCaptcha testing", () => {
   });
 
   it("doesn't click hcaptcha", () => {
+    cy.get("button.button").click();
+
     cy.get("p.hcapError").should(
       "contain",
       "Please complete captcha verification"

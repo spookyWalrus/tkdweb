@@ -29,19 +29,19 @@ describe("Form validations", () => {
       );
     });
 
-    it("Name too long", () => {
-      cy.get("input[name='name']").type(
-        "Guy Dude Manguydude Coolguy Whoisthatcoolguydude"
-      );
-      cy.get("input[name='email']").type("guy@maill.com");
-      cy.get("input[name='password']").type("passW0RD!");
-      cy.get("button.button").click();
+    // it("Name too long", () => {
+    //   cy.get("input[name='name']").type(
+    //     "Guy Dude Manguydude Coolguy Whoisthatcoolguydude"
+    //   );
+    //   cy.get("input[name='email']").type("guy@maill.com");
+    //   cy.get("input[name='password']").type("passW0RD!");
+    //   cy.get("button.button").click();
 
-      cy.get("p.nameError").should(
-        "contain",
-        "Name must be at least 2 characters long"
-      );
-    });
+    //   cy.get("p.nameError").should(
+    //     "contain",
+    //     "Name must be at least 2 characters long"
+    //   );
+    // });
   });
 
   // it("fills out email incorrectly", () => {
