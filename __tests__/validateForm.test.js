@@ -1,4 +1,4 @@
-import { _testExports } from "@/utilities/validateForm";
+import { _testExports } from "@/utilities/validateContactForm";
 const { validateForm } = _testExports;
 
 describe("checking validateForm function", () => {

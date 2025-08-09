@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 // import { useTranslations } from "next-intl";
-import { validateForm } from "@/utilities/validateForm";
+import { validateForm } from "@/utilities/validateContactForm";
 
 beforeAll(() => {
   jest.spyOn(console, "log").mockImplementation(() => {});
@@ -16,7 +16,7 @@ beforeAll(() => {
   jest.spyOn(console, "warn").mockImplementation(() => {});
 });
 afterAll(() => {
-  console.log.mockRestore();
+  console.error.mockRestore();
   console.error.mockRestore();
   console.warn.mockRestore();
 });
@@ -87,7 +87,7 @@ describe("test full contact form", () => {
     // fireEvent.submit(screen.getByType("submit"));
     fireEvent.click(submitButton);
 
-    console.log("DOM after form submission:");
+    console.error("DOM after form submission:");
     screen.debug();
     // console.log(
     //   "Errors state:",

@@ -2,21 +2,24 @@
 import { useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function Login() {
   const [status, setStatus] = useState("");
-  const [formData, setFormData] = useState({
-    name: "",
+  const [inputData, setInputData] = useState({
     email: "",
-    message: "",
+    password: "",
+    name: "",
   });
   const [errors, setErrors] = useState({});
   const [captchaToken, setCaptchaToken] = useState(null);
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
+  const router = useRouter();
+
   // let loginSend = t("loginSend");
   // let loginSending = t("loginSending");
   // let loginSuccess = t("loginSuccess");
@@ -28,21 +31,22 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setInputData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const submitForm = async (e) => {
+  const validateForm = async (e) => {
     e.preventDefault();
     setErrors({});
-    const validationErrors = validateLogin(formData, t);
+    const validationErrors = validateLogin(inputData, t);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-
       return;
+    } else {
+      return true;
     }
 
     // const isCaptchaRequired = process.env.NODE_ENV !== "test";
@@ -53,32 +57,30 @@ function Login() {
     //   }));
     //   return;
     // }
+  };
 
-    setStatus("submitting");
-    // };
+  const submitForm = async (e) => {
+    e.preventDefault();
+    if (validateForm) {
+      const actionType = e.target.dataset.action;
+      const formData = new FormData();
+      formData.append("email", inputData.email);
+      formData.append("password", inputData.password);
+      formData.append("name", inputData.name);
 
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          // hCaptchaToken: captchaToken,
-        }),
-      });
-      const result = await res.json();
-
-      if (res.ok) {
-        setStatus("success");
-        setFormData({ email: "", pw: "" });
-        // setCaptchaToken(null);
-      } else {
-        setStatus(loginFailed);
-        setErrors({ submit: result.error || loginFailed });
+      try {
+        const res = await fetch(`/api/login?action=${actionType}`, {
+          method: "post",
+          body: formData,
+        });
+        if (!res.ok) {
+          const { error } = await res.json();
+          throw new Error(error?.message || "Auth fail");
+        }
+        router.push("/member/account");
+      } catch (err) {
+        setErrors(err.message || "Network error. Try again");
       }
-    } catch (error) {
-      setStatus("Error on submit");
-      setErrors({ submit: "Network error. Try again" });
     }
   };
 
@@ -94,15 +96,14 @@ function Login() {
             <div className="field">
               <label htmlFor="email" className="formLabel">
                 {t("Email")}
-                {/* Email */}
               </label>
               <div className="control">
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   name="email"
                   placeholder="dolyochagi@taekwondo.com"
-                  value={formData.email}
+                  value={inputData.email}
                   onChange={handleChange}
                 />
                 {errors.email && (
@@ -110,28 +111,27 @@ function Login() {
                 )}
               </div>
             </div>
+
             <div className="field">
-              <label htmlFor="pw" className="formLabel">
+              <label htmlFor="password" className="formLabel">
                 Password
               </label>
-              {/* <p className="help passwordNote">
-                Must be min. 8 characters long, 1 number and 1 symbol
-              </p> */}
+
               <div className="control">
                 <input
-                  type="pw "
-                  name="pw"
-                  id="pw"
-                  placeholder="mysecret"
-                  value={formData.pw}
+                  type="password "
+                  name="password"
+                  id="password"
+                  placeholder="secret password"
+                  value={inputData.password}
                   onChange={handleChange}
                 />
                 <Link href="/loginRecovery" className="passwordNoteReset">
                   {t2("Login.ForgotPW")}
                 </Link>
-                {errors.pw && (
-                  <p className="help is-danger" data-testid="pw-error">
-                    {errors.pw}
+                {errors.password && (
+                  <p className="help is-danger" data-testid="password-error">
+                    {errors.password}
                   </p>
                 )}
               </div>
@@ -149,12 +149,13 @@ function Login() {
                 )}
               </div>
             </div> */}
-            <div className="field">
-              <div className="control controlCenter">
+            <div className="control controlCenter">
+              <div>
                 <button
                   className="button"
+                  data-action="login"
                   type="submit"
-                  disabled={status === "submitting"}
+                  onClick={submitForm}
                 >
                   {status === "submitting" ? loginSending : loginSend}
                 </button>

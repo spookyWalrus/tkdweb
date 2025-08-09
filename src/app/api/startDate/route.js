@@ -20,7 +20,7 @@ export async function GET() {
       },
     });
   } catch (err) {
-    console.log("api fetching error: ", err);
+    console.error("api fetching error: ", err);
     return NextResponse.json(
       { error: "failed api:  timezone fetching" },
       { status: 500 }

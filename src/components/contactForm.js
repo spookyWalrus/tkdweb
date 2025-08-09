@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
-import { validateForm } from "@/utilities/validateForm";
+import { validateContactForm } from "@/utilities/validateContactForm";
 import { useTranslations } from "next-intl";
 
 export default function ContactForm() {
@@ -31,7 +31,7 @@ export default function ContactForm() {
   const submitMail = async (e) => {
     e.preventDefault();
     setErrors({});
-    const validationErrors = validateForm(formData, t);
+    const validationErrors = validateContactForm(formData, t);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);

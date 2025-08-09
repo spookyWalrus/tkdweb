@@ -1,12 +1,27 @@
-export const validateLogin = (data, t) => {
+export const validateLogin = (data, t, action) => {
   const newErrors = {};
-  if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
-    return (newErrors.email = t("EmailError"));
+  if (!data.email) {
+    newErrors.email = t("EmailError") || "Email required";
+  } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+    newErrors.email = t("EmailError") || "Email invalid";
   }
-  const passwordRegex =
-    /^(?=.*[0-9])(?=.*[!@#$%^&*()_=+{};:,<.>/?\\|~`'"[\]-]).{8,}$/;
-  if (data.pw && !passwordRegex.test(data.pw)) {
-    return (newErrors.pw = t("PWError"));
+
+  if (!data.password) {
+    newErrors.password = t("PWError") || "Password required";
+  } else {
+    const passwordRegex =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*()_=+{};:,<.>/?\\|~`'"[\]-]).{8,}$/;
+    if (!passwordRegex.test(data.password)) {
+      newErrors.password = t("PWError") || "Password invalid";
+    }
+  }
+  if (action === "signup") {
+    //checks if script used for login or signup
+    if (!data.name) {
+      newErrors.name = t("NameError") || "Name required";
+    } else if (!/^[a-zA-Z]+(?: [a-zA-Z]+)+$/.test(data.name)) {
+      newErrors.name = t("NameError") || "Please enter first and last name";
+    }
   }
 
   return newErrors;
