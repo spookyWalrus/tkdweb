@@ -29,6 +29,14 @@
   padding: 0 1rem;
 }
 
+.navbar-section {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: vars.$topBarHeight;
+  background: vars.$foreground;
+}
+
 .brandTitleBar {
   display: flex;
   position: fixed;
@@ -250,4 +258,47 @@
 .navbar-login {
   display: flex;
   align-items: center;
+}
+
+.signup-button-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-angle {
+  border: none;
+  border-radius: 0;
+  background-color: vars.$secondary;
+
+  // align-self: flex-end;
+  // margin-top: 0.5rem;
+  top: 116px;
+  right: 0;
+  position: fixed;
+  width: 50px;
+
+  @media screen and (min-width: $tablet) {
+    top: 138px;
+    width: 50px;
+    height: 46px;
+    right: 136px;
+  }
+
+  transform-origin: 100% 0;
+  transform: skewX(20deg);
+}
+
+.signup-button {
+  border: none;
+  border-radius: 0;
+  background-color: vars.$secondary;
+  right: 0;
+  position: fixed;
+  padding-left: 3%;
+  clip-path: polygon(0 0%, 100% 0%, 100% 100%, 30px 100%);
+  top: 116px;
+
+  @media screen and (min-width: $tablet) {
+    top: 138px;
+  }
 }
