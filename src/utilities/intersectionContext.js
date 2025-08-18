@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState, useEffect } from "react";
 import { useIntersectionObserver } from "./intersectionObserver";
 import PropTypes from "prop-types";
 
@@ -9,10 +9,8 @@ export function IntersectionProvider({ children }) {
   const [showButton, setShowButton] = useState(false);
   const heroRef = useRef(null);
 
-  useIntersectionObserver(
-    heroRef,
-    (isIntersecting) => setShowButton(!isIntersecting),
-    { threshold: 0.65 }
+  useIntersectionObserver(heroRef, (isIntersecting) =>
+    setShowButton(!isIntersecting)
   );
 
   return (

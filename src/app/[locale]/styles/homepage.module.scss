@@ -6,11 +6,24 @@
   background-repeat: no-repeat;
   background-size: 70%;
   background-position: 100% 100%;
-  background-image: url("/images/tkd-HeroBack800.png");
+
+  // background-image: url("/images/tkd-HeroBack800.png");
+  background-image: url("/images/tkd-HeroBack5.png");
 
   @media screen and (min-width: vars.$smallTablet) {
     background-size: 60%;
   }
+
+  @media screen and (min-width: $desktop) {
+    margin-top: 4%;
+  }
+}
+
+.HeroBlockImage {
+  background-image: url("/images/tkd-HeroBack3.png");
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: 100% 100%;
 
   @media screen and (min-width: $desktop) {
     margin-top: 4%;
@@ -66,6 +79,8 @@
 
 .HeroBlock > .HeroTitles > .HeroSubHeader > a.joinus {
   width: 100%;
+  position: relative;
+  z-index: 50;
 
   @media screen and (min-width: vars.$smallTablet) {
     width: 50%;

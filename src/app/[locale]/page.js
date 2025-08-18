@@ -11,7 +11,8 @@ export default function Home() {
 
   return (
     <main className="main">
-      <div className={styles.HeroBlock} ref={heroRef}>
+      <div className={styles.HeroBlock} id="hero" ref={heroRef}>
+        {/* <div className={styles.HeroBlockImage}>TKD image</div> */}
         <div className={styles.HeroTitles}>
           <h1 className={styles.HeroHeader}>{t("HeroHeader")}</h1>
           <div className={styles.HeroSubHeader}>
