@@ -28,10 +28,10 @@
 #custom-dropdown-menu {
   background-color: transparent;
   left: auto;
-  right: -85px;
+  right: -120px;
 
   @media screen and (min-width: $tablet) {
-    right: -110px;
+    right: -160px;
   }
 }
 
@@ -43,7 +43,7 @@
 }
 
 #custom-dropdown a.dropdown-item.customDropDownMenuItem {
-  width: fit-content;
+  width: auto;
   background-color: vars.$primary;
   padding: 0.375rem 0.5rem;
 }

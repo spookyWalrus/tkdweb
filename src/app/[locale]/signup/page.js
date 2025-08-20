@@ -20,14 +20,16 @@ function Signup() {
   const t2 = useTranslations("LoginRegister");
 
   let signUpSend =
-    status === "success" ? t2("Login.Success") : t2("Login.SignUp");
+    status === "success" ? t2("Login.Success") : t2("SignUp.SignUp");
 
   let lang = useLocale();
-  let signingUp;
+  let signingUp, signUpHeader;
   if (lang === "en") {
-    signingUp = t2("Login.SigningUp");
+    signingUp = t2("SignUp.SigningUp");
+    signUpHeader = t2("SignUp.SignUpHeader");
   } else if (lang === "fr") {
     signingUp = "Inscription en cours";
+    signUpHeader = "Incrivez-vous à la Académie de Taekwondo CCS";
   }
 
   let isThisATest =
@@ -39,13 +41,13 @@ function Signup() {
       case "success":
         return (
           <p className="help is-success sentMessage">
-            {t2("Login.SignUpSuccess")}
+            {t2("SignUp.SignUpSuccess")}
           </p>
         );
       case "fail":
         setStatus(false);
         return (
-          <p className="help is-fail sentMessage">{t2("Login.SignUpFail")}</p>
+          <p className="help is-fail sentMessage">{t2("SignUp.SignUpFail")}</p>
         );
       case "error":
         return (
@@ -176,7 +178,8 @@ function Signup() {
     <div className="main">
       <div className="mainMargin">
         <div className="centerHeader">
-          <h3>Sign up to CCS Taekwondo Academy</h3>
+          {/* <h3>Sign up to CCS Taekwondo Academy</h3> */}
+          <h3>{signUpHeader}</h3>
         </div>
         <div className="loginBlock">
           <form onSubmit={submitForm} className="contactForm">
@@ -243,7 +246,7 @@ function Signup() {
                   onChange={handleChange}
                 />
                 <p className="help passwordNote">
-                  {t2("Login.PasswordRules")}
+                  {t2("SignUp.PasswordRules")}
                   {/* Must be min. 8 characters long, uppercase and lower case
                   letters,1 number and 1 symbol */}
                 </p>

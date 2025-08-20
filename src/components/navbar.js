@@ -145,12 +145,14 @@ export default function Navbar() {
         </nav>
         {showButton && (
           <div className="signup-button-container">
-            <a className="button signup-button">{t2("JoinUs")}</a>
+            {pathname != "/signup" && (
+              <Link href="/signup" className="button signup-button">
+                {t2("JoinUs")}
+              </Link>
+            )}
           </div>
         )}
       </div>
-
-      {/*  navbar-container */}
     </div>
   );
 }
