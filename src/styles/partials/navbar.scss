@@ -1,5 +1,5 @@
 @use "../variables" as vars;
-@import "bulma/sass/utilities/initial-variables";
+@use "bulma/sass/utilities/initial-variables" as bulma;
 
 .header {
   display: flex;
@@ -17,7 +17,7 @@
   justify-content: flex-end;
   padding: 0.25rem 0;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     padding: 0.25rem 1rem;
   }
 
@@ -54,7 +54,7 @@
   font-weight: bold;
   z-index: 100;
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     justify-content: space-evenly;
   }
 }
@@ -86,12 +86,12 @@
 .brandTitleBarRight {
   display: none;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     display: block;
     font-size: clamp(1.3rem, 90%, 130%);
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     display: block;
     font-size: 170%;
   }
@@ -103,7 +103,7 @@
   font-size: 1rem;
   flex-grow: 1;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     display: none;
   }
 }
@@ -114,7 +114,7 @@
   font-size: 1rem;
   flex-grow: 3;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     display: none;
   }
 }
@@ -124,7 +124,7 @@
   height: auto;
   flex-grow: 1;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     // margin: 2rem;
   }
 }
@@ -139,7 +139,7 @@
   z-index: 101;
   width: 100vw;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     height: 2rem;
     top: 4rem;
     background-color: vars.$foreground;
@@ -156,7 +156,7 @@
   max-width: 100vw;
   margin: 0 auto;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     // flex-flow: column wrap;
     align-items: flex-start;
     flex-direction: column;
@@ -164,7 +164,7 @@
     max-width: none;
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     flex-direction: row;
   }
 }
@@ -177,7 +177,7 @@
   &.navbar-links-left {
     justify-content: flex-end;
 
-    @media screen and (max-width: $tablet) {
+    @media screen and (max-width: bulma.$tablet) {
       justify-content: flex-start;
     }
   }
@@ -208,7 +208,7 @@
     width: 10%;
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     display: none;
     top: 0;
   }
@@ -219,7 +219,7 @@
   align-items: center;
   gap: 0;
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     margin: 0 auto;
     display: inline-block;
     justify-content: center;
@@ -250,7 +250,7 @@
   max-width: 100%;
   overflow: hidden;
 
-  @media screen and (max-width: $tablet) {
+  @media screen and (max-width: bulma.$tablet) {
     margin-left: 0;
     max-width: 100%;
   }
@@ -278,7 +278,7 @@
   position: fixed;
   width: 50px;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     top: 138px;
     width: 50px;
     height: 46px;
@@ -301,7 +301,7 @@
   padding-left: 7%;
   font-size: 0.8em;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     top: 138px;
     padding-left: 3%;
     padding-right: 15px;

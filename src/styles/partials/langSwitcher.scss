@@ -1,3 +1,6 @@
+@use "../variables" as vars;
+@use "bulma/sass/utilities/initial-variables" as bulma;
+
 .custom-select {
   appearance: none;
   padding-right: 5px;
@@ -20,7 +23,7 @@
 #custom-dropdown {
   padding-right: 1rem;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     padding-right: 0;
   }
 }
@@ -30,7 +33,7 @@
   left: auto;
   right: -120px;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     right: -160px;
   }
 }

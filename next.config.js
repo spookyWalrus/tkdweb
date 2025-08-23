@@ -3,6 +3,7 @@
  * */
 const createNextIntlPlugin = require("next-intl/plugin");
 const withNextIntl = createNextIntlPlugin();
+const path = require("path");
 
 const nextConfig = {
   webpack: (config, { isServer }) => {

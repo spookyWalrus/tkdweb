@@ -8,7 +8,7 @@ import { locales } from "../../i18n/routing";
 import { IntersectionProvider } from "@/utilities/intersectionContext";
 
 import { Inter } from "next/font/google";
-import "./styles/globals.scss";
+import "@/styles/globals.scss";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 

@@ -1,5 +1,5 @@
-@use "./variables.scss" as vars;
-@import "bulma/sass/utilities/initial-variables";
+@use "../variables" as vars;
+@use "bulma/sass/utilities/initial-variables" as bulma;
 
 .HeroBlock {
   background-color: vars.$foreground;
@@ -14,7 +14,7 @@
     background-size: 60%;
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     margin-top: 4%;
   }
 }
@@ -25,7 +25,7 @@
   background-size: 70%;
   background-position: 100% 100%;
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     margin-top: 4%;
   }
 }
@@ -36,7 +36,7 @@
   justify-content: flex-start;
   margin: 0% 5%;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     margin: 0 5%;
   }
 }
@@ -46,11 +46,11 @@
   background-color: transparent;
   padding-top: 1.5rem;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     width: 50%;
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     padding-top: 5rem;
   }
 }
@@ -60,7 +60,7 @@
   width: 50%;
   padding: 0 1.5rem 1rem 0;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     width: 55%;
     padding: 1rem 2.5rem 1rem 0;
   }
@@ -94,11 +94,11 @@
     padding-bottom: 13rem;
   }
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     padding-bottom: 13rem;
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bulma.$desktop) {
     padding-bottom: 17rem;
   }
 }
