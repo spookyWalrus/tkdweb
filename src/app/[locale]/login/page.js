@@ -4,7 +4,8 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+// import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "@/i18n/navigation";
 
 function Login() {
   const [status, setStatus] = useState("");
@@ -19,6 +20,7 @@ function Login() {
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
   const router = useRouter();
+  const currentLocale = useLocale();
 
   // let loginSend = t("loginSend");
   // let loginSending = t("loginSending");
@@ -44,7 +46,7 @@ function Login() {
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return;
+      return false;
     } else {
       return true;
     }
@@ -61,26 +63,38 @@ function Login() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    if (validateForm) {
-      const actionType = e.target.dataset.action;
-      const formData = new FormData();
-      formData.append("email", inputData.email);
-      formData.append("password", inputData.password);
-      formData.append("name", inputData.name);
+    const isValid = await validateForm(e);
+    if (!isValid) {
+      setStatus("");
+      return;
+    }
+    const actionType = e.target.dataset.action;
+    const formData = new FormData();
+    formData.append("email", inputData.email);
+    formData.append("password", inputData.password);
+    formData.append("name", inputData.name);
 
-      try {
-        const res = await fetch(`/api/login?action=${actionType}`, {
-          method: "post",
-          body: formData,
-        });
-        if (!res.ok) {
-          const { error } = await res.json();
-          throw new Error(error?.message || "Auth fail");
-        }
-        router.push("/member/account");
-      } catch (err) {
-        setErrors(err.message || "Network error. Try again");
+    try {
+      const res = await fetch(`/api/login?action=${actionType}`, {
+        method: "post",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const { error } = await res.json();
+        throw new Error(error?.message || "Auth fail");
       }
+      const data = await res.json();
+      if (data.success) {
+        setStatus("Log in success");
+        setTimeout(() => {
+          router.push("/member/account");
+          // router.refresh();
+        }, 500);
+      }
+    } catch (err) {
+      setStatus("");
+      setErrors({ submit: err.message || "Network error. Try again" });
     }
   };
 

@@ -35,9 +35,12 @@ export async function POST(request) {
       password,
     });
     if (!error) {
-      return success;
+      return NextResponse.json({ success: true });
     } else {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json(
+        { error: error.message || "Authentication fail" },
+        { status: 400 }
+      );
     }
   }
 }

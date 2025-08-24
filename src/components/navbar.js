@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useInsertionEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { getPathname, usePathname } from "../i18n/navigation";
 import LangSwitcher from "./LangSwitcher";
@@ -145,10 +145,12 @@ export default function Navbar() {
         </nav>
         {showButton && (
           <div className="signup-button-container">
-            {pathname != "/signup" && (
+            {pathname != "/signup" ? (
               <Link href="/signup" className="button signup-button">
                 {t2("JoinUs")}
               </Link>
+            ) : (
+              <div>no signups</div>
             )}
           </div>
         )}
