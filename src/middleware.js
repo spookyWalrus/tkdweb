@@ -9,31 +9,23 @@ const supaMiddleware = async (req) => {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
   const {
-    data: { session },
+    data: { user },
     error,
-  } = await supabase.auth.getSession();
+  } = await supabase.auth.getUser();
 
   try {
-    if (!session) {
+    if (error || !user) {
       const locale = req.nextUrl.pathname.split("/")[1] || "en";
       const loginUrl = new URL(`/${locale}/login`, req.url);
-      // loginUrl.searchParams.set("from", req.nextUrl.pathname);
-
+      loginUrl.searchParams.set("message", "auth_required");
       return NextResponse.redirect(loginUrl);
     }
-    // if (error) {
-    //   return NextResponse.redirect(
-    //     new URL(
-    //       `/login?from=${encodeURIComponent(req.nextUrl.pathname)}`,
-    //       req.url
-    //     )
-    //   );
-    // }
-
     return res;
   } catch (error) {
     const locale = req.nextUrl.pathname.split("/")[1] || "en";
-    return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
+    const loginUrl = new URL(`/${locale}/login`, req.url);
+    loginUrl.searchParams.set("message", "auth_required");
+    return NextResponse.redirect(loginUrl);
   }
 };
 
@@ -48,16 +40,14 @@ export default function middleWareHandler(req) {
     "/loginRecovery",
   ];
 
-  // Check if it's a localized public path (e.g., /en/login, /es/login)
   const isPublicPath = publicPaths.some((path) => {
     return (
-      pathname === path || // Direct path
-      pathname.startsWith(`/${routing.locales[0]}${path}`) || // Default locale
+      pathname === path ||
+      pathname.startsWith(`/${routing.locales[0]}${path}`) ||
       routing.locales.some((locale) => pathname.startsWith(`/${locale}${path}`))
-    ); // Any locale
+    );
   });
 
-  // Handle auth callback and confirmation routes - these should bypass normal middleware
   if (
     pathname.includes("/auth/confirm") ||
     pathname.includes("/auth/callback")
@@ -65,14 +55,12 @@ export default function middleWareHandler(req) {
     return NextResponse.next();
   }
 
-  // If it's a public path, just apply internationalization
   if (isPublicPath) {
     return intlMiddleware(req);
   }
 
   // Check if it's a protected member route
   const isMemberPath = pathname.includes("/member");
-
   if (isMemberPath) {
     // First apply auth middleware, then intl middleware
     return supaMiddleware(req);
@@ -80,22 +68,6 @@ export default function middleWareHandler(req) {
   // For all other routes, apply internationalization middleware
   return intlMiddleware(req);
 }
-//   }
-
-//   const pathname = req.nextUrl.pathname;
-//   const publicPaths = ["/auth/confirm", "/auth/callback", "/login", "/signup"];
-
-//   if (publicPaths.some((path) => pathname.startsWith(path))) {
-//     if (pathname === ("/auth/confirm" || "/auth/callback")) {
-//       return NextResponse.next();
-//     }
-//     return intlMiddleware(req);
-//   }
-//   if (pathname.startsWith("/member")) {
-//     return supaMiddleware(req);
-//   }
-//   return intlMiddleware(req);
-// }
 
 export const config = {
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],

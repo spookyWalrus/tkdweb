@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { useState, useEffect } from "react";
 import { validateLogin } from "@/utilities/validateLogin";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-// import { useRouter, useSearchParams } from "next/navigation";
-import { useRouter, useSearchParams } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 
 function Login() {
   const [status, setStatus] = useState("");
@@ -15,12 +14,13 @@ function Login() {
     name: "",
   });
   const [errors, setErrors] = useState({});
-  const [captchaToken, setCaptchaToken] = useState(null);
+  const [relogMessage, setRelogMessage] = useState("");
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
   const router = useRouter();
-  const currentLocale = useLocale();
+  const params = useSearchParams();
+  const message = params.get("message");
 
   // let loginSend = t("loginSend");
   // let loginSending = t("loginSending");
@@ -30,6 +30,19 @@ function Login() {
   let loginSending = "Logging in";
   let loginSuccess = "Log in Success";
   let loginFailed = "Log in Fail";
+
+  useEffect(() => {
+    const theSession = localStorage.getItem("hadSession");
+    const manualLogout = localStorage.getItem("manualLogout");
+    if (message === "auth_required") {
+      if (theSession === "true" && manualLogout !== "true") {
+        setRelogMessage("Session has expired, please log in again");
+      } else {
+        setRelogMessage("");
+      }
+      localStorage.removeItem("manualLogout");
+    }
+  }, [message]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,15 +63,6 @@ function Login() {
     } else {
       return true;
     }
-
-    // const isCaptchaRequired = process.env.NODE_ENV !== "test";
-    // if (isCaptchaRequired && !captchaToken) {
-    //   setErrors((prev) => ({
-    //     ...prev,
-    //     captcha: t("CaptchaError"),
-    //   }));
-    //   return;
-    // }
   };
 
   const submitForm = async (e) => {
@@ -86,10 +90,10 @@ function Login() {
       }
       const data = await res.json();
       if (data.success) {
+        localStorage.setItem("hadSession", "true");
         setStatus("Log in success");
         setTimeout(() => {
           router.push("/member/account");
-          // router.refresh();
         }, 500);
       }
     } catch (err) {
@@ -103,7 +107,11 @@ function Login() {
       <div className="mainMargin">
         <div className="centerHeader">
           <h3>{t2("Login.Header")}</h3>
-          {/* <h3>Member Log In</h3> */}
+          {relogMessage && (
+            <h4 className="alert-warning" role="alert">
+              {relogMessage}
+            </h4>
+          )}
         </div>
         <div className="loginBlock">
           <form onSubmit={submitForm} className="contactForm">
@@ -151,18 +159,6 @@ function Login() {
               </div>
             </div>
 
-            {/* <div className="field">
-              <div className="control">
-                <HCaptcha
-                  sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY || ""}
-                  onVerify={(token) => setCaptchaToken(token)}
-                  onExpire={() => setCaptchaToken(null)}
-                />
-                {errors.captcha && (
-                  <p className="help is-danger">{errors.captcha}</p>
-                )}
-              </div>
-            </div> */}
             <div className="control controlCenter">
               <div>
                 <button
