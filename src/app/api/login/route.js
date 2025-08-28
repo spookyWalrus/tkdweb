@@ -10,6 +10,7 @@ export async function POST(request) {
   const email = formData.get("email");
   const password = formData.get("password");
   const name = formData.get("name");
+  const token = formData.get("captcha");
   const cookieStore = cookies();
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
   const success = NextResponse.json({ success: true });
@@ -18,9 +19,10 @@ export async function POST(request) {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      name,
       options: {
+        captchaToken: token,
         emailRedirectTo: `${requestUrl.origin}/auth/callback`,
+        data: { name: name },
       },
     });
     if (!error) {
@@ -33,6 +35,9 @@ export async function POST(request) {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
+      options: {
+        captchaToken: token,
+      },
     });
     if (!error) {
       return NextResponse.json({ success: true });
