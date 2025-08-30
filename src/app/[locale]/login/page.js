@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations } from "next-intl";
@@ -21,11 +21,14 @@ function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [relogMessage, setRelogMessage] = useState("");
   const [captchaToken, setCaptchaToken] = useState(null);
+  const [captchaKey, setCaptchaKey] = useState(Date.now());
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
   const router = useRouter();
   const params = useSearchParams();
+  const captchaRef = useRef();
+  const resetAttemptRef = useRef(false);
   const message = params.get("message");
 
   // let loginSend = t("loginSend");
@@ -36,6 +39,7 @@ function Login() {
   let loginSending = "Logging in";
   let loginSuccess = "Log in Success";
   let loginFailed = "Log in Fail";
+  let noCaptchaSet = "Please complete Captcha verification";
 
   let isThisATest =
     process.env.NODE_ENV === "test" ||
@@ -62,9 +66,15 @@ function Login() {
     }));
   };
 
+  const resetCaptcha = useCallback(() => {
+    setCaptchaToken(null);
+    setCaptchaKey(Date.now());
+  }, []);
+
   const validateForm = async (e) => {
     e.preventDefault();
     setErrors({});
+    e.target.disabled = true;
     const validationErrors = validateLogin(inputData, t);
 
     if (Object.keys(validationErrors).length > 0) {
@@ -72,41 +82,18 @@ function Login() {
       return false;
     }
     return true;
-    // else {
-    //   try {
-    //     const captchaStatus = await verifyCaptcha(captchaToken, isThisATest);
-    //     if (!captchaStatus.success) {
-    //       setErrors((prev) => ({
-    //         ...prev,
-    //         captcha: captchaStatus.error || t("CaptchaError"),
-    //       }));
-    //       setStatus(captchaStatus.error);
-
-    //       const error = new Error(
-    //         `Captcha verification failed: ${captchaStatus.error}`
-    //       );
-    //       error.details = captchaStatus.details;
-    //       error.status = captchaStatus.status;
-    //       console.error("Captcha Error:", error);
-    //       throw error;
-    //     }
-    //     return true;
-    //   } catch (error) {
-    //     console.error("Unexpected error in validateForm:", error);
-    //     return {
-    //       success: false,
-    //       unexpectedError: error.message,
-    //     };
-    //   }
-    // }
   };
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const actionType = e.target.dataset.action;
+    setStatus("");
 
     const isValid = await validateForm(e);
     if (!isValid) {
+      return;
+    }
+    if (!captchaToken) {
+      setStatus("noCaptcha");
       return;
     }
     setIsSubmitting(true);
@@ -119,19 +106,27 @@ function Login() {
     formData.append("name", inputData.name);
     formData.append("captcha", captchaToken);
     try {
-      const res = await fetch(`/api/login?action=${actionType}`, {
+      const res = await fetch("/api/login?action=login ", {
         method: "POST",
         body: formData,
       });
 
-      if (!res.ok) {
-        const { error } = await res.json();
-        throw new Error(error?.message || "Authentication fail");
-      }
       const data = await res.json();
+
+      if (!res.ok) {
+        resetCaptcha();
+        e.target.disabled = false;
+        throw new Error(
+          data.error?.message ||
+            data.message ||
+            data.error ||
+            "Authentication fail"
+        );
+      }
+
       if (data.success) {
         localStorage.setItem("hadSession", "true");
-        // setStatus("Log in success");
+        e.target.disabled = false;
         setTimeout(() => {
           router.push("/member/account");
         }, 500);
@@ -139,6 +134,12 @@ function Login() {
     } catch (err) {
       setStatus("");
       setIsSubmitting(false);
+      e.target.disabled = false;
+      if (err instanceof TypeError || err.message.includes("fetch")) {
+        resetCaptcha();
+        setErrors({ submit: err.message || "Network error. Try again" });
+      }
+
       setErrors({ submit: err.message || "Network error. Try again" });
     }
   };
@@ -201,13 +202,16 @@ function Login() {
             </div>
             <div className="control h-captcha">
               <HCaptcha
+                ref={captchaRef}
+                key={captchaKey}
                 sitekey={
                   isThisATest
                     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
                     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
                 }
                 onVerify={(token) => setCaptchaToken(token)}
-                onExpire={() => setCaptchaToken(null)}
+                onExpire={resetCaptcha}
+                onError={resetCaptcha}
                 data-testid="hcaptcha-widget"
               />
               {errors.captcha && (
@@ -222,6 +226,7 @@ function Login() {
                   data-action="login"
                   type="submit"
                   onClick={submitForm}
+                  disabled={false}
                 >
                   {status === "submitting" ? (
                     <>
@@ -244,6 +249,9 @@ function Login() {
                 )}
                 {status === "success" && (
                   <p className="help is-success sentMessage">{loginSuccess}</p>
+                )}
+                {status === "noCaptcha" && (
+                  <p className="help is-danger">{noCaptchaSet}</p>
                 )}
               </div>
             </div>

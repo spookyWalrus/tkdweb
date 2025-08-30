@@ -4,7 +4,6 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 
 export async function POST(request) {
   const action = request.nextUrl.searchParams.get("action");
-
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
   const email = formData.get("email");
