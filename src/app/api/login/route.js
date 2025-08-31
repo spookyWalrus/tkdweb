@@ -27,7 +27,16 @@ export async function POST(request) {
     if (!error) {
       return success;
     } else {
-      return NextResponse.json({ error }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: {
+            message: error.message,
+            code: error.code,
+            status: error.status,
+          },
+        },
+        { status: 400 }
+      );
     }
   }
   if (action == "login") {

@@ -31,10 +31,14 @@ const supaMiddleware = async (req) => {
 
 export default function middleWareHandler(req) {
   const pathname = req.nextUrl.pathname;
-  // Define public paths that don't need authentication
+
+  if (pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+
   const publicPaths = [
-    "/auth/confirm",
-    "/auth/callback",
+    "/auth-pages/auth-confirm",
+    "/auth-pages/auth-error",
     "/login",
     "/signup",
     "/loginRecovery",
@@ -59,13 +63,10 @@ export default function middleWareHandler(req) {
     return intlMiddleware(req);
   }
 
-  // Check if it's a protected member route
   const isMemberPath = pathname.includes("/member");
   if (isMemberPath) {
-    // First apply auth middleware, then intl middleware
     return supaMiddleware(req);
   }
-  // For all other routes, apply internationalization middleware
   return intlMiddleware(req);
 }
 

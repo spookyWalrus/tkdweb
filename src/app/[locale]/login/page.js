@@ -106,7 +106,7 @@ function Login() {
     formData.append("name", inputData.name);
     formData.append("captcha", captchaToken);
     try {
-      const res = await fetch("/api/login?action=login ", {
+      const res = await fetch("/api/login?action=login", {
         method: "POST",
         body: formData,
       });
@@ -134,6 +134,7 @@ function Login() {
     } catch (err) {
       setStatus("");
       setIsSubmitting(false);
+      resetCaptcha();
       e.target.disabled = false;
       if (err instanceof TypeError || err.message.includes("fetch")) {
         resetCaptcha();
