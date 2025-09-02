@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
@@ -112,6 +112,7 @@ function Signup() {
     formData.append("password", inputData.password);
     formData.append("name", inputData.name);
     formData.append("captcha", captchaToken);
+    formData.append("isTest", isThisATest);
 
     try {
       const res = await fetch("/api/login?action=signup", {
@@ -121,9 +122,25 @@ function Signup() {
       if (!res.ok) {
         const errorData = await res.json();
 
-        const errorMessage =
-          errorData.error.message || "Authentication failed. Try again";
-
+        let errorMessage;
+        let errorToThrow;
+        if (isThisATest) {
+          errorMessage = JSON.stringify(
+            {
+              message: errorData.error?.message,
+              code: errorData.error?.code,
+              status: errorData.error?.status,
+              details: errorData.error?.details,
+            },
+            null,
+            2
+          );
+          errorToThrow = new Error(errorMessage);
+        } else {
+          errorMessage =
+            errorData.error.message || "Authentication failed. Try again";
+          errorToThrow = new Error(errorMessage);
+        }
         setErrors((prev) => ({
           ...prev,
           submit: errorMessage,
@@ -132,15 +149,17 @@ function Signup() {
         resetCaptcha();
         setIsSubmitting(false);
         e.target.disabled = false;
-        throw new Error(
-          errorData.message || errorData.error || "Authentication failed"
-        );
+        throw errorToThrow;
       }
 
       setStatus("success");
       setIsSubmitting(false);
       e.target.disabled = true;
     } catch (err) {
+      if (isThisATest) {
+        const errorObj = JSON.parse(err.message);
+        console.warn("Test mode error details: ", errorObj);
+      }
       console.warn("error: ", err.message);
     }
   };
