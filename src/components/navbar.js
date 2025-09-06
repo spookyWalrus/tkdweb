@@ -16,7 +16,7 @@ export default function Navbar() {
   const { user, loading } = useAuth();
 
   const t = useTranslations("Navbar");
-  const t2 = useTranslations("HeroBlock");
+  const t2 = useTranslations("LoginRegister");
 
   const toggleMenu = () => {
     setNavOpen(!navOpen);
