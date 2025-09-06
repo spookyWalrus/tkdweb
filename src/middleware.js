@@ -8,27 +8,62 @@ const intlMiddleware = createMiddleware(routing);
 const supaMiddleware = async (req) => {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
-  const { error } = await supabase.auth.getUser();
-  if (error) {
-    return NextResponse.redirect(
-      new URL(
-        `/login?from=${encodeURIComponent(req.nextUrl.pathname)}`,
-        req.url
-      )
-    );
-  }
 
-  return res;
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+
+  try {
+    if (error || !session || !session.user) {
+      const locale = req.nextUrl.pathname.split("/")[1] || "en";
+      const loginUrl = new URL(`/${locale}/login`, req.url);
+      loginUrl.searchParams.set("message", "auth_required");
+      return NextResponse.redirect(loginUrl);
+    }
+    return res;
+  } catch (error) {
+    console.error("Auth middleware error:", error);
+    const locale = req.nextUrl.pathname.split("/")[1] || "en";
+    const loginUrl = new URL(`/${locale}/login`, req.url);
+    loginUrl.searchParams.set("message", "auth_required");
+    return NextResponse.redirect(loginUrl);
+  }
 };
 
 export default function middleWareHandler(req) {
   const pathname = req.nextUrl.pathname;
-  const publicPaths = ["/auth/confirm", "/auth/callback", "/login", "/signup"];
 
-  if (publicPaths.some((path) => pathname.startsWith(path))) {
-    if (pathname === ("/auth/confirm" || "/auth/callabck")) {
-      return NextResponse.next();
-    }
+  if (pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+  if (
+    pathname.includes("/auth/confirm") ||
+    pathname.includes("/auth/callback")
+  ) {
+    return NextResponse.next();
+  }
+
+  const publicPaths = [
+    "/auth-pages/auth-confirm",
+    "/auth-pages/auth-error",
+    "/login",
+    "/signup",
+    "/loginRecovery",
+  ];
+
+  const isPublicPath = publicPaths.some((path) => {
+    return routing.locales.some(
+      (locale) => pathname === `/${locale}${path}` || pathname === path
+    );
+    // return (
+    //   pathname === path ||
+    //   pathname.startsWith(`/${routing.locales[0]}${path}`) ||
+    //   routing.locales.some((locale) => pathname.startsWith(`/${locale}${path}`))
+    // );
+  });
+
+  if (isPublicPath) {
     return intlMiddleware(req);
   }
   if (pathname.startsWith("/member")) {
