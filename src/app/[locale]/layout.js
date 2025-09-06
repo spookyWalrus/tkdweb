@@ -43,9 +43,11 @@ export default async function RootLayout({ children, params }) {
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale || "fr"} messages={messages}>
           <IntersectionProvider>
-            <Navbar />
-            {children}
-            <Footer />
+            <AuthProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </AuthProvider>
           </IntersectionProvider>
         </NextIntlClientProvider>
       </body>
