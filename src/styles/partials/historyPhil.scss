@@ -1,3 +1,5 @@
+@use "bulma/sass/utilities/initial-variables" as bulma;
+
 .underTrans {
   display: flex;
   flex-direction: column;
@@ -9,7 +11,7 @@
 .inlineImageCustom {
   display: block;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     display: inline-flex;
   }
 }
@@ -17,7 +19,7 @@
 .adjustLeft {
   text-align: left;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     text-align: center;
   }
 }

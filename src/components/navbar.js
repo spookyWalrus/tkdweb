@@ -65,6 +65,7 @@ export default function Navbar() {
           </Link>
         )}
       </div>
+
       <div className="navbar-section">
         <div className="brandTitleBar">
           <div className="titleBox">
@@ -140,6 +141,17 @@ export default function Navbar() {
                 </div>
               </div>
 
+              <div className="navbar-center">
+                <Link href="/">
+                  <Image
+                    className="navbar-center-logo"
+                    src="/logos/tkdBasic-web.png"
+                    alt="Logo"
+                    width="100"
+                    height="100"
+                  />
+                </Link>
+              </div>
               <div className="navbar-center">
                 <Link href="/">
                   <Image

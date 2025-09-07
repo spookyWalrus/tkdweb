@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET(request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
+  const locale = requestUrl.pathname.split("/")[1] || "en";
 
   try {
     const cookieStore = cookies();
@@ -15,8 +16,14 @@ export async function GET(request) {
       await supabase.auth.refreshSession();
     }
 
-    return NextResponse.redirect(new URL("/member/account", requestUrl.origin));
+    return NextResponse.redirect(
+      new URL(`/${locale}/member/account`, requestUrl.origin)
+    );
   } catch (error) {
-    return NextResponse.redirect("/auth-pages/auth-error", requestUrl.origin);
+    console.error("Auth callback error:", error);
+    return NextResponse.redirect(
+      `/${locale}/auth-pages/auth-error`,
+      requestUrl.origin
+    );
   }
 }

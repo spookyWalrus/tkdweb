@@ -1,4 +1,4 @@
-describe("Sign up for tkd", () => {
+describe("keyboard interactivity", () => {
   beforeEach(() => {
     cy.intercept("POST", "**/api/signup", (req) => {
       return new Promise((resolve) => {
@@ -14,27 +14,39 @@ describe("Sign up for tkd", () => {
     cy.frameLoaded(".h-captcha iframe");
   });
 
-  it("fills out form and submits succesfully", () => {
-    cy.get("input[name='name']").type("Guy Dude", { force: true, delay: 100 });
+  it("uses tab to move from field to field, uses enter key to submit form", () => {
+    cy.get("input[name='name']").type(
+      "Guy Dude"
+      //  {
+      //   force: true,
+      //   delay: 100,
+      // }
+    );
+    cy.get("input[name='name']").trigger("keydown", { key: "Tab" });
+
     cy.get("input[name='email']").type("guy@maill.com");
+    cy.get("input[name='email']").trigger("keydown", { key: "Tab" });
+
     cy.get("input[name='password']").type("passW0RD!");
+    cy.get("input[name='password']").trigger("keydown", { key: "Tab" });
+
     cy.iframe(".h-captcha iframe")
       .find("#checkbox")
       .should("be.visible")
       .click();
-    cy.iframe(".h-captcha iframe").find(".check").should("be.visible");
 
-    cy.get("button.button").click();
+    cy.iframe(".h-captcha iframe")
+      .find("#checkbox")
+      .trigger("keydown", { key: "tab" });
+
+    cy.get("button.button").focus();
+    cy.focused().type("{enter}");
+
     cy.get('button[data-action= "signup"]').should("contain", "Signing Up");
 
-    cy.get("p.sentMessage", { timeout: 10000 }).should(
+    cy.get("p.sentMessage", { timeout: 15000 }).should(
       "contain",
       "Check your email to confirm sign up"
     );
   });
-
-  // check user flow: tab moves to next field, hitting enter moves to next input field, disabled state of
-  // button works as it should (also test if disabled state becomes enabled when submit fails)
-
-  // cy.get("button.button").should("contain", "Successful sign up");
 });

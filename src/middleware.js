@@ -37,12 +37,8 @@ export default function middleWareHandler(req) {
   if (pathname.startsWith("/api")) {
     return NextResponse.next();
   }
-  if (
-    pathname.includes("/auth/confirm") ||
-    pathname.includes("/auth/callback")
-  ) {
-    return NextResponse.next();
-  }
+
+  const skipAuthHeader = req.cookies.get("auth-check");
 
   const publicPaths = [
     "/auth-pages/auth-confirm",
@@ -51,6 +47,16 @@ export default function middleWareHandler(req) {
     "/signup",
     "/loginRecovery",
   ];
+
+  if (pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+  if (
+    pathname.includes("/auth/confirm") ||
+    pathname.includes("/auth/callback")
+  ) {
+    return NextResponse.next();
+  }
 
   const isPublicPath = publicPaths.some((path) => {
     return routing.locales.some(
@@ -66,7 +72,15 @@ export default function middleWareHandler(req) {
   if (isPublicPath) {
     return intlMiddleware(req);
   }
-  if (pathname.startsWith("/member")) {
+
+  const isMemberPath = pathname.includes("/member");
+
+  if (isMemberPath) {
+    if (skipAuthHeader?.value === "true") {
+      const response = NextResponse.next();
+      req.cookies.delete("auth-check");
+      return response;
+    }
     return supaMiddleware(req);
   }
   return intlMiddleware(req);

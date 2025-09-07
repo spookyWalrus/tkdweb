@@ -29,3 +29,15 @@
   color: blue;
   text-decoration: none;
 }
+
+.h-captcha {
+  transform-origin: 0 0;
+  overflow: visible;
+}
+
+@media (max-width: vars.$smallTablet) {
+  .h-captcha {
+    transform: scale(0.77);
+    transform-origin: 0 0;
+  }
+}
