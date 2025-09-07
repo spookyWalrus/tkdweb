@@ -11,5 +11,5 @@ describe("Signup confirmation with mock email URL", () => {
 Cypress.Commands.add("mockConfirmationLink", (email) => {
   const emailType = "mock_email";
   const mockTokenHash = `mock_${Buffer.from(email).toString("base64")}_${Date.now()}`;
-  cy.visit(`/auth/confirm?token_hash=${mockTokenHash}&type=${emailType}`);
+  cy.visit(`/api/auth/confirm?token_hash=${mockTokenHash}&type=${emailType}`);
 });

@@ -36,6 +36,8 @@ export default function middleWareHandler(req) {
     return NextResponse.next();
   }
 
+  const skipAuthHeader = req.cookies.get("auth-check");
+
   const publicPaths = [
     "/auth-pages/auth-confirm",
     "/auth-pages/auth-error",
@@ -64,7 +66,13 @@ export default function middleWareHandler(req) {
   }
 
   const isMemberPath = pathname.includes("/member");
+
   if (isMemberPath) {
+    if (skipAuthHeader?.value === "true") {
+      const response = NextResponse.next();
+      req.cookies.delete("auth-check");
+      return response;
+    }
     return supaMiddleware(req);
   }
   return intlMiddleware(req);

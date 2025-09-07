@@ -8,9 +8,22 @@ export async function GET(request) {
 
   try {
     if (token_hash?.startsWith("mock_") && type === "mock_email") {
-      return NextResponse.redirect(
+      if (process.env.NODE_ENV === "production") {
+        return NextResponse.redirect(
+          new URL("/auth-pages/auth-error", request.url)
+        );
+      }
+      const response = NextResponse.redirect(
         new URL("/auth-pages/auth-confirm", request.url)
       );
+      response.cookies.set("auth-check", "true", {
+        maxAge: 30,
+        path: "/",
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax" || "strict",
+      });
+      return response;
     }
     if (token_hash && type) {
       const { createRouteHandlerClient } = await import(

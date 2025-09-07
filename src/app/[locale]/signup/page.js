@@ -58,7 +58,7 @@ function Signup() {
           </p>
         );
       case "noCaptcha":
-        return <p className="help is-danger">{noCaptchaSet}</p>;
+        return <p className="help is-danger hcapError">{noCaptchaSet}</p>;
       default:
         return null;
     }
