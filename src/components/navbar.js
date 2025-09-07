@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { getPathname, usePathname } from "../i18n/navigation";
 import LangSwitcher from "./LangSwitcher";
@@ -30,12 +30,33 @@ export default function Navbar() {
     setNavOpen(false);
   }, [pathname]);
 
+  const authStatus = useMemo(() => {
+    if (loading) {
+      return "Loading...";
+    }
+
+    if (user) {
+      return <UserDropdown />;
+    }
+
+    if (pathname !== "/login") {
+      return (
+        <Link href="/login" className="topBarLinks">
+          Log In
+        </Link>
+      );
+    }
+
+    return null;
+  }, [loading, user, pathname]);
+
   return (
     <div className="header">
       <div className="topBar">
         <LangSwitcher />
 
-        {loading ? (
+        {authStatus}
+        {/* {loading ? (
           "Loading..."
         ) : user ? (
           <UserDropdown />
@@ -43,7 +64,7 @@ export default function Navbar() {
           <Link href="/login" className="topBarLinks">
             Log In
           </Link>
-        ) : null}
+        ) : null} */}
 
         {/* {pathname !== "/login" && ( */}
         {/* <Link href="/login" className="topBarLinks"> */}

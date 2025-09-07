@@ -1,5 +1,12 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import PropTypes from "prop-types";
 
@@ -8,7 +15,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const supabase = createClientComponentClient();
+  const supabase = useMemo(() => createClientComponentClient(), []);
 
   useEffect(() => {
     const getUser = async () => {
@@ -29,17 +36,39 @@ export function AuthProvider({ children }) {
     return () => {
       subscription.unsubscribe();
     };
-  });
+  }, [supabase]);
 
-  const refreshUser = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    setUser(user);
-  };
+  // const refreshUser = async () => {
+  //   const {
+  //     data: { user },
+  //   } = await supabase.auth.getUser();
+  //   setUser(user);
+  // };
+  const refreshUser = useCallback(async () => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    } catch (error) {
+      console.error("Error refreshing user:", error);
+      setUser(null);
+    }
+  }, [supabase]);
+
+  // Memoize the context value to prevent unnecessary re-renders
+  const value = useMemo(
+    () => ({
+      user,
+      loading,
+      refreshUser,
+    }),
+    [user, loading, refreshUser]
+  );
 
   return (
-    <AuthContext.Provider value={{ user, loading, refreshUser }}>
+    <AuthContext.Provider value={value}>
+      {/* <AuthContext.Provider value={{ user, loading, refreshUser }}> */}
       {children}
     </AuthContext.Provider>
   );
