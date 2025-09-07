@@ -18,18 +18,21 @@
 
 .menuLang {
   color: vars.$background;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-#custom-dropdown {
+.custom-dropdown {
   padding-right: 1rem;
 
   @media screen and (min-width: bulma.$tablet) {
-    padding-right: 0;
+    padding-right: 1rem;
   }
 }
 
-#custom-dropdown-menu {
-  background-color: transparent;
+.custom-dropdown-menu {
+  background-color: vars.$primary;
   left: auto;
   right: -120px;
 
@@ -38,19 +41,45 @@
   }
 }
 
+.lang-dropdown-menu {
+  background-color: transparent;
+  left: auto;
+  right: -120px;
+  width: fit-content;
+
+  @media screen and (min-width: bulma.$tablet) {
+    right: -96px;
+  }
+}
+
 .customDropDownContent {
   background-color: vars.$primary;
   padding: 0;
-  width: fit-content;
+  width: fit-auto;
   border-radius: 0;
 }
 
-#custom-dropdown a.dropdown-item.customDropDownMenuItem {
-  width: auto;
-  background-color: vars.$primary;
-  padding: 0.375rem 0.5rem;
+.divider {
+  // background-color: transparent;
+  background-color: rgb(255 255 255 / 50%);
 }
 
-#custom-dropdown a.dropdown-item.customDropDownMenuItem:hover {
-  background-color: #3476f0;
+.langCustomDropDownMenuItem {
+  width: fit-content !important;
+  background-color: vars.$primary !important;
+
+  // padding: 0.375rem 0.5rem;
+  // padding-right: 1rem;
+}
+
+.customDropDownMenuItem {
+  background-color: vars.$primary !important;
+}
+
+.customDropDownContent a.customDropDownMenuItem :hover {
+  background-color: #3476f0 !important;
+}
+
+.langCustomDropDownMenuItem:hover {
+  background-color: #3476f0 !important;
 }

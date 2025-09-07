@@ -88,7 +88,6 @@ function Login() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    e.target.disabled = true;
     setStatus("");
 
     const isValid = await validateForm(e);
@@ -99,6 +98,7 @@ function Login() {
       setStatus("noCaptcha");
       return;
     }
+    e.target.disabled = true;
     setIsSubmitting(true);
     setStatus("submitting");
 
@@ -127,7 +127,7 @@ function Login() {
       }
 
       if (data.success) {
-        e.target.disabled = false;
+        e.target.disabled = true;
         await refreshUser();
         setTimeout(() => {
           router.push("/member/account");

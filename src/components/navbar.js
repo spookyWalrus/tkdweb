@@ -5,6 +5,7 @@ import { getPathname, usePathname } from "../i18n/navigation";
 import LangSwitcher from "./LangSwitcher";
 import { useIntersection } from "@/utilities/intersectionContext";
 import { useAuth } from "@/utilities/authContexter";
+import { UserDropdown } from "@/components/userDropdown";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -22,33 +23,8 @@ export default function Navbar() {
     setNavOpen(!navOpen);
   };
   let pathname = usePathname();
-  const logStatus = loading ? "Loading..." : user ? "Log Out" : "Log In";
-  // // const logStatus = user ? "Log Out" : "Log In";
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const {
-  //       data: { user },
-  //     } = await supabase.auth.getUser();
-  //     setUser(user);
-  //   };
-  //   getUser();
 
-  //   const {
-  //     data: { subscription },
-  //   } = supabase.auth.onAuthStateChange((event, session) => {
-  //     if (event === "SIGNED_IN" && session?.user) {
-  //       setUser(session.user);
-  //       console.log("the sesion: ", event);
-  //     } else if (event === "SIGNED_OUT") {
-  //       setUser(null);
-  //       console.log("the user signed out ");
-  //     }
-  //   });
-
-  //   return () => {
-  //     subscription.unsubscribe();
-  //   };
-  // }, [supabase.auth]);
+  // const logStatus = loading ? "Loading..." : user ? <UserDropdown /> : null;
 
   useEffect(() => {
     setNavOpen(false);
@@ -58,12 +34,25 @@ export default function Navbar() {
     <div className="header">
       <div className="topBar">
         <LangSwitcher />
-        {pathname !== "/login" && (
+
+        {loading ? (
+          "Loading..."
+        ) : user ? (
+          <UserDropdown />
+        ) : pathname !== "/login" ? (
           <Link href="/login" className="topBarLinks">
-            {/* {t("Login")} */}
-            {logStatus}
+            Log In
           </Link>
-        )}
+        ) : null}
+
+        {/* {pathname !== "/login" && ( */}
+        {/* <Link href="/login" className="topBarLinks"> */}
+        {/* {t("Login")} */}
+        {/* {logStatus} */}
+        {/* Log In */}
+        {/* </Link> */}
+        {/* )} */}
+        {/* {pathname == "/login" && logStatus} */}
       </div>
 
       <div className="navbar-section">
@@ -152,17 +141,6 @@ export default function Navbar() {
                   />
                 </Link>
               </div>
-              <div className="navbar-center">
-                <Link href="/">
-                  <Image
-                    className="navbar-center-logo"
-                    src="/logos/tkdBasic-web.png"
-                    alt="Logo"
-                    width="100"
-                    height="100"
-                  />
-                </Link>
-              </div>
 
               <div className="navbar-end navbar-links-right">
                 <div className="navbar-item has-dropdown is-hoverable">
@@ -191,7 +169,8 @@ export default function Navbar() {
             {
               pathname != "/signup" && (
                 <Link href="/signup" className="button signup-button">
-                  {t2("JoinUs")}
+                  {/* {t2("JoinUs")} */}
+                  Join USS
                 </Link>
               )
               // : (
