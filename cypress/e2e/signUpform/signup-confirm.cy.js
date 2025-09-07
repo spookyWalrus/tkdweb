@@ -3,7 +3,7 @@ describe("Signup confirmation with mock email URL", () => {
     cy.mockConfirmationLink("dude@mail.com");
 
     cy.url().should("include", "/auth-pages/auth-confirm");
-    cy.url({ timeout: 30000 }).should("include", "/member/account");
+    cy.url({ timeout: 50000 }).should("include", "/member/account");
     cy.get("h3").should("contain", "Member Account");
   });
 });

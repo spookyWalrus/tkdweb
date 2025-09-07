@@ -6,7 +6,7 @@ describe("keyboard interactivity", () => {
           req.continue((res) => {
             resolve(res);
           });
-        }, 30000);
+        }, 50000);
       });
     }).as("signupDelay");
 
