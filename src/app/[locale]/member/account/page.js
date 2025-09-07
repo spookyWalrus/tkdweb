@@ -9,9 +9,8 @@ function Account() {
   const handleSignOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
+      localStorage.setItem("manualLogout", "true");
       router.push("/login");
-    } else {
-      // router.push("/login");
     }
   };
 

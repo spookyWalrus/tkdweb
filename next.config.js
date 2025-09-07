@@ -3,6 +3,7 @@
  * */
 const createNextIntlPlugin = require("next-intl/plugin");
 const withNextIntl = createNextIntlPlugin();
+const path = require("path");
 
 const nextConfig = {
   webpack: (config, { isServer }) => {
@@ -34,6 +35,9 @@ const nextConfig = {
   experimental: {
     // Reduce compilation time
     optimizePackageImports: ["@supabase/supabase-js"],
+  },
+  env: {
+    _next_intl_trailing_slash: "false", // or 'true' depending on your preference
   },
 };
 

@@ -1,43 +1,70 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { confirmCaptcha } from "@/utilities/confirmCaptcha.js";
 
 export async function POST(request) {
   const action = request.nextUrl.searchParams.get("action");
-
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
   const name = formData.get("name");
+  const token = formData.get("captcha");
+  const isTest = formData.get("isTest");
   const cookieStore = cookies();
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-  const success = NextResponse.json({ success: true });
+  // const success = NextResponse.json({ success: true });
 
   if (action == "signup") {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      name,
-      options: {
-        emailRedirectTo: `${requestUrl.origin}/auth/callback`,
-      },
-    });
-    if (!error) {
-      return success;
-    } else {
-      return NextResponse.json({ error }, { status: 400 });
+    try {
+      if (isTest) {
+        console.warn("test mode");
+        const checkCaptcha = await confirmCaptcha(token);
+      }
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          captchaToken: token,
+          emailRedirectTo: `${requestUrl.origin}/auth/callback`,
+          data: { name: name },
+        },
+      });
+      if (error) {
+        throw error;
+      }
+
+      return Response.json({ success: true, data });
+    } catch (error) {
+      return NextResponse.json(
+        {
+          error: {
+            message: error.message,
+            code: error.code,
+            status: error.status,
+          },
+        },
+        { status: 400 }
+      );
     }
   }
   if (action == "login") {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
+      options: {
+        captchaToken: token,
+      },
     });
     if (!error) {
-      return success;
+      return NextResponse.json({ success: true });
     } else {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json(
+        { error: error.message || "Authentication fail" },
+        { status: 400 }
+      );
     }
   }
 }

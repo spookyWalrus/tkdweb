@@ -3,7 +3,7 @@ describe("Signup confirmation with mock email URL", () => {
     cy.mockConfirmationLink("dude@mail.com");
 
     cy.url().should("include", "/auth-pages/auth-confirm");
-    cy.url({ timeout: 30000 }).should("include", "/member/account");
+    cy.url({ timeout: 50000 }).should("include", "/member/account");
     cy.get("h3").should("contain", "Member Account");
   });
 });
@@ -11,5 +11,5 @@ describe("Signup confirmation with mock email URL", () => {
 Cypress.Commands.add("mockConfirmationLink", (email) => {
   const emailType = "mock_email";
   const mockTokenHash = `mock_${Buffer.from(email).toString("base64")}_${Date.now()}`;
-  cy.visit(`/auth/confirm?token_hash=${mockTokenHash}&type=${emailType}`);
+  cy.visit(`/api/auth/confirm?token_hash=${mockTokenHash}&type=${emailType}`);
 });

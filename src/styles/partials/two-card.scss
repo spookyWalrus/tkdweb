@@ -1,3 +1,5 @@
+@use "bulma/sass/utilities/initial-variables" as bulma;
+
 .twoCard {
   display: flex;
   flex-wrap: wrap;
@@ -11,7 +13,7 @@
   aspect-ratio: 1 / 1;
   overflow: hidden;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     flex: 1 1 50%;
     aspect-ratio: auto;
   }
@@ -29,7 +31,7 @@
   text-align: left;
   width: auto;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bulma.$tablet) {
     flex: 1 1 40%; // Slightly less than 50% to account for padding/gap
     display: flex;
     flex-direction: column;

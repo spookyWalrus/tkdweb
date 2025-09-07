@@ -57,7 +57,7 @@ jobs:
           sleep 15
 
           # Pre-compile the problematic route with a mock request
-          curl -f "http://127.0.0.1:3000/auth/confirm?token_hash=mock_warmup&type=mock_email" || echo "Warmup request completed"
+          curl -f "http://127.0.0.1:3000/fr/api/auth/confirm?token_hash=mock_warmup&type=mock_email" || echo "Warmup request completed"
 
           kill $SERVER_PID
           wait $SERVER_PID 2>/dev/null || true

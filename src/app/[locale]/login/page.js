@@ -1,10 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
+import { PulseLoader } from "react-spinners";
+
+// import { verifyCaptcha } from "@/utilities/verifyCaptcha";
 
 function Login() {
   const [status, setStatus] = useState("");
@@ -14,11 +18,18 @@ function Login() {
     name: "",
   });
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [relogMessage, setRelogMessage] = useState("");
   const [captchaToken, setCaptchaToken] = useState(null);
+  const [captchaKey, setCaptchaKey] = useState(Date.now());
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
   const router = useRouter();
+  const params = useSearchParams();
+  const captchaRef = useRef();
+  const resetAttemptRef = useRef(false);
+  const message = params.get("message");
 
   // let loginSend = t("loginSend");
   // let loginSending = t("loginSending");
@@ -28,6 +39,24 @@ function Login() {
   let loginSending = "Logging in";
   let loginSuccess = "Log in Success";
   let loginFailed = "Log in Fail";
+  let noCaptchaSet = "Please complete Captcha verification";
+
+  let isThisATest =
+    process.env.NODE_ENV === "test" ||
+    process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
+
+  useEffect(() => {
+    const theSession = localStorage.getItem("hadSession");
+    const manualLogout = localStorage.getItem("manualLogout");
+    if (message === "auth_required") {
+      if (theSession === "true" && manualLogout !== "true") {
+        setRelogMessage("Session has expired, please log in again");
+      } else {
+        setRelogMessage("");
+      }
+      localStorage.removeItem("manualLogout");
+    }
+  }, [message]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,50 +66,82 @@ function Login() {
     }));
   };
 
+  const resetCaptcha = useCallback(() => {
+    setCaptchaToken(null);
+    setCaptchaKey(Date.now());
+  }, []);
+
   const validateForm = async (e) => {
     e.preventDefault();
     setErrors({});
+    e.target.disabled = true;
     const validationErrors = validateLogin(inputData, t);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      return;
-    } else {
-      return true;
+      return false;
     }
-
-    // const isCaptchaRequired = process.env.NODE_ENV !== "test";
-    // if (isCaptchaRequired && !captchaToken) {
-    //   setErrors((prev) => ({
-    //     ...prev,
-    //     captcha: t("CaptchaError"),
-    //   }));
-    //   return;
-    // }
+    return true;
   };
 
   const submitForm = async (e) => {
     e.preventDefault();
-    if (validateForm) {
-      const actionType = e.target.dataset.action;
-      const formData = new FormData();
-      formData.append("email", inputData.email);
-      formData.append("password", inputData.password);
-      formData.append("name", inputData.name);
+    setStatus("");
 
-      try {
-        const res = await fetch(`/api/login?action=${actionType}`, {
-          method: "post",
-          body: formData,
-        });
-        if (!res.ok) {
-          const { error } = await res.json();
-          throw new Error(error?.message || "Auth fail");
-        }
-        router.push("/member/account");
-      } catch (err) {
-        setErrors(err.message || "Network error. Try again");
+    const isValid = await validateForm(e);
+    if (!isValid) {
+      return;
+    }
+    if (!captchaToken) {
+      setStatus("noCaptcha");
+      return;
+    }
+    setIsSubmitting(true);
+    setStatus("submitting");
+    e.target.disabled = true;
+
+    const formData = new FormData();
+    formData.append("email", inputData.email);
+    formData.append("password", inputData.password);
+    formData.append("name", inputData.name);
+    formData.append("captcha", captchaToken);
+    try {
+      const res = await fetch("/api/login?action=login", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        resetCaptcha();
+        e.target.disabled = false;
+        throw new Error(
+          data.error?.message ||
+            data.message ||
+            data.error ||
+            "Authentication fail"
+        );
       }
+
+      if (data.success) {
+        localStorage.setItem("hadSession", "true");
+        e.target.disabled = false;
+        setTimeout(() => {
+          router.push("/member/account");
+        }, 500);
+      }
+    } catch (err) {
+      setStatus("");
+      setIsSubmitting(false);
+      resetCaptcha();
+      e.target.disabled = false;
+      if (err instanceof TypeError || err.message.includes("fetch")) {
+        resetCaptcha();
+        setErrors({ submit: err.message || "Network error. Try again" });
+      }
+
+      setErrors({ submit: err.message || "Network error. Try again" });
     }
   };
 
@@ -89,7 +150,11 @@ function Login() {
       <div className="mainMargin">
         <div className="centerHeader">
           <h3>{t2("Login.Header")}</h3>
-          {/* <h3>Member Log In</h3> */}
+          {relogMessage && (
+            <h4 className="alert-warning" role="alert">
+              {relogMessage}
+            </h4>
+          )}
         </div>
         <div className="loginBlock">
           <form onSubmit={submitForm} className="contactForm">
@@ -136,19 +201,25 @@ function Login() {
                 )}
               </div>
             </div>
+            <div className="control h-captcha">
+              <HCaptcha
+                ref={captchaRef}
+                key={captchaKey}
+                sitekey={
+                  isThisATest
+                    ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
+                    : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
+                }
+                onVerify={(token) => setCaptchaToken(token)}
+                onExpire={resetCaptcha}
+                onError={resetCaptcha}
+                data-testid="hcaptcha-widget"
+              />
+              {errors.captcha && (
+                <p className="help is-danger hcapError">{errors.captcha}</p>
+              )}
+            </div>
 
-            {/* <div className="field">
-              <div className="control">
-                <HCaptcha
-                  sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY || ""}
-                  onVerify={(token) => setCaptchaToken(token)}
-                  onExpire={() => setCaptchaToken(null)}
-                />
-                {errors.captcha && (
-                  <p className="help is-danger">{errors.captcha}</p>
-                )}
-              </div>
-            </div> */}
             <div className="control controlCenter">
               <div>
                 <button
@@ -156,14 +227,32 @@ function Login() {
                   data-action="login"
                   type="submit"
                   onClick={submitForm}
+                  disabled={false}
                 >
-                  {status === "submitting" ? loginSending : loginSend}
+                  {status === "submitting" ? (
+                    <>
+                      <span>{loginSending}</span>
+                      <PulseLoader
+                        color="blue"
+                        loading={isSubmitting}
+                        size={10}
+                        aria-label="Loading spinner"
+                        margin={5}
+                      />
+                    </>
+                  ) : (
+                    <span>{loginSend}</span>
+                  )}
+                  {/* {status === "submitting" ? loginSending : loginSend} */}
                 </button>
                 {errors.submit && (
                   <p className="help is-danger">{errors.submit}</p>
                 )}
                 {status === "success" && (
                   <p className="help is-success sentMessage">{loginSuccess}</p>
+                )}
+                {status === "noCaptcha" && (
+                  <p className="help is-danger">{noCaptchaSet}</p>
                 )}
               </div>
             </div>

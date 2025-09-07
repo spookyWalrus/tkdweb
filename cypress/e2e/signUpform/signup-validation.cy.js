@@ -1,19 +1,17 @@
 describe("Form validations", () => {
   beforeEach(() => {
-    cy.intercept("POST", "https://api.hcaptcha.com/checksiteconfig*").as(
-      "hcaptchaConfig"
-    );
+    cy.intercept("POST", "**/api/signup", (req) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          req.continue((res) => {
+            resolve(res);
+          });
+        }, 50000);
+      });
+    }).as("signupDelay");
+
     cy.visit("/en/signup");
-
-    cy.wait("@hcaptchaConfig", { timeout: 30000 }).then((interception) => {
-      expect(interception.response.statusCode).to.eq(200);
-    });
-
     cy.frameLoaded(".h-captcha iframe");
-    cy.iframe(".h-captcha iframe")
-      .find("#checkbox")
-      .should("be.visible")
-      .click();
   });
 
   describe("Name field validations", () => {

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
@@ -13,22 +13,27 @@ function Signup() {
     password: "",
     name: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({ dude: "dude" });
   const [captchaToken, setCaptchaToken] = useState(null);
+  const [captchaKey, setCaptchaKey] = useState(Date.now());
+  const captchaRef = useRef();
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
 
   let signUpSend =
-    status === "success" ? t2("Login.Success") : t2("Login.SignUp");
+    status === "success" ? t2("Login.Success") : t2("SignUp.SignUp");
 
   let lang = useLocale();
-  let signingUp;
+  let signingUp, signUpHeader;
   if (lang === "en") {
-    signingUp = t2("Login.SigningUp");
+    signingUp = t2("SignUp.SigningUp");
+    signUpHeader = t2("SignUp.SignUpHeader");
   } else if (lang === "fr") {
     signingUp = "Inscription en cours";
+    signUpHeader = "Incrivez-vous à la Académie de Taekwondo CCS";
   }
+  let noCaptchaSet = "Please complete Captcha verification";
 
   let isThisATest =
     process.env.NODE_ENV === "test" ||
@@ -39,20 +44,21 @@ function Signup() {
       case "success":
         return (
           <p className="help is-success sentMessage">
-            {t2("Login.SignUpSuccess")}
+            {t2("SignUp.SignUpSuccess")}
           </p>
         );
       case "fail":
-        setStatus(false);
-        return (
-          <p className="help is-fail sentMessage">{t2("Login.SignUpFail")}</p>
-        );
+        return <p className="help is-fail ">{t2("SignUp.SignUpFail")}</p>;
       case "error":
         return (
-          <p className="help is-danger sentMessage">
+          <p className="help is-danger">
             {t2("Login.AuthenticationFail")}
+            <br />
+            {errors.submit}
           </p>
         );
+      case "noCaptcha":
+        return <p className="help is-danger hcapError">{noCaptchaSet}</p>;
       default:
         return null;
     }
@@ -66,49 +72,10 @@ function Signup() {
     }));
   };
 
-  const verifyCaptcha = async () => {
-    if (!captchaToken) {
-      setErrors((prev) => ({
-        ...prev,
-        captcha: t("CaptchaError"),
-      }));
-      return false;
-    }
-    try {
-      const response = await fetch("/api/confirmCaptcha", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: captchaToken,
-          test: isThisATest,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setErrors((prev) => ({
-          ...prev,
-          captcha: data.error || t("CaptchaError"),
-        }));
-        setStatus("fail");
-        return false;
-      } else {
-        setErrors((prev) => {
-          const { captcha, ...rest } = prev;
-          return rest;
-        });
-        return true;
-      }
-    } catch (error) {
-      setErrors((prev) => ({
-        ...prev,
-        captcha: "Network error. Try again.",
-      }));
-      setStatus("fail");
-      return false;
-    }
-  };
+  const resetCaptcha = useCallback(() => {
+    setCaptchaToken(null);
+    setCaptchaKey(Date.now());
+  }, []);
 
   const validateForm = async (action, e) => {
     setErrors({});
@@ -118,14 +85,6 @@ function Signup() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setStatus("");
-      setIsSubmitting(false);
-      e.target.disabled = false;
-      return false;
-    }
-
-    const captchaValid = await verifyCaptcha();
-    if (!captchaValid) {
-      setStatus("fail");
       setIsSubmitting(false);
       e.target.disabled = false;
       return false;
@@ -143,40 +102,74 @@ function Signup() {
     if (!isFormValid) {
       return;
     }
+    if (!captchaToken) {
+      setStatus("noCaptcha");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("email", inputData.email);
     formData.append("password", inputData.password);
     formData.append("name", inputData.name);
+    formData.append("captcha", captchaToken);
+    formData.append("isTest", isThisATest);
 
     try {
-      const res = await fetch(`/api/login?action=${actionType}`, {
+      const res = await fetch("/api/login?action=signup", {
         method: "POST",
         body: formData,
       });
       if (!res.ok) {
-        setStatus("fail");
         const errorData = await res.json();
+
+        let errorMessage;
+        let errorToThrow;
+        if (isThisATest) {
+          errorMessage = JSON.stringify(
+            {
+              message: errorData.error?.message,
+              code: errorData.error?.code,
+              status: errorData.error?.status,
+              details: errorData.error?.details,
+            },
+            null,
+            2
+          );
+          errorToThrow = new Error(errorMessage);
+        } else {
+          errorMessage =
+            errorData.error.message || "Authentication failed. Try again";
+          errorToThrow = new Error(errorMessage);
+        }
+        setErrors((prev) => ({
+          ...prev,
+          submit: errorMessage,
+        }));
         setStatus("error");
-        throw new Error(errorData.message || "Authentication failed");
+        resetCaptcha();
+        setIsSubmitting(false);
+        e.target.disabled = false;
+        throw errorToThrow;
       }
+
       setStatus("success");
       setIsSubmitting(false);
+      e.target.disabled = true;
     } catch (err) {
-      setErrors((prev) => ({
-        ...prev,
-        submit: err.message || "Network error. Try again",
-      }));
+      if (isThisATest) {
+        const errorObj = JSON.parse(err.message);
+        console.warn("Test mode error details: ", errorObj);
+      }
+      console.warn("error: ", err.message);
     }
-    setIsSubmitting(false);
-    e.target.disabled = false;
   };
 
   return (
     <div className="main">
       <div className="mainMargin">
         <div className="centerHeader">
-          <h3>Sign up to CCS Taekwondo Academy</h3>
+          {/* <h3>Sign up to CCS Taekwondo Academy</h3> */}
+          <h3>{signUpHeader}</h3>
         </div>
         <div className="loginBlock">
           <form onSubmit={submitForm} className="contactForm">
@@ -243,9 +236,7 @@ function Signup() {
                   onChange={handleChange}
                 />
                 <p className="help passwordNote">
-                  {t2("Login.PasswordRules")}
-                  {/* Must be min. 8 characters long, uppercase and lower case
-                  letters,1 number and 1 symbol */}
+                  {t2("SignUp.PasswordRules")}
                 </p>
 
                 {errors.password && (
@@ -261,13 +252,16 @@ function Signup() {
             <div className="field">
               <div className="control h-captcha">
                 <HCaptcha
+                  ref={captchaRef}
+                  key={captchaKey}
                   sitekey={
                     isThisATest
                       ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
                       : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
                   }
                   onVerify={(token) => setCaptchaToken(token)}
-                  onExpire={() => setCaptchaToken(null)}
+                  onExpire={resetCaptcha}
+                  onError={resetCaptcha}
                   data-testid="hcaptcha-widget"
                 />
                 {errors.captcha && (

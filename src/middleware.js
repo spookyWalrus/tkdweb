@@ -8,30 +8,71 @@ const intlMiddleware = createMiddleware(routing);
 const supaMiddleware = async (req) => {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
-  const { error } = await supabase.auth.getUser();
-  if (error) {
-    return NextResponse.redirect(
-      new URL(
-        `/login?from=${encodeURIComponent(req.nextUrl.pathname)}`,
-        req.url
-      )
-    );
-  }
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
 
-  return res;
+  try {
+    if (error || !user) {
+      const locale = req.nextUrl.pathname.split("/")[1] || "en";
+      const loginUrl = new URL(`/${locale}/login`, req.url);
+      loginUrl.searchParams.set("message", "auth_required");
+      return NextResponse.redirect(loginUrl);
+    }
+    return res;
+  } catch (error) {
+    const locale = req.nextUrl.pathname.split("/")[1] || "en";
+    const loginUrl = new URL(`/${locale}/login`, req.url);
+    loginUrl.searchParams.set("message", "auth_required");
+    return NextResponse.redirect(loginUrl);
+  }
 };
 
 export default function middleWareHandler(req) {
   const pathname = req.nextUrl.pathname;
-  const publicPaths = ["/auth/confirm", "/auth/callback", "/login", "/signup"];
 
-  if (publicPaths.some((path) => pathname.startsWith(path))) {
-    if (pathname === ("/auth/confirm" || "/auth/callabck")) {
-      return NextResponse.next();
-    }
+  if (pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+
+  const skipAuthHeader = req.cookies.get("auth-check");
+
+  const publicPaths = [
+    "/auth-pages/auth-confirm",
+    "/auth-pages/auth-error",
+    "/login",
+    "/signup",
+    "/loginRecovery",
+  ];
+
+  const isPublicPath = publicPaths.some((path) => {
+    return (
+      pathname === path ||
+      pathname.startsWith(`/${routing.locales[0]}${path}`) ||
+      routing.locales.some((locale) => pathname.startsWith(`/${locale}${path}`))
+    );
+  });
+
+  if (
+    pathname.includes("/auth/confirm") ||
+    pathname.includes("/auth/callback")
+  ) {
+    return NextResponse.next();
+  }
+
+  if (isPublicPath) {
     return intlMiddleware(req);
   }
-  if (pathname.startsWith("/member")) {
+
+  const isMemberPath = pathname.includes("/member");
+
+  if (isMemberPath) {
+    if (skipAuthHeader?.value === "true") {
+      const response = NextResponse.next();
+      req.cookies.delete("auth-check");
+      return response;
+    }
     return supaMiddleware(req);
   }
   return intlMiddleware(req);

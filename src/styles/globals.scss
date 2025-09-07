@@ -1,5 +1,7 @@
 @use "./variables" as vars;
 @use "bulma";
+@use "bulma/sass/utilities/initial-variables" as bul;
+@import "./partials/homepage";
 @import "./partials/navbar";
 @import "./partials/footer";
 @import "./partials/langSwitcher";
@@ -32,7 +34,7 @@ body {
   scroll-snap-type: y mandatory;
   font-size: 16px;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bul.$tablet) {
     font-size: 19px;
   }
 }
@@ -57,22 +59,22 @@ h2 {
 }
 
 h3 {
-  font-size: $size-3;
+  font-size: bul.$size-3;
   font-weight: bold;
 }
 
 h4 {
-  font-size: $size-4;
+  font-size: bul.$size-4;
   font-weight: bold;
 }
 
 h5 {
-  font-size: $size-5;
+  font-size: bul.$size-5;
   font-weight: bold;
 }
 
 h6 {
-  font-size: $size-6;
+  font-size: bul.$size-6;
   font-weight: bold;
 }
 
@@ -87,21 +89,21 @@ h6 {
   padding-top: 6rem;
   background-color: vars.$background;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: bul.$tablet) {
     padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
   }
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bul.$desktop) {
     padding-top: vars.$topBarHeight + vars.$brandHeight;
   }
 }
 
 .mainMargin {
-  margin: 2% 8%;
+  margin: 6% 8%;
   width: 90%;
   max-width: 90%; // Prevents edge-case overflow
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bul.$desktop) {
     margin: 10% 18%;
     width: 80%;
   }
@@ -111,7 +113,7 @@ h6 {
   text-align: center;
   padding: 1rem;
 
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: bul.$desktop) {
     padding: 2rem;
   }
 }

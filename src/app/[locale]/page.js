@@ -1,21 +1,26 @@
+"use client";
 import { useTranslations } from "next-intl";
-import styles from "./styles/homepage.module.scss";
 import TwoCardLeft from "../../components/two-card-left";
+import { useIntersection } from "@/utilities/intersectionContext";
+import Link from "next/link";
 
 export default function Home() {
   const t = useTranslations("HeroBlock");
   const t2 = useTranslations("AboutBlock");
+  const { heroRef } = useIntersection();
 
   return (
     <main className="main">
-      <div className={styles.HeroBlock}>
-        <div className={styles.HeroTitles}>
-          <h1 className={styles.HeroHeader}>{t("HeroHeader")}</h1>
-          <div className={styles.HeroSubHeader}>
+      <div className="HeroBlock" id="hero" ref={heroRef}>
+        <div className="HeroTitles">
+          <h1 className="HeroHeader">{t("HeroHeader")}</h1>
+          <div className="HeroSubHeader">
             <h2>{t("HeroSubHeader")}</h2>
-            <a className={`button ${styles.joinus}`}>{t("JoinUs")}</a>
+            <Link href="/signup" className="button joinus">
+              {t("JoinUs")}
+            </Link>
           </div>
-          <div className={styles.filler}> </div>
+          <div className="filler"> </div>
         </div>
       </div>
 
