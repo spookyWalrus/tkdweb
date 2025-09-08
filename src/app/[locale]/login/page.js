@@ -98,7 +98,6 @@ function Login() {
       setStatus("noCaptcha");
       return;
     }
-    e.target.disabled = true;
     setIsSubmitting(true);
     setStatus("submitting");
 
@@ -229,7 +228,7 @@ function Login() {
                   data-action="login"
                   type="submit"
                   onClick={submitForm}
-                  disabled={false}
+                  disabled={isSubmitting}
                 >
                   {status === "submitting" ? (
                     <>

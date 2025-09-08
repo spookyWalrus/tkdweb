@@ -38,8 +38,7 @@ export default function LangSwitcher() {
 
   return (
     <div
-      className={`dropdown custom-dropdown  ${isActive ? "is-active" : ""}`}
-      // id="custom-dropdown"
+      className={`dropdown custom-dropdown  ${isActive ? "is-active" : "false"}`}
     >
       <div className="dropdown-trigger">
         <a className="menuLang" aria-haspopup="true" onClick={toggleDropdown}>
