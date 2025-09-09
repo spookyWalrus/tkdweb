@@ -9,7 +9,8 @@ export async function POST(request) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
-  const name = formData.get("name");
+  const firstName = formData.get("name");
+  const lastName = formData.get("lastname");
   const token = formData.get("captcha");
   const isTest = formData.get("isTest");
   const cookieStore = cookies();
@@ -29,7 +30,7 @@ export async function POST(request) {
         options: {
           captchaToken: token,
           emailRedirectTo: `${requestUrl.origin}/auth/callback`,
-          data: { name: name },
+          data: { first_name: firstName, last_name: lastName },
         },
       });
       if (error) {

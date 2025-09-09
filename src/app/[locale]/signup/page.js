@@ -12,6 +12,7 @@ function Signup() {
     email: "",
     password: "",
     name: "",
+    lastname: "",
   });
   const [errors, setErrors] = useState({ dude: "dude" });
   const [captchaToken, setCaptchaToken] = useState(null);
@@ -25,15 +26,18 @@ function Signup() {
     status === "success" ? t2("Login.Success") : t2("SignUp.SignUp");
 
   let lang = useLocale();
-  let signingUp, signUpHeader;
+  let signingUp, name, signUpHeader, noCaptchaSet;
   if (lang === "en") {
-    signingUp = t2("SignUp.SigningUp");
-    signUpHeader = t2("SignUp.SignUpHeader");
+    signingUp = "Signing Up";
+    name = "First Name";
+    signUpHeader = "Sign up to CCS Taekwondo Academy";
+    noCaptchaSet = "Please complete Captcha verification";
   } else if (lang === "fr") {
     signingUp = "Inscription en cours";
-    signUpHeader = "Incrivez-vous à la Académie de Taekwondo CCS";
+    name = "Pré-nom";
+    signUpHeader = "Inscrivez-vous à la Académie de Taekwondo CCS";
+    noCaptchaSet = "Veuillez compléter la vérification Captcha";
   }
-  let noCaptchaSet = "Please complete Captcha verification";
 
   let isThisATest =
     process.env.NODE_ENV === "test" ||
@@ -58,7 +62,9 @@ function Signup() {
           </p>
         );
       case "noCaptcha":
-        return <p className="help is-danger hcapError">{noCaptchaSet}</p>;
+        return (
+          <p className="help is-danger hcapError">{t2("Login.CaptchaError")}</p>
+        );
       default:
         return null;
     }
@@ -100,10 +106,12 @@ function Signup() {
     e.target.disabled = true;
     const isFormValid = await validateForm(actionType, e);
     if (!isFormValid) {
+      setIsSubmitting(false);
       return;
     }
     if (!captchaToken) {
       setStatus("noCaptcha");
+      setIsSubmitting(false);
       return;
     }
 
@@ -111,6 +119,7 @@ function Signup() {
     formData.append("email", inputData.email);
     formData.append("password", inputData.password);
     formData.append("name", inputData.name);
+    formData.append("lastname", inputData.lastname);
     formData.append("captcha", captchaToken);
     formData.append("isTest", isThisATest);
 
@@ -182,7 +191,7 @@ function Signup() {
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="Kick Yourface"
+                  placeholder="Dolyo"
                   value={inputData.name}
                   onChange={handleChange}
                 />
@@ -192,6 +201,29 @@ function Signup() {
                     data-testid="name-error"
                   >
                     {errors.name}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="lastname" className="formLabel">
+                {t("LastName")}
+              </label>
+              <div className="control">
+                <input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="Chagi"
+                  value={inputData.lastname}
+                  onChange={handleChange}
+                />
+                {errors.lastname && (
+                  <p
+                    className="help is-danger nameError"
+                    data-testid="name-error"
+                  >
+                    {errors.lastname}
                   </p>
                 )}
               </div>
@@ -276,7 +308,7 @@ function Signup() {
                 data-action="signup"
                 type="submit"
                 onClick={submitForm}
-                disabled={false}
+                disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <>
