@@ -23,7 +23,7 @@ export async function POST(request) {
         console.warn("test mode");
         const checkCaptcha = await confirmCaptcha(token);
       }
-
+      console.error("captcha is: ", token);
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
