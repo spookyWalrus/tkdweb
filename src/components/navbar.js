@@ -1,9 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { getPathname, usePathname } from "../i18n/navigation";
 import LangSwitcher from "./LangSwitcher";
 import { useIntersection } from "@/utilities/intersectionContext";
+import { useAuth } from "@/utilities/authContexter";
+import { UserDropdown } from "@/components/userDropdown";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -11,28 +13,69 @@ import Image from "next/image";
 export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
   const { showButton } = useIntersection();
+  // const [user, setUser] = useState(null);
+  const { user, loading } = useAuth();
 
   const t = useTranslations("Navbar");
-  const t2 = useTranslations("HeroBlock");
+  const t2 = useTranslations("LoginRegister");
 
   const toggleMenu = () => {
     setNavOpen(!navOpen);
   };
-
   let pathname = usePathname();
+
+  // const logStatus = loading ? "Loading..." : user ? <UserDropdown /> : null;
 
   useEffect(() => {
     setNavOpen(false);
   }, [pathname]);
 
+  const authStatus = useMemo(() => {
+    if (loading) {
+      return "Loading...";
+    }
+
+    if (user) {
+      return <UserDropdown />;
+    }
+
+    if (pathname !== "/login") {
+      return (
+        <Link href="/login" className="topBarLinks">
+          Log In
+        </Link>
+      );
+    }
+
+    return null;
+  }, [loading, user, pathname]);
+
   return (
     <div className="header">
       <div className="topBar">
         <LangSwitcher />
-        {/* <Link href="/" className="topBarLinks">
-          {t("Login")}
-        </Link> */}
+
+        {authStatus}
+        {/* {loading ? (
+          "Loading..."
+        ) : user ? (
+          <UserDropdown />
+        ) : pathname !== "/login" ? (
+          <Link href="/login" className="topBarLinks">
+            Log In
+          </Link>
+        ) : null} */}
+
+        {/* {pathname !== "/login" && ( */}
+        {/* <Link href="/login" className="topBarLinks"> */}
+        {/* {t("Login")} */}
+        {/* {logStatus} */}
+        {/* Log In */}
+        {/* </Link> */}
+        {/* )} */}
+        {/* {pathname == "/login" && logStatus} */}
       </div>
+
       <div className="navbar-section">
         <div className="brandTitleBar">
           <div className="titleBox">
@@ -45,7 +88,6 @@ export default function Navbar() {
             <h3 className="brandTitleBarRightMobile">Christien Sourdif</h3>
           </div>
         </div>
-
         <nav
           className="navbar is-fixed-top"
           role="navigation"
@@ -145,13 +187,17 @@ export default function Navbar() {
         </nav>
         {showButton && (
           <div className="signup-button-container">
-            {pathname != "/signup" ? (
-              <Link href="/signup" className="button signup-button">
-                {t2("JoinUs")}
-              </Link>
-            ) : (
-              <div>no signups</div>
-            )}
+            {
+              pathname != "/signup" && (
+                <Link href="/signup" className="button signup-button">
+                  {/* {t2("JoinUs")} */}
+                  Join USS
+                </Link>
+              )
+              // : (
+              //   <div>no signups</div>
+              // )
+            }
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { loadTranslations } from "../../i18n/request";
 import { locales } from "../../i18n/routing";
 import { IntersectionProvider } from "@/utilities/intersectionContext";
+import { AuthProvider } from "@/utilities/authContexter";
 
 import { Inter } from "next/font/google";
 import "@/styles/globals.scss";
@@ -42,9 +43,11 @@ export default async function RootLayout({ children, params }) {
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale || "fr"} messages={messages}>
           <IntersectionProvider>
-            <Navbar />
-            {children}
-            <Footer />
+            <AuthProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </AuthProvider>
           </IntersectionProvider>
         </NextIntlClientProvider>
       </body>

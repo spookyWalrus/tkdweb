@@ -38,17 +38,16 @@ export default function LangSwitcher() {
 
   return (
     <div
-      className={`dropdown is-right ${isActive ? "is-active" : ""}`}
-      id="custom-dropdown"
+      className={`dropdown custom-dropdown  ${isActive ? "is-active" : "false"}`}
     >
       <div className="dropdown-trigger">
         <a className="menuLang" aria-haspopup="true" onClick={toggleDropdown}>
           <span>{menuLang}</span>
         </a>
       </div>
-      <div className="dropdown-menu " id="custom-dropdown-menu" role="menu">
+      <div className="dropdown-menu lang-dropdown-menu" role="menu">
         <a
-          className="customDropDownMenuItem dropdown-item"
+          className="dropdown-item langCustomDropDownMenuItem"
           onClick={(e) => {
             e.preventDefault();
             langSetter("en");
@@ -68,7 +67,7 @@ export default function LangSwitcher() {
           </span>
         </a>
         <a
-          className="customDropDownMenuItem dropdown-item"
+          className="dropdown-item langCustomDropDownMenuItem"
           onClick={(e) => {
             e.preventDefault();
             langSetter("fr");

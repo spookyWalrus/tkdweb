@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { PulseLoader } from "react-spinners";
+import { useAuth } from "@/utilities/authContexter";
 
 // import { verifyCaptcha } from "@/utilities/verifyCaptcha";
 
@@ -30,6 +31,7 @@ function Login() {
   const captchaRef = useRef();
   const resetAttemptRef = useRef(false);
   const message = params.get("message");
+  const { refreshUser } = useAuth();
 
   // let loginSend = t("loginSend");
   // let loginSending = t("loginSending");
@@ -98,7 +100,6 @@ function Login() {
     }
     setIsSubmitting(true);
     setStatus("submitting");
-    e.target.disabled = true;
 
     const formData = new FormData();
     formData.append("email", inputData.email);
@@ -125,8 +126,8 @@ function Login() {
       }
 
       if (data.success) {
-        localStorage.setItem("hadSession", "true");
-        e.target.disabled = false;
+        e.target.disabled = true;
+        await refreshUser();
         setTimeout(() => {
           router.push("/member/account");
         }, 500);
@@ -227,7 +228,7 @@ function Login() {
                   data-action="login"
                   type="submit"
                   onClick={submitForm}
-                  disabled={false}
+                  disabled={isSubmitting}
                 >
                   {status === "submitting" ? (
                     <>
