@@ -40,7 +40,7 @@ function Signup() {
   }
 
   let isThisATest =
-    process.env.NODE_ENV === "test" ||
+    process.env.NODE_ENV !== "production" ||
     process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   const showStatus = () => {
