@@ -19,11 +19,11 @@ export async function POST(request) {
 
   if (action == "signup") {
     try {
-      if (isTest) {
-        console.warn("test mode");
-        const checkCaptcha = await confirmCaptcha(token);
-      }
-      console.error("captcha is: ", token);
+      // if (isTest) {
+      //   console.warn("test mode");
+      //   const checkCaptcha = await confirmCaptcha(token);
+      // }
+      console.warn("captcha is: ", token);
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
