@@ -10,7 +10,7 @@ export default function Home() {
   const t2 = useTranslations("AboutBlock");
   const { heroRef } = useIntersection();
   const heroStyle = {
-    "--hero-bg": "url(/images/tkd-HeroBack5.png)",
+    "--hero-bg": "url(/images/tkd-Heroback5.png)",
   };
 
   return (
