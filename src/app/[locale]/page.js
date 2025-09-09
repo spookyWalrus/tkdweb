@@ -3,15 +3,19 @@ import { useTranslations } from "next-intl";
 import TwoCardLeft from "../../components/two-card-left";
 import { useIntersection } from "@/utilities/intersectionContext";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   const t = useTranslations("HeroBlock");
   const t2 = useTranslations("AboutBlock");
   const { heroRef } = useIntersection();
+  const heroStyle = {
+    "--hero-bg": "url(/images/tkd-HeroBack5.png)",
+  };
 
   return (
     <main className="main">
-      <div className="HeroBlock" id="hero" ref={heroRef}>
+      <div className="HeroBlock" id="hero" ref={heroRef} style={heroStyle}>
         <div className="HeroTitles">
           <h1 className="HeroHeader">{t("HeroHeader")}</h1>
           <div className="HeroSubHeader">
