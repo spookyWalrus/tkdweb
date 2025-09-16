@@ -43,9 +43,9 @@ function Login() {
   let loginFailed = "Log in Fail";
   let noCaptchaSet = "Please complete Captcha verification";
 
-  let isThisATest =
-    process.env.NODE_ENV === "test" ||
-    process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
+  // let isThisATest =
+  //   process.env.NODE_ENV === "test" ||
+  //   process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   useEffect(() => {
     const theSession = localStorage.getItem("hadSession");
@@ -206,11 +206,12 @@ function Login() {
               <HCaptcha
                 ref={captchaRef}
                 key={captchaKey}
-                sitekey={
-                  isThisATest
-                    ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                    : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                }
+                sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
+                // sitekey={
+                //   isThisATest
+                //     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
+                //     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
+                // }
                 onVerify={(token) => setCaptchaToken(token)}
                 onExpire={resetCaptcha}
                 onError={resetCaptcha}
