@@ -36,7 +36,7 @@ export default function Navbar() {
     }
 
     if (user) {
-      return <UserDropdown />;
+      return <UserDropdown data={user} />;
     }
 
     if (pathname !== "/login") {

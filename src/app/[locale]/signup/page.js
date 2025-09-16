@@ -286,6 +286,7 @@ function Signup() {
                 <HCaptcha
                   ref={captchaRef}
                   key={captchaKey}
+                  // sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
                   sitekey={
                     isThisATest
                       ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
