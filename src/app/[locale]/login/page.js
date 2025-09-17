@@ -192,7 +192,7 @@ function Login() {
                   value={inputData.password}
                   onChange={handleChange}
                 />
-                <Link href="/loginRecovery" className="passwordNoteReset">
+                <Link href="/pwRecovery" className="passwordNoteReset">
                   {t2("Login.ForgotPW")}
                 </Link>
                 {errors.password && (

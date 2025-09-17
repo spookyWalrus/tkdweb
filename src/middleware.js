@@ -16,13 +16,13 @@ const supaMiddleware = async (req) => {
 
   try {
     if (error || !session || !session.user) {
-      const locale = req.nextUrl.pathname.split("/")[1] || "en";
+      const locale = req.nextUrl.pathname.split("/")[1] || "fr";
       const loginUrl = new URL(`/${locale}/login`, req.url);
       loginUrl.searchParams.set("message", "auth_required");
       return NextResponse.redirect(loginUrl);
     }
     const pathname = req.nextUrl.pathname;
-    const locale = pathname.split("/")[1] || "en";
+    const locale = pathname.split("/")[1] || "fr";
 
     if (pathname === `/${locale}/member` || pathname === `/member`) {
       const accountUrl = new URL(`/${locale}/member/account`, req.url);
@@ -31,7 +31,7 @@ const supaMiddleware = async (req) => {
     return res;
   } catch (error) {
     console.error("Auth middleware error:", error);
-    const locale = req.nextUrl.pathname.split("/")[1] || "en";
+    const locale = req.nextUrl.pathname.split("/")[1] || "fr";
     const loginUrl = new URL(`/${locale}/login`, req.url);
     loginUrl.searchParams.set("message", "auth_required");
     return NextResponse.redirect(loginUrl);
@@ -52,7 +52,7 @@ export default function middleWareHandler(req) {
 
   if (isTestMode) {
     if (pathname.includes("/member")) {
-      const locale = pathname.split("/")[1] || "en";
+      const locale = pathname.split("/")[1] || "fr";
       // Still handle account redirection in test mode
       if (pathname === `/${locale}/member` || pathname === `/member`) {
         const accountUrl = new URL(`/${locale}/member/account`, req.url);
@@ -98,14 +98,26 @@ export default function middleWareHandler(req) {
     if (skipAuthHeader?.value === "true") {
       const response = NextResponse.next();
       req.cookies.delete("auth-check");
-      const locale = pathname.split("/")[1] || "en";
+      const locale = pathname.split("/")[1] || "fr";
       if (
         pathname === `/${locale}/member` ||
         (pathname === `/member` && !routing.locales.includes(locale))
       ) {
-        const properLocale = routing.locales.includes(locale) ? locale : "en";
+        const properLocale = routing.locales.includes(locale) ? locale : "fr";
         const accountUrl = new URL(`/${properLocale}/member/account`, req.url);
         return NextResponse.redirect(accountUrl);
+      }
+      if (
+        pathname === `/${locale}/auth-confirm/auth-pwreset` ||
+        (pathname === `/auth-confirm/auth-pwreset` &&
+          !routing.locales.includes(locale))
+      ) {
+        const properLocale = routing.locales.includes(locale) ? locale : "fr";
+        const resetUrl = new URL(
+          `/${properLocale}/auth-confirm/auth-pwreset`,
+          req.url
+        );
+        return NextResponse.redirect(resetUrl);
       }
       return response;
     }
