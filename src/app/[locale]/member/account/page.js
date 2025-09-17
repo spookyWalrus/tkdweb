@@ -1,31 +1,25 @@
 "use client";
 // import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 // import { useRouter } from "next/navigation";
+import { useAuth } from "@/utilities/authContexter";
 
 function Account() {
-  // const supabase = createClientComponentClient();
-  // const router = useRouter();
+  const { user, loading } = useAuth();
+  const firstname = user.user_metadata.first_name;
+  const lastname = user.user_metadata.last_name;
 
-  // const handleSignOut = async () => {
-  //   const { error } = await supabase.auth.signOut();
-  //   if (!error) {
-  //     localStorage.setItem("manualLogout", "true");
-  //     router.push("/login");
-  //   }
-  // };
+  if (loading) {
+    return <div>... Loading</div>;
+  }
 
   return (
     <div className="main">
       <div className="mainMargin">
         <div className="centerHeader">
           {/* <h3>{t2("Login.Header")}</h3> */}
-          <h3>Member Account</h3>
+          <h3>Hello, {firstname}</h3>
         </div>
-        <div>
-          {/* <button className="button" onClick={handleSignOut}>
-            Sign Out
-          </button> */}
-        </div>
+        <div></div>
       </div>
     </div>
   );
