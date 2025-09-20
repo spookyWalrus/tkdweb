@@ -11,76 +11,49 @@ export async function GET(request) {
   const supabase = createRouteHandlerClient({ cookies });
 
   try {
+    // need to revise test mode. Don't need to force cookie setting?
     if (token_hash?.startsWith("mock_") && type === "mock_email") {
-      if (process.env.NODE_ENV === "production") {
-        return NextResponse.redirect(
-          new URL("/auth-pages/auth-error", request.url)
-        );
-      }
-      const response = NextResponse.redirect(
+      return NextResponse.redirect(
         new URL("/auth-pages/auth-confirm", request.url)
       );
-      response.cookies.set("auth-check", "true", {
-        maxAge: 30,
-        path: "/",
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax" || "strict",
-      });
-      return response;
     }
-
+    // for production
     if (token_hash && type) {
-      // console.log("token and type are: ", token_hash, type);
-      let otpType;
+      let redirectUrl;
+      const acceptLanguage = request.headers.get("accept-language");
+      const locale = acceptLanguage?.includes("fr") ? "fr" : "en";
+
       switch (type) {
         case "recovery":
-          otpType = "recovery";
+          redirectUrl = `${requestUrl.origin}/${locale}/auth-pages/auth-pwreset?token_hash=${token_hash}&type=${type}`;
           break;
         case "email_change":
-          otpType = "email_change";
+          redirectUrl = `${requestUrl.origin}/${locale}/emailRecovery`;
           break;
-        default:
-          otpType = "email";
+        default: // default is sign up confirm
+          redirectUrl = `${requestUrl.origin}/${locale}/auth-pages/auth-confirm`;
       }
-      const { data, error } = await supabase.auth.verifyOtp({
-        type: otpType,
-        token_hash,
-      });
-      if (!error) {
-        let redirectUrl;
-        const acceptLanguage = request.headers.get("accept-language");
-        const locale = acceptLanguage?.includes("fr") ? "fr" : "en";
-        if (next) {
-          redirectUrl = `${requestUrl.origin}${next}`;
-        } else {
-          switch (otpType) {
-            case "recovery":
-              redirectUrl = `${requestUrl.origin}/${locale}/auth-pages/auth-pwreset`;
-              break;
-            case "email_change":
-              redirectUrl = `${requestUrl.origin}/${locale}/emailRecovery`;
-              break;
-            default: // signup
-              redirectUrl = `${requestUrl.origin}/${locale}/auth-pages/auth-confirm`;
-          }
-        }
-        // console.log("redirect URL is: ", redirectUrl);
+
+      if (type === "recovery") {
+        // token verification on client-side
         return NextResponse.redirect(redirectUrl);
-      } else if (error) {
-        // console.log("error from otp: ", error);
+      } else {
+        const { data, error } = await supabase.auth.verifyOtp({
+          type: type,
+          token_hash,
+        });
+        if (!error) {
+          return NextResponse.redirect(
+            new URL("/auth-pages/auth-confirm/", request.url)
+          );
+        } else {
+          console.warn("verification error: ", error);
+          throw error;
+        }
       }
     } else {
-      // console.log("verification error", error);
-      return NextResponse.redirect(
-        new URL("/auth-pages/auth-error/", request.url)
-      );
+      throw Error;
     }
-    // console.log("Missing token_hash or type");
-    // console.log("OTP verification error:", error);
-    return NextResponse.redirect(
-      new URL("/auth-pages/auth-error", requestUrl.origin)
-    );
   } catch (error) {
     return NextResponse.redirect(
       new URL("/auth-pages/auth-error", request.url)

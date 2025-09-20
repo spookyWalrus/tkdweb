@@ -50,6 +50,9 @@ function Login() {
   useEffect(() => {
     const theSession = localStorage.getItem("hadSession");
     const manualLogout = localStorage.getItem("manualLogout");
+
+    const urlParams = new URLSearchParams(window.location.search);
+
     if (message === "auth_required") {
       if (theSession === "true" && manualLogout !== "true") {
         setRelogMessage("Session has expired, please log in again");

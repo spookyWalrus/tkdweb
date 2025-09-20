@@ -67,6 +67,7 @@ export default function middleWareHandler(req) {
   const publicPaths = [
     "/auth-pages/auth-confirm",
     "/auth-pages/auth-error",
+    "/auth-pages/auth-pwreset",
     "/login",
     "/signup",
     "/loginRecovery",
