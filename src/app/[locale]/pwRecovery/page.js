@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { PulseLoader } from "react-spinners";
 
@@ -15,7 +16,10 @@ function PWRecovery() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [captchaToken, setCaptchaToken] = useState(null);
   const [captchaKey, setCaptchaKey] = useState(Date.now());
+  const [warning, setWarning] = useState(null);
   const captchaRef = useRef();
+  const params = useSearchParams();
+  const message = params.get("message");
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
@@ -55,6 +59,12 @@ function PWRecovery() {
     }
   };
 
+  useEffect(() => {
+    if (message === "token_expired") {
+      setWarning("Token expired. Request another verification link");
+    }
+  }, [message]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputData((prev) => ({
@@ -72,8 +82,6 @@ function PWRecovery() {
     e.preventDefault();
     setErrors({});
     setStatus("submitting");
-
-    // e.target.disabled = true;
     const validationErrors = validateLogin(inputData, t, action);
 
     if (Object.keys(validationErrors).length > 0) {
@@ -143,7 +151,7 @@ function PWRecovery() {
       }
 
       setStatus("success");
-      setIsSubmitting(false);
+      setIsSubmitting(true);
     } catch (error) {
       if (isThisATest) {
         const errorObj = JSON.parse(error.message);
@@ -159,6 +167,14 @@ function PWRecovery() {
         <div className="centerHeader">
           {/* <h3>{t2("Login.Header")}</h3> */}
           <h3>Password recovery</h3>
+          {warning && (
+            <div
+              className="has-text-warning subtitle is-5"
+              style={{ margin: "0 auto", width: "50%" }}
+            >
+              {warning}
+            </div>
+          )}
         </div>
         <div className="loginBlock">
           <form onSubmit={submitForm} className="contactForm">

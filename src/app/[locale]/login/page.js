@@ -50,6 +50,9 @@ function Login() {
   useEffect(() => {
     const theSession = localStorage.getItem("hadSession");
     const manualLogout = localStorage.getItem("manualLogout");
+
+    const urlParams = new URLSearchParams(window.location.search);
+
     if (message === "auth_required") {
       if (theSession === "true" && manualLogout !== "true") {
         setRelogMessage("Session has expired, please log in again");
@@ -192,7 +195,7 @@ function Login() {
                   value={inputData.password}
                   onChange={handleChange}
                 />
-                <Link href="/loginRecovery" className="passwordNoteReset">
+                <Link href="/pwRecovery" className="passwordNoteReset">
                   {t2("Login.ForgotPW")}
                 </Link>
                 {errors.password && (
