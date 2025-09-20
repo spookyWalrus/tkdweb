@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
+// import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useRouter } from "@/i18n/navigation";
@@ -17,10 +17,10 @@ export default function PWReset() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState(null);
+  // const [captchaToken, setCaptchaToken] = useState(null);
   const [isUser, setIsUser] = useState(null);
   const [theUser, setTheUser] = useState(null);
-  const [captchaKey, setCaptchaKey] = useState(Date.now());
+  // const [captchaKey, setCaptchaKey] = useState(Date.now());
   const captchaRef = useRef();
   const supabase = createClientComponentClient();
   const router = useRouter();
@@ -66,6 +66,12 @@ export default function PWReset() {
           >
             {/* {t2("SignUp.SignUpFail")}  */}
             Verification link expired. Redirecting to recovery page...
+          </div>
+        );
+      case "passwordsame":
+        return (
+          <div className="has-text-danger is-5 ">
+            Reset failed. New password must not be same as old password.
           </div>
         );
 
@@ -137,10 +143,10 @@ export default function PWReset() {
     }));
   };
 
-  const resetCaptcha = useCallback(() => {
-    setCaptchaToken(null);
-    setCaptchaKey(Date.now());
-  }, []);
+  // const resetCaptcha = useCallback(() => {
+  //   setCaptchaToken(null);
+  //   setCaptchaKey(Date.now());
+  // }, []);
 
   const validateForm = async (e, action) => {
     e.preventDefault();
@@ -172,18 +178,23 @@ export default function PWReset() {
       setStatus("error");
       return;
     }
-    if (!captchaToken) {
-      setStatus("noCaptcha");
-      setIsSubmitting(false);
-      return;
-    }
+    // if (!captchaToken) {
+    //   setStatus("noCaptcha");
+    //   setIsSubmitting(false);
+    //   return;
+    // }
 
     try {
       const { error } = await supabase.auth.updateUser({
         password: inputData.passwordrepeat,
       });
       if (error) {
-        throw new Error(error);
+        if (error.code === "same_password") {
+          setIsSubmitting(false);
+          setStatus("passwordsame");
+          return;
+        }
+        throw error;
       }
       setStatus("success");
       // setIsSubmitting(false);
@@ -273,7 +284,7 @@ export default function PWReset() {
                 </div>
               </div>
 
-              <div className="field">
+              {/* <div className="field">
                 <div className="control h-captcha">
                   <HCaptcha
                     ref={captchaRef}
@@ -292,7 +303,7 @@ export default function PWReset() {
                     <p className="help is-danger hcapError">{errors.captcha}</p>
                   )}
                 </div>
-              </div>
+              </div> */}
 
               <div className="field">
                 <div className="control controlCenter">

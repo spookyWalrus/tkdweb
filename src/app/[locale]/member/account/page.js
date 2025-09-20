@@ -35,12 +35,13 @@ function Account() {
           {/* <h3>{t2("Login.Header")}</h3> */}
           <h3>An-nyeong ha-se-yo, {firstname}</h3>
         </div>
+
         <div>
           <button className="button" onClick={goReset}>
             Change your password
           </button>
           {notify && (
-            <div className="help is-success">Password reset successfully</div>
+            <div className="help is-success">Password reset successful</div>
           )}
         </div>
       </div>

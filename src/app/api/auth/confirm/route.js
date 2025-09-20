@@ -51,8 +51,6 @@ export async function GET(request) {
           throw error;
         }
       }
-    } else {
-      throw Error;
     }
   } catch (error) {
     return NextResponse.redirect(
