@@ -121,7 +121,7 @@ function Signup() {
     formData.append("name", inputData.name);
     formData.append("lastname", inputData.lastname);
     formData.append("captcha", captchaToken);
-    formData.append("isTest", isThisATest);
+    // formData.append("isTest", isThisATest);
 
     try {
       const res = await fetch("/api/login?action=signup", {
@@ -158,7 +158,7 @@ function Signup() {
         resetCaptcha();
         setIsSubmitting(false);
         e.target.disabled = false;
-        throw errorToThrow;
+        // throw errorToThrow;
       }
 
       setStatus("success");
@@ -286,11 +286,12 @@ function Signup() {
                 <HCaptcha
                   ref={captchaRef}
                   key={captchaKey}
-                  sitekey={
-                    isThisATest
-                      ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                      : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                  }
+                  sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
+                  // sitekey={
+                  //   isThisATest
+                  //     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
+                  //     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
+                  // }
                   onVerify={(token) => setCaptchaToken(token)}
                   onExpire={resetCaptcha}
                   onError={resetCaptcha}

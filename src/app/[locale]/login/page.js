@@ -43,13 +43,16 @@ function Login() {
   let loginFailed = "Log in Fail";
   let noCaptchaSet = "Please complete Captcha verification";
 
-  let isThisATest =
-    process.env.NODE_ENV === "test" ||
-    process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
+  // let isThisATest =
+  //   process.env.NODE_ENV === "test" ||
+  //   process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   useEffect(() => {
     const theSession = localStorage.getItem("hadSession");
     const manualLogout = localStorage.getItem("manualLogout");
+
+    const urlParams = new URLSearchParams(window.location.search);
+
     if (message === "auth_required") {
       if (theSession === "true" && manualLogout !== "true") {
         setRelogMessage("Session has expired, please log in again");
@@ -192,7 +195,7 @@ function Login() {
                   value={inputData.password}
                   onChange={handleChange}
                 />
-                <Link href="/loginRecovery" className="passwordNoteReset">
+                <Link href="/pwRecovery" className="passwordNoteReset">
                   {t2("Login.ForgotPW")}
                 </Link>
                 {errors.password && (
@@ -206,11 +209,12 @@ function Login() {
               <HCaptcha
                 ref={captchaRef}
                 key={captchaKey}
-                sitekey={
-                  isThisATest
-                    ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                    : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                }
+                sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
+                // sitekey={
+                //   isThisATest
+                //     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
+                //     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
+                // }
                 onVerify={(token) => setCaptchaToken(token)}
                 onExpire={resetCaptcha}
                 onError={resetCaptcha}
