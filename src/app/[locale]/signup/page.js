@@ -39,9 +39,9 @@ function Signup() {
     noCaptchaSet = "Veuillez compléter la vérification Captcha";
   }
 
-  // let isThisATest =
-  //   process.env.NODE_ENV !== "production" ||
-  //   process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
+  let isThisATest = false;
+  // process.env.NODE_ENV !== "production" ||
+  // process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   const showStatus = () => {
     switch (status) {
@@ -56,9 +56,9 @@ function Signup() {
       case "error":
         return (
           <p className="help is-danger">
-            {t2("Login.AuthenticationFail")}
-            <br />
             {errors.submit}
+            <br />
+            {t2("Login.AuthenticationFail")}
           </p>
         );
       case "noCaptcha":
@@ -133,23 +133,23 @@ function Signup() {
 
         let errorMessage;
         let errorToThrow;
-        // if (isThisATest) {
-        //   errorMessage = JSON.stringify(
-        //     {
-        //       message: errorData.error?.message,
-        //       code: errorData.error?.code,
-        //       status: errorData.error?.status,
-        //       details: errorData.error?.details,
-        //     },
-        //     null,
-        //     2
-        //   );
-        //   errorToThrow = new Error(errorMessage);
-        // } else {
-        //   errorMessage =
-        //     errorData.error.message || "Authentication failed. Try again";
-        //   errorToThrow = new Error(errorMessage);
-        // }
+        if (isThisATest) {
+          errorMessage = JSON.stringify(
+            {
+              message: errorData.error?.message,
+              code: errorData.error?.code,
+              status: errorData.error?.status,
+              details: errorData.error?.details,
+            },
+            null,
+            2
+          );
+          errorToThrow = new Error(errorMessage);
+        } else {
+          errorMessage =
+            errorData.error?.message ?? "Authentication failed. Try again";
+          errorToThrow = new Error(errorMessage);
+        }
         setErrors((prev) => ({
           ...prev,
           submit: errorMessage,
@@ -165,11 +165,11 @@ function Signup() {
       setIsSubmitting(false);
       e.target.disabled = true;
     } catch (err) {
-      // if (isThisATest) {
-      //   const errorObj = JSON.parse(err.message);
-      //   console.warn("Test mode error details: ", errorObj);
-      // }
-      console.warn("error: ", err.message);
+      if (isThisATest) {
+        const errorObj = JSON.parse(err.message);
+        console.warn("Test mode error details: ", errorObj);
+      }
+      // console.warn("error: ", err.message);
     }
   };
 
