@@ -25,10 +25,18 @@ export function UserDropdown() {
   };
 
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (!error) {
+    try {
       localStorage.setItem("manualLogout", "true");
-      router.push("/login");
+
+      const { error } = await supabase.auth.signOut();
+      if (!error) {
+        localStorage.setItem("manualLogout", "true");
+        return;
+      }
+      router.push("/member");
+    } catch (err) {
+      localStorage.removeItem("manualLogout");
+      router.replace("/login");
     }
   };
 
