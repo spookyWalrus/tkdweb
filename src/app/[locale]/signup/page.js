@@ -39,9 +39,9 @@ function Signup() {
     noCaptchaSet = "Veuillez compléter la vérification Captcha";
   }
 
-  let isThisATest =
-    process.env.NODE_ENV !== "production" ||
-    process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
+  let isThisATest = false;
+  // process.env.NODE_ENV !== "production" ||
+  // process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   const showStatus = () => {
     switch (status) {
@@ -56,9 +56,9 @@ function Signup() {
       case "error":
         return (
           <p className="help is-danger">
-            {t2("Login.AuthenticationFail")}
-            <br />
             {errors.submit}
+            <br />
+            {t2("Login.AuthenticationFail")}
           </p>
         );
       case "noCaptcha":
@@ -121,7 +121,7 @@ function Signup() {
     formData.append("name", inputData.name);
     formData.append("lastname", inputData.lastname);
     formData.append("captcha", captchaToken);
-    formData.append("isTest", isThisATest);
+    // formData.append("isTest", isThisATest);
 
     try {
       const res = await fetch("/api/login?action=signup", {
@@ -147,7 +147,7 @@ function Signup() {
           errorToThrow = new Error(errorMessage);
         } else {
           errorMessage =
-            errorData.error.message || "Authentication failed. Try again";
+            errorData.error?.message ?? "Authentication failed. Try again";
           errorToThrow = new Error(errorMessage);
         }
         setErrors((prev) => ({
@@ -158,7 +158,7 @@ function Signup() {
         resetCaptcha();
         setIsSubmitting(false);
         e.target.disabled = false;
-        throw errorToThrow;
+        // throw errorToThrow;
       }
 
       setStatus("success");
@@ -169,7 +169,7 @@ function Signup() {
         const errorObj = JSON.parse(err.message);
         console.warn("Test mode error details: ", errorObj);
       }
-      console.warn("error: ", err.message);
+      // console.warn("error: ", err.message);
     }
   };
 
@@ -286,11 +286,12 @@ function Signup() {
                 <HCaptcha
                   ref={captchaRef}
                   key={captchaKey}
-                  sitekey={
-                    isThisATest
-                      ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                      : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                  }
+                  sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
+                  // sitekey={
+                  //   isThisATest
+                  //     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
+                  //     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
+                  // }
                   onVerify={(token) => setCaptchaToken(token)}
                   onExpire={resetCaptcha}
                   onError={resetCaptcha}

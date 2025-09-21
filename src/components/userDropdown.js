@@ -4,16 +4,20 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useRef } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { getPathname, usePathname } from "../i18n/navigation";
+import { usePathname } from "../i18n/navigation";
+import PropTypes from "prop-types";
 import { Link } from "../i18n/navigation";
 
-export function UserDropdown() {
+export function UserDropdown({ data }) {
   const [isActive, setIsActive] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const supabase = createClientComponentClient();
   const router = useRouter();
   const menuRef = useRef(null);
   const pathname = usePathname();
+  const first = data?.user_metadata?.first_name;
+  const last = data?.user_metadata?.last_name;
+  const userName = `${first} ${last}`.trim();
 
   useEffect(() => {
     setIsMounted(true);
@@ -73,6 +77,7 @@ export function UserDropdown() {
           role="button"
           tabIndex={0}
         >
+          {userName}
           <span className="icon">
             <FontAwesomeIcon icon={faCircleUser} />
           </span>
@@ -102,3 +107,15 @@ export function UserDropdown() {
     </div>
   );
 }
+
+UserDropdown.propTypes = {
+  data: PropTypes.shape({
+    user_metadata: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+    }),
+  }),
+};
+UserDropdown.defaultProps = {
+  data: null,
+};

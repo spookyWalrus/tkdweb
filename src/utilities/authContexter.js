@@ -38,12 +38,6 @@ export function AuthProvider({ children }) {
     };
   }, [supabase]);
 
-  // const refreshUser = async () => {
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser();
-  //   setUser(user);
-  // };
   const refreshUser = useCallback(async () => {
     try {
       const {
@@ -56,7 +50,6 @@ export function AuthProvider({ children }) {
     }
   }, [supabase]);
 
-  // Memoize the context value to prevent unnecessary re-renders
   const value = useMemo(
     () => ({
       user,
