@@ -39,9 +39,9 @@ function Signup() {
     noCaptchaSet = "Veuillez compléter la vérification Captcha";
   }
 
-  let isThisATest =
-    process.env.NODE_ENV !== "production" ||
-    process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
+  let isThisATest = false;
+  // process.env.NODE_ENV !== "production" ||
+  // process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   const showStatus = () => {
     switch (status) {
@@ -56,9 +56,9 @@ function Signup() {
       case "error":
         return (
           <p className="help is-danger">
-            {t2("Login.AuthenticationFail")}
-            <br />
             {errors.submit}
+            <br />
+            {t2("Login.AuthenticationFail")}
           </p>
         );
       case "noCaptcha":
@@ -147,7 +147,7 @@ function Signup() {
           errorToThrow = new Error(errorMessage);
         } else {
           errorMessage =
-            errorData.error.message || "Authentication failed. Try again";
+            errorData.error?.message ?? "Authentication failed. Try again";
           errorToThrow = new Error(errorMessage);
         }
         setErrors((prev) => ({
@@ -169,7 +169,7 @@ function Signup() {
         const errorObj = JSON.parse(err.message);
         console.warn("Test mode error details: ", errorObj);
       }
-      console.warn("error: ", err.message);
+      // console.warn("error: ", err.message);
     }
   };
 
