@@ -11,17 +11,24 @@ import { Link } from "../i18n/navigation";
 export function UserDropdown({ data }) {
   const [isActive, setIsActive] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [userName, setUserName] = useState("");
   const supabase = createClientComponentClient();
   const router = useRouter();
   const menuRef = useRef(null);
   const pathname = usePathname();
-  const first = data?.user_metadata?.first_name;
-  const last = data?.user_metadata?.last_name;
-  const userName = `${first} ${last}`.trim();
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    if (data) {
+      const first = data?.user_metadata?.first_name || "";
+      const last = data?.user_metadata?.last_name || "";
+      setFirst(first);
+      setLast(last);
+      setUserName(`${first} ${last}`.trim());
+    }
+  }, [data]);
 
   const toggleDropdown = (e) => {
     e.stopPropagation();
@@ -29,10 +36,18 @@ export function UserDropdown({ data }) {
   };
 
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (!error) {
+    try {
       localStorage.setItem("manualLogout", "true");
-      router.push("/login");
+
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        localStorage.removeItem("manualLogout");
+        return;
+      }
+      window.location.href = "/login";
+    } catch (err) {
+      localStorage.removeItem("manualLogout");
+      router.replace("/login");
     }
   };
 
@@ -45,7 +60,6 @@ export function UserDropdown({ data }) {
       }
     };
 
-    // Add event listener with a small delay to avoid immediate closure
     const timeoutId = setTimeout(() => {
       document.addEventListener("click", handleClickOutside, true);
     }, 0);

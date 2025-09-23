@@ -41,10 +41,6 @@ const supaMiddleware = async (req) => {
 export default function middleWareHandler(req) {
   const pathname = req.nextUrl.pathname;
 
-  if (pathname.startsWith("/api")) {
-    return NextResponse.next();
-  }
-
   const isTestMode =
     process.env.NODE_ENV === "test" ||
     process.env.NEXT_PUBLIC_TEST_MODE === "true" ||

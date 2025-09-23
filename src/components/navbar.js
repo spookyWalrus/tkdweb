@@ -13,8 +13,8 @@ import Image from "next/image";
 export default function Navbar() {
   const [navOpen, setNavOpen] = useState(false);
   const { showButton } = useIntersection();
-  // const [user, setUser] = useState(null);
   const { user, loading } = useAuth();
+  const [showJoin, setShowJoin] = useState(true);
 
   const t = useTranslations("Navbar");
   const t2 = useTranslations("LoginRegister");
@@ -22,60 +22,55 @@ export default function Navbar() {
   const toggleMenu = () => {
     setNavOpen(!navOpen);
   };
-  let pathname = usePathname();
 
-  // const logStatus = loading ? "Loading..." : user ? <UserDropdown /> : null;
+  let pathname = usePathname();
 
   useEffect(() => {
     setNavOpen(false);
   }, [pathname]);
 
-  const authStatus = useMemo(() => {
+  const { authStatus, shouldShowJoin } = useMemo(() => {
+    const isHomePage = pathname === "/" || pathname.match(/^\/[a-z]{2}$/);
+    let authComponent = null;
     if (loading) {
-      return "Loading...";
-    }
-
-    if (user) {
-      return <UserDropdown data={user} />;
-    }
-
-    if (pathname !== "/login") {
-      return (
+      authComponent = "Loading...";
+    } else if (user) {
+      authComponent = <UserDropdown data={user} />;
+    } else if (pathname !== "/login") {
+      authComponent = (
         <Link href="/login" className="topBarLinks">
           Log In
         </Link>
       );
     }
 
-    return null;
-  }, [loading, user, pathname]);
+    const shouldShow =
+      !user &&
+      !loading &&
+      !pathname.includes("/login") &&
+      !pathname.includes("/signup") &&
+      (isHomePage ? showButton : true);
+
+    return {
+      authStatus: authComponent,
+      shouldShowJoin: shouldShow,
+    };
+  }, [loading, user, pathname, showButton]);
+
+  useEffect(() => {
+    if (user || pathname == "/login" || pathname == "/signup") {
+      setShowJoin(false);
+    } else {
+      setShowJoin(true);
+    }
+  }, [pathname, user]);
 
   return (
     <div className="header">
       <div className="topBar">
         <LangSwitcher />
-
         {authStatus}
-        {/* {loading ? (
-          "Loading..."
-        ) : user ? (
-          <UserDropdown />
-        ) : pathname !== "/login" ? (
-          <Link href="/login" className="topBarLinks">
-            Log In
-          </Link>
-        ) : null} */}
-
-        {/* {pathname !== "/login" && ( */}
-        {/* <Link href="/login" className="topBarLinks"> */}
-        {/* {t("Login")} */}
-        {/* {logStatus} */}
-        {/* Log In */}
-        {/* </Link> */}
-        {/* )} */}
-        {/* {pathname == "/login" && logStatus} */}
       </div>
-
       <div className="navbar-section">
         <div className="brandTitleBar">
           <div className="titleBox">
@@ -185,19 +180,14 @@ export default function Navbar() {
             </div>
           </div>
         </nav>
-        {showButton && (
+        {shouldShowJoin && (
           <div className="signup-button-container">
-            {
-              pathname != "/signup" && (
-                <Link href="/signup" className="button signup-button">
-                  {/* {t2("JoinUs")} */}
-                  Join USS
-                </Link>
-              )
-              // : (
-              //   <div>no signups</div>
-              // )
-            }
+            {showJoin && (
+              <Link href="/signup" className="button signup-button">
+                {/* {t2("JoinUs")} */}
+                Join Us
+              </Link>
+            )}
           </div>
         )}
       </div>
