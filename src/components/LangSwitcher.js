@@ -1,6 +1,6 @@
 import { useRouter, usePathname } from "../i18n/navigation";
 import { useLocale } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,37 +8,45 @@ export default function LangSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const currentLang = useLocale();
-  const [isActive, setIsActive] = useState(false);
+  const menuRef = useRef(null);
+
+  const [isActive2, setIsActive2] = useState(false);
 
   let menuLang = currentLang == "fr" ? "EN" : "FRA";
 
-  useEffect(() => {
-    const handler = (e) => {
-      if (!e || !e.target) return;
-
-      const dropdown = document.getElementById("custom-dropdown");
-      if (dropdown && !dropdown.contains(e.target)) {
-        setIsActive(false);
-      }
-    };
-
-    window.addEventListener("click", handler);
-    return () => window.removeEventListener("click", handler);
-  }, []);
-
   const langSetter = (lang) => {
-    setIsActive(false);
+    setIsActive2(false);
     router.push(pathname, { locale: lang });
   };
 
   const toggleDropdown = (e) => {
     e.stopPropagation();
-    setIsActive(!isActive);
+    setIsActive2(!isActive2);
   };
+
+  useEffect(() => {
+    if (!isActive2) return;
+
+    const handleClickOutside = (evt) => {
+      if (menuRef.current && !menuRef.current.contains(evt.target)) {
+        setIsActive2(false);
+      }
+    };
+
+    const timeoutId = setTimeout(() => {
+      document.addEventListener("click", handleClickOutside, true);
+    }, 0);
+
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [isActive2]);
 
   return (
     <div
-      className={`dropdown custom-dropdown  ${isActive ? "is-active" : "false"}`}
+      ref={menuRef}
+      className={`dropdown custom-dropdown  ${isActive2 ? "is-active" : ""}`}
     >
       <div className="dropdown-trigger">
         <a className="menuLang" aria-haspopup="true" onClick={toggleDropdown}>
