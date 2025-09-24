@@ -15,9 +15,6 @@ function Instructors() {
   return (
     <div className="main">
       <div className="mainMargin">
-        <div className="centerHeader">
-          <h3>{t("Card.Header")}</h3>
-        </div>
         <div className="centerCard">
           <OneCard
             imageSrc="/images/gM1.jpg"
@@ -34,43 +31,44 @@ function Instructors() {
             altText="instructor-trainer"
             name="Marie-France Instructor"
             position={t("Card.trainTitle") + ", 6th Dan"}
-            blurbclass={checkBlurb(t("Card.trainTitle"))}
-            blurb={t("Card.blurbMF")}
+            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurb={t("Card.assTitle")}
           />
           <OneCard
             imageSrc="/images/zoey2.jpg"
             altText="instructor"
             name="Zoey Instructor"
             position={t("Card.insTitle") + ", 5th Dan"}
-            blurbclass={checkBlurb(t("Card.blurbZY"))}
-            blurb={t("Card.blurbZY")}
+            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurb={t("Card.assTitle")}
           />
-          <OneCard
+          {/* <OneCard
             imageSrc="/images/instructor1.jpg"
             altText="instructor"
             name="Good instructor"
             position={t("Card.assTitle") + ", 1st Dan"}
-            blurbclass={checkBlurb("")}
-          />
+            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurb={t("Card.assTitle")}
+          /> */}
           <OneCard
-            imageSrc="/images/kat1.jpg"
+            imageSrc="/images/kat2.jpg"
             altText="instructor"
-            name="Katrine instructor"
+            name="Katrine Gravel"
             position={t("Card.assTitle") + ", 1st Dan"}
-            blurbclass={checkBlurb(t("Card.blurbKR"))}
-            blurb={t("Card.blurbKR")}
+            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurb={t("Card.assTitle")}
           />
           <OneCard
-            imageSrc="/images/laur1.jpg"
+            imageSrc="/images/lar2.jpg"
             altText="instructor"
             name="Laurie Roy"
             position={t("Card.assTitle") + ", 1st Dan"}
-            blurbclass={checkBlurb(t("Card.blurbLR"))}
-            blurb={t("Card.blurbLR")}
+            blurbclass={checkBlurb(t("Card.assTitle"))}
+            blurb={t("Card.assTitle")}
           />
         </div>
         <div className="bodyTextMarginTop">
-          <h4>{t("InsCond.Header")}</h4>
+          <h3>{t("InsCond.Header")}</h3>
           <div>
             <ol>
               <li>{t("InsCond.1")}</li>
