@@ -39,8 +39,9 @@ export default function ContactForm() {
       return;
     }
 
-    const isCaptchaRequired = process.env.NODE_ENV !== "test";
-    if (isCaptchaRequired && !captchaToken) {
+    // const isCaptchaRequired = process.env.NODE_ENV !== "test";
+
+    if (!captchaToken) {
       setErrors((prev) => ({
         ...prev,
         captcha: t("CaptchaError"),
@@ -134,7 +135,8 @@ export default function ContactForm() {
         <div className="field">
           <div className="controL">
             <HCaptcha
-              sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY || ""}
+              sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
+              // sitqekey={process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY || ""}
               onVerify={(token) => setCaptchaToken(token)}
               onExpire={() => setCaptchaToken(null)}
             />

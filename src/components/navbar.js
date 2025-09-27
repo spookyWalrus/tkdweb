@@ -19,6 +19,8 @@ export default function Navbar() {
   const t = useTranslations("Navbar");
   const t2 = useTranslations("LoginRegister");
 
+  const loginMessage = t2("Login.Login");
+
   const toggleMenu = () => {
     setNavOpen(!navOpen);
   };
@@ -39,7 +41,9 @@ export default function Navbar() {
     } else if (pathname !== "/login") {
       authComponent = (
         <Link href="/login" className="topBarLinks">
-          Log In
+          {/* Log In */}
+          {/* {t2("Login.Login")} */}
+          {loginMessage}
         </Link>
       );
     }
@@ -55,7 +59,7 @@ export default function Navbar() {
       authStatus: authComponent,
       shouldShowJoin: shouldShow,
     };
-  }, [loading, user, pathname, showButton]);
+  }, [loginMessage, loading, user, pathname, showButton]);
 
   useEffect(() => {
     if (user || pathname == "/login" || pathname == "/signup") {
@@ -184,8 +188,8 @@ export default function Navbar() {
           <div className="signup-button-container">
             {showJoin && (
               <Link href="/signup" className="button signup-button">
-                {/* {t2("JoinUs")} */}
-                Join Us
+                {t2("SignUp.JoinUs")}
+                {/* Join Us */}
               </Link>
             )}
           </div>
