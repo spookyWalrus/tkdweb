@@ -187,7 +187,7 @@ function Login() {
 
             <div className="field">
               <label htmlFor="password" className="formLabel">
-                Password
+                {t2("LoginRegister.Password")}
               </label>
 
               <div className="control">
