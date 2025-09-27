@@ -1,0 +1,36 @@
+{
+  "Login": {
+    "Login": "Log in",
+    "AuthenticationFail": "Authentication Failed. Try again",
+    "CaptchaError": "Please complete Captcha verification",
+    "ForgotPW": "Forgot password? Click here",
+    "Header": "Member log in",
+    "Password": "Password",
+    "Success": "Success",
+    "loginSend": "Log in",
+    "loginSending": "Logging in",
+    "loginSuccess": "Log in success",
+    "loginFailed": "Log in failed",
+    "noCaptchaSet": "Please complete Captcha verification",
+    "relogMess": "Session has expired, please log in again"
+  },
+  "SignUp": {
+    "PasswordRules": "Must be min. 8 characters long, have an uppercase and a lower case, 1 number and 1 symbol",
+    "SignUp": "Sign Up",
+    "SignUpFail": "Sign up Failed. Please try again",
+    "SignUpHeader": "Sign up to CCS Taekwondo Academy",
+    "SignUpSuccess": "Check your email to confirm sign up.",
+    "signingUp": "Signing Up",
+    "signUpHeader": "Sign up to CCS Taekwondo Academy",
+    "signUpName": "First name",
+    "JoinUs": "Join Us"
+  },
+  "Recovery": {
+    "PasswordRecover": "Password Recovery",
+    "recoverySend": "Recover my password",
+    "recoverySending": "Sending recovery request",
+    "codeSent": "Recovery code sent to above email",
+    "tokenExpired": "Token expired. Request another verification link",
+    "recoveryBlurb": "We will send a recovery code to this address"
+  }
+}

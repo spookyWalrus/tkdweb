@@ -1,0 +1,36 @@
+{
+  "Login": {
+    "Login": "Se connecter",
+    "AuthenticationFail": "Échec de l'authentification. Veuillez réessayer.",
+    "CaptchaError": "Veuillez compléter la vérification Captcha",
+    "ForgotPW": "Mot de passe oublié ? Cliquez ici",
+    "Header": "Connexion des membres",
+    "Password": "Mot de passe",
+    "Success": "Succès",
+    "loginSend": "Se connecter",
+    "loginSending": "Connexion",
+    "loginSuccess": "Connexion réussie!",
+    "loginFail": "La connexion a échoué",
+    "noCaptchaSet": "Veuillez compléter la vérification Captcha",
+    "relogMess": "La session a expiré, veuillez vous reconnecter"
+  },
+  "SignUp": {
+    "PasswordRules": "Doit comporter au moins 8 caractères, une majuscule et une minuscule, 1 chiffre et 1 symbole",
+    "SignUp": "S'inscrire",
+    "SignUpFail": "Échec de l'inscription. Veuillez réessayer",
+    "SignUpHeader": "Inscrivez-vous à la CCS Taekwondo Academy",
+    "SignUpSuccess": "Vérifiez votre e-mail pour confirmer votre inscription",
+    "signingUp": "Inscription en cours",
+    "signUpHeader": "Inscrivez-vous à la Académie de Taekwondo CCS",
+    "signUpName": "Pré-nom",
+    "JoinUs": "Rejoignez-nous"
+  },
+  "Recovery": {
+    "PasswordRecover": "Récupération de mot de passe",
+    "recoverySend": "Récupérer mon mot de passe",
+    "recoverySending": " Envoi de la demande de récupération",
+    "codeSent": "Code de récupération envoyé au courriel ci-dessus",
+    "tokenExpired": "Jeton expiré. Demander un autre lien de vérification",
+    "recoveryBlurb": "Nous enverrons un code de récupération à cette adresse"
+  }
+}
