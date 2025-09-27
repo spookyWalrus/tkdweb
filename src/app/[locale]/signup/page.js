@@ -22,22 +22,22 @@ function Signup() {
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
 
-  let signUpSend =
-    status === "success" ? t2("Login.Success") : t2("SignUp.SignUp");
+  // let signUpSend = t2("SignUp.SignUp");
+  // status === "success" ? t2("Login.Success") : t2("SignUp.SignUp");
 
   let lang = useLocale();
-  let signingUp, name, signUpHeader, noCaptchaSet;
-  if (lang === "en") {
-    signingUp = "Signing Up";
-    name = "First Name";
-    signUpHeader = "Sign up to CCS Taekwondo Academy";
-    noCaptchaSet = "Please complete Captcha verification";
-  } else if (lang === "fr") {
-    signingUp = "Inscription en cours";
-    name = "Pré-nom";
-    signUpHeader = "Inscrivez-vous à la Académie de Taekwondo CCS";
-    noCaptchaSet = "Veuillez compléter la vérification Captcha";
-  }
+  // let signingUp, name, signUpHeader, noCaptchaSet;
+  // if (lang === "en") {
+  // signingUp = "Signing Up";
+  // name = "First Name";
+  // signUpHeader = "Sign up to CCS Taekwondo Academy";
+  // noCaptchaSet = "Please complete Captcha verification";
+  // } else if (lang === "fr") {
+  // signingUp = "Inscription en cours";
+  // name = "Pré-nom";
+  // signUpHeader = "Inscrivez-vous à la Académie de Taekwondo CCS";
+  // noCaptchaSet = "Veuillez compléter la vérification Captcha";
+  // }
 
   let isThisATest = false;
   // process.env.NODE_ENV !== "production" ||
@@ -178,13 +178,14 @@ function Signup() {
       <div className="mainMargin">
         <div className="centerHeader">
           {/* <h3>Sign up to CCS Taekwondo Academy</h3> */}
-          <h3>{signUpHeader}</h3>
+          <h3>{t2("SignUp.signUpHeader")}</h3>
         </div>
         <div className="loginBlock">
           <form onSubmit={submitForm} className="contactForm">
             <div className="field">
               <label htmlFor="name" className="formLabel">
-                {t("Name")}
+                {/* {t("Name")} */}
+                {t2("SignUp.signUpName")}
               </label>
               <div className="control">
                 <input
@@ -313,7 +314,10 @@ function Signup() {
               >
                 {isSubmitting ? (
                   <>
-                    <span>{signingUp}</span>
+                    <span>
+                      {t2("SignUp.signingUp")}
+                      {/* {signingUp} */}
+                    </span>
                     <PulseLoader
                       color="blue"
                       loading={isSubmitting}
@@ -323,7 +327,8 @@ function Signup() {
                     />
                   </>
                 ) : (
-                  signUpSend
+                  t2("SignUp.SignUp")
+                  // signUpSend
                 )}
               </button>
               {showStatus()}

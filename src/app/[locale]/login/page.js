@@ -33,15 +33,19 @@ function Login() {
   const message = params.get("message");
   const { refreshUser } = useAuth();
 
-  // let loginSend = t("loginSend");
-  // let loginSending = t("loginSending");
-  // let loginSuccess = t("loginSuccess");
-  // let loginFailed = t("loginFail");
-  let loginSend = "Log in";
-  let loginSending = "Logging in";
-  let loginSuccess = "Log in Success";
-  let loginFailed = "Log in Fail";
-  let noCaptchaSet = "Please complete Captcha verification";
+  let loginSend = t2("Login.loginSend");
+  let loginSending = t2("Login.loginSending");
+  let loginSuccess = t2("Login.loginSuccess");
+  let loginFailed = t2("Login.loginFail");
+  let relogMess = t2("Login.relogMess");
+  let noCaptchaSet = t2("Login.CaptchaError");
+
+  // let loginSend = "Log in";
+  // let loginSending = "Logging in";
+  // let loginSuccess = "Log in Success";
+  // let loginFailed = "Log in Fail";
+  // let noCaptchaSet = "Please complete Captcha verification";
+  // let relogMess = "Session has expired, please log in again"
 
   // let isThisATest =
   //   process.env.NODE_ENV === "test" ||
@@ -55,13 +59,13 @@ function Login() {
 
     if (message === "auth_required") {
       if (theSession === "true" && manualLogout !== "true") {
-        setRelogMessage("Session has expired, please log in again");
+        setRelogMessage(relogMess);
       } else {
         setRelogMessage("");
       }
       localStorage.removeItem("manualLogout");
     }
-  }, [message]);
+  }, [relogMess, message]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

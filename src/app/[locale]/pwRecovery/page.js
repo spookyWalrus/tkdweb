@@ -23,9 +23,10 @@ function PWRecovery() {
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
+  const tokenWarning = t2("Recovery.tokenExpired");
 
-  let recoverySend = "Recover my password";
-  let recoverySending = "Sending recovery request";
+  // let recoverySend = "Recover my password";
+  // let recoverySending = "Sending recovery request";
 
   let isThisATest =
     process.env.NODE_ENV !== "production" ||
@@ -37,11 +38,12 @@ function PWRecovery() {
         return (
           <p className="help is-success sentMessage">
             {/* {t2("SignUp.SignUpSuccess")} */}
-            Recovery code sent to above email
+            {/* Recovery code sent to above email */}
+            {t2("Recovery.codeSent")}
           </p>
         );
-      case "fail":
-        return <p className="help is-fail ">{t2("SignUp.SignUpFail")}</p>;
+      // case "fail":
+      //   return <p className="help is-fail ">{t2("SignUp.SignUpFail")}</p>;
       case "error":
         return (
           <p className="help is-danger">
@@ -61,9 +63,10 @@ function PWRecovery() {
 
   useEffect(() => {
     if (message === "token_expired") {
-      setWarning("Token expired. Request another verification link");
+      setWarning(tokenWarning);
+      // setWarning("Token expired. Request another verification link");
     }
-  }, [message]);
+  }, [tokenWarning, message]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -166,7 +169,8 @@ function PWRecovery() {
       <div className="mainMargin">
         <div className="centerHeader">
           {/* <h3>{t2("Login.Header")}</h3> */}
-          <h3>Password recovery</h3>
+          {/* <h3>Password recovery</h3> */}
+          <h3>{t2("Recovery.PasswordRecover")}</h3>
           {warning && (
             <div
               className="has-text-warning subtitle is-5"
@@ -184,7 +188,8 @@ function PWRecovery() {
                 {/* Email */}
               </label>
               <p className="help passwordNote">
-                We will send a recovery code to this address
+                {/* We will send a recovery code to this address */}
+                {t2("Recovery.recoveryBlurb")}
               </p>
               <div className="control">
                 <input
@@ -205,11 +210,12 @@ function PWRecovery() {
                 <HCaptcha
                   ref={captchaRef}
                   key={captchaKey}
-                  sitekey={
-                    isThisATest
-                      ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                      : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                  }
+                  sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
+                  // sitekey={
+                  //   isThisATest
+                  //     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
+                  //     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
+                  // }
                   onVerify={(token) => setCaptchaToken(token)}
                   onExpire={resetCaptcha}
                   onError={resetCaptcha}
@@ -233,7 +239,7 @@ function PWRecovery() {
                 >
                   {isSubmitting ? (
                     <>
-                      <span>{recoverySending}</span>
+                      <span>{t2("Recovery.recoverySending")}</span>
                       <PulseLoader
                         color="blue"
                         loading={isSubmitting}
@@ -243,7 +249,7 @@ function PWRecovery() {
                       />
                     </>
                   ) : (
-                    recoverySend
+                    t2("Recovery.recoverySend")
                   )}
                 </button>
                 {showStatus()}
