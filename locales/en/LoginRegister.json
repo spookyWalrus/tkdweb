@@ -11,7 +11,6 @@
     "loginSending": "Logging in",
     "loginSuccess": "Log in success",
     "loginFailed": "Log in failed",
-    "noCaptchaSet": "Please complete Captcha verification",
     "relogMess": "Session has expired, please log in again"
   },
   "SignUp": {
@@ -22,8 +21,7 @@
     "SignUpSuccess": "Check your email to confirm sign up.",
     "signingUp": "Signing Up",
     "signUpHeader": "Sign up to CCS Taekwondo Academy",
-    "signUpName": "First name",
-    "JoinUs": "Join Us"
+    "signUpName": "First name"
   },
   "Recovery": {
     "PasswordRecover": "Password Recovery",

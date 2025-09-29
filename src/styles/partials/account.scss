@@ -1,0 +1,16 @@
+@use "../variables" as vars;
+
+.control input.placeHolderBold {
+  font-weight: 800;
+  font-size: 1.2em;
+  color: vars.$primary;
+}
+
+.updateProfileButton {
+  background-color: vars.$primary;
+}
+
+.updatePWButton {
+  background-color: purple;
+  color: #fff;
+}
