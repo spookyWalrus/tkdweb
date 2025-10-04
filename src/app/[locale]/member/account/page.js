@@ -1,10 +1,8 @@
 "use client";
-// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useState, useRef, useEffect } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/utilities/authContexter";
-// import Link from "next/link";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -13,7 +11,6 @@ import { PulseLoader } from "react-spinners";
 function Account() {
   const { user, loading, refreshUser } = useAuth();
   const [notify, setNotify] = useState(false);
-  // const [inputData, setInputData] = useState(null);
   const [inputData, setInputData] = useState({
     email: "",
     password: "",
@@ -23,23 +20,24 @@ function Account() {
   const [name, setFirstName] = useState(null);
   const [lastname, setLastName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
-  const [errors, setErrors] = useState({ dude: "dude" });
-  const [updateStatus, setUpdateStatus] = useState(false);
-  const [emailUpdated, setEmailUpdated] = useState(null);
-  const [updateError, setUpdateError] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const [updateStatus, setUpdateStatus] = useState({
+    type: null,
+    emailData: { oldEmail: "", newEmail: "" },
+    pendingEmail: null,
+    errorReason: null,
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const params = useSearchParams();
   const message = params.get("message");
+  const reason = params.get("reason");
+  let pendingEmail;
   const router = useRouter();
   const captchaRef = useRef();
   const t = useTranslations("Contact");
-  const t2 = useTranslations("LoginRegister");
-
-  useEffect(() => {
-    if (message === "password_updated") {
-      setNotify(true);
-    }
-  }, [message]);
+  const t2 = useTranslations("MemberAccount");
 
   useEffect(() => {
     if (user) {
@@ -55,6 +53,48 @@ function Account() {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (!user) return;
+    if (message === "password_updated") {
+      setNotify(true);
+    }
+    if (message === "partial_confirm") {
+      if (user?.new_email) {
+        pendingEmail = user.new_email;
+        setUpdateStatus({
+          type: "email_partial",
+          emailData: { oldEmail: "", newEmail: "" },
+          pendingEmail: pendingEmail,
+          errorReason: null,
+        });
+      }
+      setIsSubmitting(false);
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+    if (message === "email_both_confirmed") {
+      refreshUser();
+      setUpdateStatus({
+        type: "email_updated",
+        emailData: { oldEmail: "", newEmail: "" },
+        pendingEmail: null,
+        errorReason: null,
+      });
+      setIsSubmitting(false);
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+    if (message === "email_update_fail") {
+      setUpdateStatus({
+        type: "error",
+        emailData: { oldEmail: "", newEmail: "" },
+        pendingEmail: null,
+        errorReason: reason,
+      });
+      setIsSubmitting(false);
+      setErrors({ update: reason });
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, [message, reason, user, refreshUser]);
+
   const goReset = () => {
     router.push("/auth-pages/auth-pwreset");
   };
@@ -69,13 +109,15 @@ function Account() {
 
   const validateForm = async (action) => {
     setErrors({});
-    // setStatus("submitting");
     const validationErrors = validateLogin(inputData, t, action);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      // setStatus("");
-      setUpdateStatus(false);
-      // e.target.disabled = false;
+      setUpdateStatus({
+        type: null,
+        emailData: { oldEmail: "", newEmail: "" },
+        pendingEmail: null,
+        errorReason: null,
+      });
       return false;
     }
     return true;
@@ -85,15 +127,26 @@ function Account() {
     e.preventDefault();
     let actionType;
     setIsSubmitting(true);
-    setUpdateError(false);
-    setEmailUpdated(false);
+
+    setUpdateStatus({
+      type: null,
+      emailData: { oldEmail: "", newEmail: "" },
+      pendingEmail: null,
+      errorReason: null,
+    });
+
     if (inputData.email !== userEmail) {
       actionType = "emailupdate";
     } else if (inputData.name !== name || inputData.lastname !== lastname) {
       actionType = "nameupdate";
     } else {
-      setUpdateError(true);
-      setErrors({ update: "Nothing to update" });
+      setUpdateStatus({
+        type: "error",
+        emailData: { oldEmail: "", newEmail: "" },
+        pendingEmail: null,
+        errorReason: t2("NothingUpdate"),
+      });
+      setErrors({ update: t2("NothingUpdate") });
       setIsSubmitting(false);
       return;
     }
@@ -108,7 +161,6 @@ function Account() {
         throw new Error("hCaptcha not initialized");
       }
       const token = await captchaRef.current.execute();
-      // const token = "temp-token";
 
       const formData = new FormData();
       formData.append("email", inputData.email);
@@ -124,28 +176,48 @@ function Account() {
 
       const result = await res.json();
 
-      if (!res.ok) {
+      if (!result.success) {
         throw new Error(result.error || `HTTP error! status: ${res.status}`);
       }
 
-      if (result.success == "email_success") {
-        setUpdateStatus(true);
-        setEmailUpdated(true);
+      if (result.success == "new_email_requested") {
+        setUpdateStatus({
+          type: "email_sent",
+          emailData: {
+            oldEmail: result.oldEmail,
+            newEmail: result.newEmail,
+          },
+          pendingEmail: null,
+          errorReason: null,
+        });
         setIsSubmitting(false);
       }
       if (result.success == "name_updated") {
-        setUpdateStatus(true);
+        setUpdateStatus({
+          type: "profile_updated",
+          emailData: { oldEmail: "", newEmail: "" },
+          pendingEmail: null,
+          errorReason: null,
+        });
         setIsSubmitting(false);
         await refreshUser();
       }
     } catch (error) {
-      setUpdateStatus(false);
-      setUpdateError(true);
+      setUpdateStatus({
+        type: "error",
+        emailData: { oldEmail: "", newEmail: "" },
+        pendingEmail: null,
+        errorReason: error.message,
+      });
       setIsSubmitting(false);
       setErrors({ update: error.message });
       // console.log("update fail message: ", error);
     }
   };
+  // Debug logging
+  // useEffect(() => {
+  //   console.log("Current updateStatus:", updateStatus);
+  // }, [updateStatus]);
 
   return loading ? (
     <div>Loading...</div>
@@ -157,18 +229,10 @@ function Account() {
             {/* <h3>{t2("Login.Header")}</h3> */}
             <h3>An-nyeong ha-se-yo, {name}</h3>
           </div>
-          <div className="loginBlock">
-            <div
-              //  onSubmit={submitForm}
-              className="contactForm"
-            >
+          <div className="accountBlock">
+            <div className="contactForm">
               <div className="field">
-                <p>
-                  {/* <label htmlFor="name" className="formLabel"> */}
-                  {/* {t("Name")} */}
-                  {t2("SignUp.signUpName")}
-                  {/* </label> */}
-                </p>
+                <p>{t2("CurrentName")}</p>
                 <div className="control">
                   <input
                     type="text"
@@ -191,9 +255,7 @@ function Account() {
               </div>
 
               <div className="field">
-                {/* <label htmlFor="lastname" className="formLabel"> */}
                 <p>{t("LastName")}</p>
-                {/* </label> */}
                 <div className="control">
                   <input
                     type="text"
@@ -216,13 +278,7 @@ function Account() {
               </div>
 
               <div className="field">
-                <p
-                  htmlFor="email"
-                  // className="formLabel"
-                >
-                  {/* {t("Email")} */}
-                  Your current email
-                </p>
+                <p htmlFor="email">{t2("CurrentEmail")}</p>
 
                 <div className="control">
                   <input
@@ -240,19 +296,16 @@ function Account() {
                 </div>
               </div>
 
-              <div>
+              <div className="centeralignButton">
                 <button
-                  type="button"
+                  type="submit"
                   className="button updateProfileButton"
                   onClick={updateProfile}
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
-                      <span>
-                        Update in progress
-                        {/* {t2("SignUp.signingUp")} */}
-                      </span>
+                      <span>{t2("UpdateProgress")}</span>
                       <PulseLoader
                         color="blue"
                         loading={isSubmitting}
@@ -262,40 +315,84 @@ function Account() {
                       />
                     </>
                   ) : (
-                    // t2("SignUp.SignUp")
-                    <span>Update my profile</span>
+                    <span>{t2("UpdateProfile")}</span>
                   )}
                 </button>
-                {updateStatus && emailUpdated && (
-                  <div className="help is-success sentMessage">
-                    Confirmation link sent.
-                    <br />
-                    Please check your email to finalize email update.
-                  </div>
-                )}
-                {updateStatus && !emailUpdated && (
-                  <div className="help is-success sentMessage">
-                    Profile updated
-                  </div>
-                )}
-                {updateError && (
-                  <div className="help is-error sentMessage">
-                    {errors.update} Please try again
-                  </div>
-                )}
+                <div className="messageContainer">
+                  {updateStatus.type === "email_sent" && (
+                    <div className="help is-success confirmLinkSent">
+                      {t2("ConfirmationSent")}
+                      <br />
+                      <span
+                        style={{ fontSize: "0.9em", color: "rgb(226, 102, 7)" }}
+                      >
+                        {t2("Email_Sent.SentTo")}
+                        <br />
+                        {t2("Email_Sent.CurrentMail")}{" "}
+                        <span className="theEmail">
+                          {updateStatus.emailData.oldEmail}
+                        </span>
+                        <br />
+                        {t2("Email_Sent.NewMail")}{" "}
+                        <span className="theEmail">
+                          {updateStatus.emailData.newEmail}
+                        </span>
+                        <br />
+                        {t2("Email_Sent.ClickBoth")}
+                        <br />
+                        {t2("Email_Sent.UntilBoth")}
+                      </span>
+                    </div>
+                  )}
+
+                  {updateStatus.type === "profileUpdated" && (
+                    <div className="help is-success sentMessageMed">
+                      {/* Profile updated */}
+                      {t2("ProfileUpdated")}
+                    </div>
+                  )}
+                  {updateStatus.type === "email_updated" && (
+                    <div className="help is-success sentMessageMed">
+                      {t2("EmailUpdated")}
+                    </div>
+                  )}
+                  {updateStatus.type === "email_partial" && (
+                    <div className="help is-warn emailPartialConfirm">
+                      {t2("Email_Partial.Only1")}
+                      {/* Confirmation received for only 1 email address. */}
+                      <br />
+                      {t2("Email_Partial.WaitConfirm")}
+                      {/* Waiting confirmation from:{" "}<br/> */}
+                      <span className="theEmail">{pendingEmail}</span>
+                      <br />
+                      {t2("Email_Partial.CheckInbox")}
+                      {/* Please check your inbox and click the confirmation link to
+                      complete the change. */}
+                    </div>
+                  )}
+                  {updateStatus.type === "error" && (
+                    <div className="help is-error sentMessageMed">
+                      {errors.update}
+                      <br />
+                      {t2("UpdateTryAgain")}
+                    </div>
+                  )}
+                </div>
               </div>
-              <div>
+
+              <div className="centeralignButton">
                 <button className="button resetPWButton" onClick={goReset}>
-                  Change your password
+                  {t2("ChangePW")}
                 </button>
                 {notify && (
-                  <div className="help is-success sentMessage">
-                    Password reset successful
+                  <div className="help is-success sentMessageMed">
+                    {t2("PWSuccess")}
                   </div>
                 )}
               </div>
               <HCaptcha
                 sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY}
+                // sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
                 size="invisible"
                 ref={captchaRef}
                 onLoad={() => console.warn("hCaptcha loaded successfully")}

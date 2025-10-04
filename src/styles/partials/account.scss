@@ -1,16 +1,57 @@
 @use "../variables" as vars;
 
+.accountBlock {
+  width: 75%;
+  margin: 0 auto;
+
+  @media screen and (min-width: vars.$smallTablet) {
+    width: 55%;
+  }
+}
+
 .control input.placeHolderBold {
   font-weight: 800;
-  font-size: 1.2em;
-  color: vars.$primary;
+  font-size: 1em;
+  color: #000;
 }
 
 .updateProfileButton {
   background-color: vars.$primary;
 }
 
-.updatePWButton {
+.resetPWButton {
   background-color: purple;
   color: #fff;
+  margin-top: 10%;
+}
+
+.messageContainer {
+  min-height: 6rem;
+  display: flex;
+  align-items: center;
+}
+
+.centeralignButton {
+  text-align: center;
+}
+
+.sentMessageMed {
+  // text-align: center;
+  font-size: 1em;
+}
+
+.confirmLinkSent {
+  color: vars.$primary;
+  font-size: 1em;
+}
+
+.emailPartialConfirm {
+  font-size: 1em;
+  color: rgb(226 102 7);
+
+  // color: #000;
+}
+
+.theEmail {
+  color: vars.$primary;
 }

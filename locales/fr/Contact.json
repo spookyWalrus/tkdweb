@@ -1,1 +1,20 @@
-{"Address":"Adresse","ContactFail":"Échec de l'envoi du message","ContactInfo":"Comment nous joindre","ContactSend":"Envoyer un message","ContactSending":"Envoi...","ContactSuccess":"Message envoyé avec succès","ContactUs":"Contactez-nous","Email":"E-mail","EmailError":"L'e-mail doit être valide","LastName":"Nom de famille","Message":"Message","MessageError":"Le message doit comporter au moins 10 caractères","Name":"Nom","NameError":"Le nom doit comporter au moins 2 caractères","Phone":"Numéro de téléphone","PWError":"Vérifier le mot de passe","Send":"Envoyer","Subject":"Sujet"}
+{
+  "Address": "Adresse",
+  "ContactFail": "Échec de l'envoi du message",
+  "ContactInfo": "Comment nous joindre",
+  "ContactSend": "Envoyer un message",
+  "ContactSending": "Envoi...",
+  "ContactSuccess": "Message envoyé avec succès",
+  "ContactUs": "Contactez-nous",
+  "Email": "Courriel",
+  "EmailError": "Le courriel doit être valide",
+  "LastName": "Nom de famille",
+  "Message": "Message",
+  "MessageError": "Le message doit comporter au moins 10 caractères",
+  "Name": "Nom",
+  "NameError": "Le nom doit comporter au moins 2 caractères",
+  "Phone": "Numéro de téléphone",
+  "PWError": "Vérifier le mot de passe",
+  "Send": "Envoyer",
+  "Subject": "Sujet"
+}

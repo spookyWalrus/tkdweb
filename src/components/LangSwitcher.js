@@ -1,6 +1,7 @@
 import { useRouter, usePathname } from "../i18n/navigation";
 import { useLocale } from "next-intl";
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,6 +10,8 @@ export default function LangSwitcher() {
   const pathname = usePathname();
   const currentLang = useLocale();
   const menuRef = useRef(null);
+  const searchParams = useSearchParams();
+  // console.log("params are: ", searchParams);
 
   const [isActive2, setIsActive2] = useState(false);
 

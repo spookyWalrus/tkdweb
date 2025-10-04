@@ -12,8 +12,9 @@ import Vocab2 from "./Vocab2.json";
 import CourseFees from "./CourseFees.json";
 import Instructors from "./Instructors.json";
 import LoginRegister from "./LoginRegister.json";
+import MemberAccount from "./MemberAccount.json";
 
-export default {
+const translations = {
   AboutBlock,
   HeroBlock,
   Metadata,
@@ -28,4 +29,6 @@ export default {
   CourseFees,
   Instructors,
   LoginRegister,
+  MemberAccount,
 };
+export default translations;
