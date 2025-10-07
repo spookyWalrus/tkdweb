@@ -5,7 +5,7 @@
   "UpdateProfile": "Update my profile",
   "ConfirmationSent": "Confirmation link sent.",
   "ProfileUpdated": "Profile updated succesfully",
-  "EmailUpdated": "Email succesfully udpated",
+  "EmailUpdated": "Email succesfully updated",
   "NothingUpdate": "Nothing to update",
   "UpdateTryAgain": "Please try again",
   "ChangePW": "Change your password",
@@ -20,6 +20,6 @@
   "Email_Partial": {
     "Only1": "Confirmation received for only 1 email address.",
     "WaitConfirm": "Waiting confirmation from:",
-    "CheckInbox": "Please check your inbox and click the confirmation link to complete the change."
+    "CheckInbox": "Please check your inboxes and click both confirmation links to complete the change."
   }
 }

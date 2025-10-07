@@ -4,9 +4,10 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/utilities/authContexter";
 import { validateLogin } from "@/utilities/validateLogin";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { PulseLoader } from "react-spinners";
+import DismissibleMessage from "@/components/messageBox";
 
 function Account() {
   const { user, loading, refreshUser } = useAuth();
@@ -21,19 +22,22 @@ function Account() {
   const [lastname, setLastName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [errors, setErrors] = useState({});
+  // const [pendingEmail, setPendingEmail] = useState(null);
 
   const [updateStatus, setUpdateStatus] = useState({
     type: null,
     emailData: { oldEmail: "", newEmail: "" },
-    pendingEmail: null,
+    // pendingEmail: null,
     errorReason: null,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const params = useSearchParams();
+  const path = usePathname();
+  const pathname = path.replace(/^\/[a-z]{2}/, "");
   const message = params.get("message");
   const reason = params.get("reason");
-  let pendingEmail;
+  const nuEmail = params.get("nu");
   const router = useRouter();
   const captchaRef = useRef();
   const t = useTranslations("Contact");
@@ -59,44 +63,72 @@ function Account() {
       setNotify(true);
     }
     if (message === "partial_confirm") {
-      if (user?.new_email) {
-        pendingEmail = user.new_email;
-        setUpdateStatus({
-          type: "email_partial",
-          emailData: { oldEmail: "", newEmail: "" },
-          pendingEmail: pendingEmail,
-          errorReason: null,
-        });
-      }
+      // let pending = user.new_email;
+      setUpdateStatus({
+        type: "email_partial",
+        emailData: { oldEmail: "", newEmail: "" },
+        // pendingEmail: setPendingEmail(pending),
+        errorReason: null,
+      });
       setIsSubmitting(false);
-      window.history.replaceState({}, "", window.location.pathname);
+      // window.history.replaceState({}, "", window.location.pathname);
     }
     if (message === "email_both_confirmed") {
       refreshUser();
       setUpdateStatus({
         type: "email_updated",
         emailData: { oldEmail: "", newEmail: "" },
-        pendingEmail: null,
+        // pendingEmail: null,
         errorReason: null,
       });
       setIsSubmitting(false);
-      window.history.replaceState({}, "", window.location.pathname);
+      // window.history.replaceState({}, "", window.location.pathname);
+    }
+    if (message === "email_sent") {
+      // if (!newEmail) return;
+      setUpdateStatus({
+        type: "email_sent",
+        emailData: {
+          oldEmail: user?.email || "",
+          newEmail: nuEmail || "",
+        },
+        errorReason: null,
+      });
+      setIsSubmitting(false);
+    }
+    if (message === "profile_updated") {
+      setUpdateStatus({
+        type: "profile_updated",
+        emailData: { oldEmail: "", newEmail: "" },
+        errorReason: null,
+      });
+      setIsSubmitting(false);
     }
     if (message === "email_update_fail") {
       setUpdateStatus({
         type: "error",
         emailData: { oldEmail: "", newEmail: "" },
-        pendingEmail: null,
+        // pendingEmail: null,
         errorReason: reason,
       });
       setIsSubmitting(false);
       setErrors({ update: reason });
-      window.history.replaceState({}, "", window.location.pathname);
+      // window.history.replaceState({}, "", window.location.pathname);
     }
-  }, [message, reason, user, refreshUser]);
+  }, [message, reason, user, refreshUser, nuEmail]);
 
   const goReset = () => {
     router.push("/auth-pages/auth-pwreset");
+  };
+
+  const handleDismiss = () => {
+    setUpdateStatus({
+      type: null,
+      emailData: { oldEmail: "", newEmail: "" },
+      errorReason: null,
+    });
+
+    setErrors({});
   };
 
   const handleChange = (e) => {
@@ -187,26 +219,31 @@ function Account() {
             oldEmail: result.oldEmail,
             newEmail: result.newEmail,
           },
-          pendingEmail: null,
+          // pendingEmail: null,
           errorReason: null,
         });
         setIsSubmitting(false);
+        router.push(
+          `${pathname}?message=email_sent&nu=${encodeURIComponent(result.newEmail)}`,
+          // router.push(`?message=email_sent&new=${result.newEmail}`, {
+          { scroll: false }
+        );
       }
       if (result.success == "name_updated") {
         setUpdateStatus({
           type: "profile_updated",
           emailData: { oldEmail: "", newEmail: "" },
-          pendingEmail: null,
           errorReason: null,
         });
         setIsSubmitting(false);
+        router.push(`?message=profile_updated`, { scroll: false });
         await refreshUser();
       }
     } catch (error) {
       setUpdateStatus({
         type: "error",
         emailData: { oldEmail: "", newEmail: "" },
-        pendingEmail: null,
+        // pendingEmail: null,
         errorReason: error.message,
       });
       setIsSubmitting(false);
@@ -320,6 +357,73 @@ function Account() {
                 </button>
                 <div className="messageContainer">
                   {updateStatus.type === "email_sent" && (
+                    <DismissibleMessage
+                      type="success_sent"
+                      onDismiss={handleDismiss}
+                    >
+                      {t2("ConfirmationSent")}
+                      <br />
+                      <span
+                        style={{ fontSize: "0.9em", color: "rgb(226, 102, 7)" }}
+                      >
+                        {t2("Email_Sent.SentTo")} <br />
+                        {t2("Email_Sent.CurrentMail")}{" "}
+                        <span className="theEmail">
+                          {updateStatus.emailData.oldEmail}
+                        </span>
+                        <br />
+                        {t2("Email_Sent.NewMail")}{" "}
+                        <span className="theEmail">
+                          {updateStatus.emailData.newEmail}
+                        </span>
+                        <br />
+                        {t2("Email_Sent.ClickBoth")}
+                        <br />
+                        {t2("Email_Sent.UntilBoth")}
+                      </span>
+                    </DismissibleMessage>
+                  )}
+
+                  {updateStatus.type === "profile_updated" && (
+                    <DismissibleMessage
+                      type="success_profile"
+                      onDismiss={handleDismiss}
+                    >
+                      {t2("ProfileUpdated")}
+                    </DismissibleMessage>
+                  )}
+
+                  {updateStatus.type === "email_updated" && (
+                    <DismissibleMessage
+                      type="success_email"
+                      onDismiss={handleDismiss}
+                    >
+                      {t2("EmailUpdated")}
+                    </DismissibleMessage>
+                  )}
+
+                  {updateStatus.type === "email_partial" && (
+                    <DismissibleMessage
+                      type="warning"
+                      onDismiss={handleDismiss}
+                    >
+                      {t2("Email_Partial.Only1")}
+                      {/* {t2("Email_Partial.WaitConfirm")}{" "} */}
+                      {/* <span className="theEmail">{pendingEmail}</span> */}
+                      <br />
+                      {t2("Email_Partial.CheckInbox")}
+                    </DismissibleMessage>
+                  )}
+
+                  {updateStatus.type === "error" && (
+                    <DismissibleMessage type="error" onDismiss={handleDismiss}>
+                      {errors.update}
+                      <br />
+                      {t2("UpdateTryAgain")}
+                    </DismissibleMessage>
+                  )}
+
+                  {/* {updateStatus.type === "email_sent" && (
                     <div className="help is-success confirmLinkSent">
                       {t2("ConfirmationSent")}
                       <br />
@@ -343,40 +447,35 @@ function Account() {
                         {t2("Email_Sent.UntilBoth")}
                       </span>
                     </div>
-                  )}
+                  )} */}
 
-                  {updateStatus.type === "profileUpdated" && (
+                  {/* {updateStatus.type === "profileUpdated" && (
                     <div className="help is-success sentMessageMed">
-                      {/* Profile updated */}
                       {t2("ProfileUpdated")}
                     </div>
-                  )}
-                  {updateStatus.type === "email_updated" && (
+                  )} */}
+                  {/* {updateStatus.type === "email_updated" && (
                     <div className="help is-success sentMessageMed">
                       {t2("EmailUpdated")}
                     </div>
-                  )}
-                  {updateStatus.type === "email_partial" && (
+                  )} */}
+                  {/* {updateStatus.type === "email_partial" && (
                     <div className="help is-warn emailPartialConfirm">
                       {t2("Email_Partial.Only1")}
-                      {/* Confirmation received for only 1 email address. */}
                       <br />
                       {t2("Email_Partial.WaitConfirm")}
-                      {/* Waiting confirmation from:{" "}<br/> */}
                       <span className="theEmail">{pendingEmail}</span>
                       <br />
                       {t2("Email_Partial.CheckInbox")}
-                      {/* Please check your inbox and click the confirmation link to
-                      complete the change. */}
                     </div>
-                  )}
-                  {updateStatus.type === "error" && (
+                  )} */}
+                  {/* {updateStatus.type === "error" && (
                     <div className="help is-error sentMessageMed">
                       {errors.update}
                       <br />
                       {t2("UpdateTryAgain")}
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
 
@@ -395,11 +494,11 @@ function Account() {
                 // sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
                 size="invisible"
                 ref={captchaRef}
-                onLoad={() => console.warn("hCaptcha loaded successfully")}
-                onError={(error) =>
-                  console.warn("hCaptcha failed to load:", error)
-                }
-                onVerify={(token) => console.warn("hCaptcha verified:", token)}
+                // onLoad={() => console.warn("hCaptcha loaded successfully")}
+                // onError={(error) =>
+                //   console.warn("hCaptcha failed to load:", error)
+                // }
+                // onVerify={(token) => console.warn("hCaptcha verified:", token)}
               />
             </div>
           </div>

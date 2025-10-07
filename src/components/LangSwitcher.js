@@ -10,8 +10,9 @@ export default function LangSwitcher() {
   const pathname = usePathname();
   const currentLang = useLocale();
   const menuRef = useRef(null);
-  const searchParams = useSearchParams();
-  // console.log("params are: ", searchParams);
+  const params = useSearchParams();
+  const message = params.get("message");
+  const newEmail = params.get("nu");
 
   const [isActive2, setIsActive2] = useState(false);
 
@@ -19,7 +20,10 @@ export default function LangSwitcher() {
 
   const langSetter = (lang) => {
     setIsActive2(false);
-    router.push(pathname, { locale: lang });
+    const searchString = params.toString();
+    const fullPath = searchString ? `${pathname}?${searchString}` : pathname;
+
+    router.push(fullPath, { locale: lang });
   };
 
   const toggleDropdown = (e) => {

@@ -42,7 +42,6 @@ export async function POST(request) {
         // console.log("email update request fail: ", error);
         return Response.json({ success: false, error: error.message });
       }
-
       return Response.json({
         success: "new_email_requested",
         oldEmail: data?.user?.email,

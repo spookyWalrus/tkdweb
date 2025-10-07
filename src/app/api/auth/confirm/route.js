@@ -47,7 +47,7 @@ export async function GET(request) {
           data: { user },
         } = await supabase.auth.getUser();
         if (user?.new_email) {
-          redirectUrl = `${requestUrl.origin}/${locale}/member/account?message=partial_confirm&pending_email=${user.new_email}`;
+          redirectUrl = `${requestUrl.origin}/${locale}/member/account?message=partial_confirm`;
         } else {
           redirectUrl = `${requestUrl.origin}/${locale}/member/account?message=email_both_confirmed`;
         }

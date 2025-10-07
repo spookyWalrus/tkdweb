@@ -55,3 +55,44 @@
 .theEmail {
   color: vars.$primary;
 }
+
+.dismissible-message {
+  position: relative;
+  padding: 12px 40px 12px 12px;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.dismiss-button {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: #000;
+  opacity: 0.6;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.dismiss-button:hover {
+  opacity: 1;
+}
+
+.dismiss-button:focus {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+.message-content {
+  padding-right: 0;
+}

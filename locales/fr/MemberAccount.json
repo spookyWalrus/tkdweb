@@ -21,6 +21,6 @@
   "Email_Partial": {
     "Only1": "Confirmation reçue pour une seule adresse courriel.",
     "WaitConfirm": "En attente de la confirmation de :",
-    "CheckInbox": "Veuillez vérifier votre boîte de réception et cliquer sur le lien de confirmation pour compléter le changement."
+    "CheckInbox": "Veuillez vérifier votre boîtes de réception et cliquer sur les liens de confirmation pour compléter le changement."
   }
 }
