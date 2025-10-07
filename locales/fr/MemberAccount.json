@@ -1,0 +1,26 @@
+{
+  "CurrentEmail": "Votre courriel actuel",
+  "CurrentName": "Prénom",
+  "UpdateProgress": "Mise à jour en cours",
+  "UpdateProfile": "Mettre à jour mon profil",
+  "ConfirmationSent": "Lien de confirmation envoyé",
+  "CheckMail": "Veuillez vérifier votre courriel et cliquer sur le lien pour finaliser la mise à jour de votre adresse courriel",
+  "ProfileUpdated": "Profil mis à jour",
+  "EmailUpdated": "Courriel mis à jour avec succès",
+  "NothingUpdate": "Rien à mettre à jour",
+  "UpdateTryAgain": "Veuillez réessayer",
+  "ChangePW": "Changer votre mot de passe",
+  "PWSuccess": "Réinitialisation du mot de passe réussie",
+  "Email_Sent": {
+    "SentTo": "Nous avons envoyé des courriels de confirmation à:",
+    "CurrentMail": "1. Votre courriel actuel :",
+    "NewMail": "2. Votre nouveau courriel :",
+    "ClickBoth": "Veuillez cliquer sur les liens de confirmation dans LES DEUX courriels pour finaliser le changement de courriel.",
+    "UntilBoth": "Votre courriel ne sera pas mis à jour avant que les deux confirmations soient complétées."
+  },
+  "Email_Partial": {
+    "Only1": "Confirmation reçue pour une seule adresse courriel.",
+    "WaitConfirm": "En attente de la confirmation de :",
+    "CheckInbox": "Veuillez vérifier votre boîtes de réception et cliquer sur les liens de confirmation pour compléter le changement."
+  }
+}

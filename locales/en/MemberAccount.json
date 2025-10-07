@@ -1,0 +1,25 @@
+{
+  "CurrentEmail": "Your current email",
+  "CurrentName": "First name",
+  "UpdateProgress": "Update in progress",
+  "UpdateProfile": "Update my profile",
+  "ConfirmationSent": "Confirmation link sent.",
+  "ProfileUpdated": "Profile updated succesfully",
+  "EmailUpdated": "Email succesfully updated",
+  "NothingUpdate": "Nothing to update",
+  "UpdateTryAgain": "Please try again",
+  "ChangePW": "Change your password",
+  "PWSuccess": "Password reset succesful",
+  "Email_Sent": {
+    "SentTo": "We've sent confirmation emails to:",
+    "CurrentMail": "1. Your current email:",
+    "NewMail": "2. Your new email:",
+    "ClickBoth": "Please click the confirmation links in BOTH emails to finalize email change.",
+    "UntilBoth": "Your email will not be updated until both confirmations are complete."
+  },
+  "Email_Partial": {
+    "Only1": "Confirmation received for only 1 email address.",
+    "WaitConfirm": "Waiting confirmation from:",
+    "CheckInbox": "Please check your inboxes and click both confirmation links to complete the change."
+  }
+}

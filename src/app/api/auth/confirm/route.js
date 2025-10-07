@@ -17,27 +17,42 @@ export async function GET(request) {
         new URL("/auth-pages/auth-confirm", request.url)
       );
     }
-    // for production
+
+    if (!token_hash) {
+      return NextResponse.redirect(
+        new URL("/auth-pages/auth-error", request.url)
+      );
+    }
     if (token_hash && type) {
       let redirectUrl;
       const acceptLanguage = request.headers.get("accept-language");
       const locale = acceptLanguage?.includes("fr") ? "fr" : "en";
 
-      switch (type) {
-        case "recovery":
-          redirectUrl = `${requestUrl.origin}/${locale}/auth-pages/auth-pwreset?token_hash=${token_hash}&type=${type}`;
-          break;
-        case "email_change":
-          redirectUrl = `${requestUrl.origin}/${locale}/emailRecovery`;
-          break;
-        default: // default is sign up confirm
-          redirectUrl = `${requestUrl.origin}/${locale}/auth-pages/auth-confirm`;
-      }
-
       if (type === "recovery") {
-        // token verification on client-side
+        redirectUrl = `${requestUrl.origin}/${locale}/auth-pages/auth-pwreset?token_hash=${token_hash}&type=${type}`;
         return NextResponse.redirect(redirectUrl);
-      } else {
+      } else if (type === "email_change") {
+        const { error } = await supabase.auth.verifyOtp({
+          type: "email_change",
+          token_hash,
+        });
+        if (error) {
+          const errorReason = error.message.includes("expired")
+            ? "expired"
+            : "invalid";
+          redirectUrl = `${requestUrl.origin}/${locale}/member/account?message=email_update_fail&reason=${errorReason}`;
+          return NextResponse.redirect(redirectUrl);
+        }
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (user?.new_email) {
+          redirectUrl = `${requestUrl.origin}/${locale}/member/account?message=partial_confirm`;
+        } else {
+          redirectUrl = `${requestUrl.origin}/${locale}/member/account?message=email_both_confirmed`;
+        }
+        return NextResponse.redirect(redirectUrl);
+      } else if (type === "signup") {
         const { data, error } = await supabase.auth.verifyOtp({
           type: type,
           token_hash,
@@ -47,7 +62,6 @@ export async function GET(request) {
             new URL("/auth-pages/auth-confirm/", request.url)
           );
         } else {
-          console.warn("verification error: ", error);
           throw error;
         }
       }

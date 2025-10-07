@@ -188,7 +188,7 @@ export default function Navbar() {
           <div className="signup-button-container">
             {showJoin && (
               <Link href="/signup" className="button signup-button">
-                {t2("SignUp.JoinUs")}
+                {t2("SignUp.SignUp")}
                 {/* Join Us */}
               </Link>
             )}

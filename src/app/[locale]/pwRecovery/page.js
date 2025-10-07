@@ -115,7 +115,7 @@ function PWRecovery() {
     formData.append("captcha", captchaToken);
 
     try {
-      const res = await fetch("/api/pwRecover", {
+      const res = await fetch("/api/dataRecover?action=pwrecover", {
         method: "POST",
         body: formData,
       });

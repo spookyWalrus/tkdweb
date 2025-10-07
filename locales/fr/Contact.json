@@ -7,7 +7,7 @@
   "ContactSuccess": "Message envoyé avec succès",
   "ContactUs": "Contactez-nous",
   "Email": "Courriel",
-  "EmailError": "L'e-mail doit être valide",
+  "EmailError": "Le courriel doit être valide",
   "LastName": "Nom de famille",
   "Message": "Message",
   "MessageError": "Le message doit comporter au moins 10 caractères",

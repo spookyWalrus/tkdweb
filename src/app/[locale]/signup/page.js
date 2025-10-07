@@ -22,22 +22,7 @@ function Signup() {
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
 
-  // let signUpSend = t2("SignUp.SignUp");
-  // status === "success" ? t2("Login.Success") : t2("SignUp.SignUp");
-
   let lang = useLocale();
-  // let signingUp, name, signUpHeader, noCaptchaSet;
-  // if (lang === "en") {
-  // signingUp = "Signing Up";
-  // name = "First Name";
-  // signUpHeader = "Sign up to CCS Taekwondo Academy";
-  // noCaptchaSet = "Please complete Captcha verification";
-  // } else if (lang === "fr") {
-  // signingUp = "Inscription en cours";
-  // name = "Pré-nom";
-  // signUpHeader = "Inscrivez-vous à la Académie de Taekwondo CCS";
-  // noCaptchaSet = "Veuillez compléter la vérification Captcha";
-  // }
 
   let isThisATest = false;
   // process.env.NODE_ENV !== "production" ||
