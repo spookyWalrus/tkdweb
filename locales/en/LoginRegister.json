@@ -10,7 +10,7 @@
     "loginSend": "Log in",
     "loginSending": "Logging in",
     "loginSuccess": "Log in success",
-    "loginFailed": "Log in failed",
+    "loginFail": "Log in failed",
     "relogMess": "Session has expired, please log in again"
   },
   "SignUp": {

@@ -28,7 +28,6 @@ export async function POST(request) {
     }
 
     if (action === "emailupdate") {
-      // console.log("updating email with: ", email);
       const { data, error } = await supabase.auth.updateUser(
         {
           email: email,
@@ -39,7 +38,6 @@ export async function POST(request) {
         }
       );
       if (error) {
-        // console.log("email update request fail: ", error);
         return Response.json({ success: false, error: error.message });
       }
       return Response.json({

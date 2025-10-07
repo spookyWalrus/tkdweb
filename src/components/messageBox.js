@@ -31,7 +31,6 @@ function DismissibleMessage({ type, children, onDismiss }) {
     if (onDismiss) {
       onDismiss();
     }
-    // Navigate to the same pathname without search params
     if (window.location.search) {
       router.push(pathname);
     }

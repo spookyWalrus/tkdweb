@@ -22,12 +22,10 @@ function Account() {
   const [lastname, setLastName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [errors, setErrors] = useState({});
-  // const [pendingEmail, setPendingEmail] = useState(null);
 
   const [updateStatus, setUpdateStatus] = useState({
     type: null,
     emailData: { oldEmail: "", newEmail: "" },
-    // pendingEmail: null,
     errorReason: null,
   });
 
@@ -63,11 +61,9 @@ function Account() {
       setNotify(true);
     }
     if (message === "partial_confirm") {
-      // let pending = user.new_email;
       setUpdateStatus({
         type: "email_partial",
         emailData: { oldEmail: "", newEmail: "" },
-        // pendingEmail: setPendingEmail(pending),
         errorReason: null,
       });
       setIsSubmitting(false);
@@ -248,7 +244,6 @@ function Account() {
       });
       setIsSubmitting(false);
       setErrors({ update: error.message });
-      // console.log("update fail message: ", error);
     }
   };
   // Debug logging
@@ -263,7 +258,6 @@ function Account() {
       <div className="main">
         <div className="mainMargin">
           <div className="centerHeader">
-            {/* <h3>{t2("Login.Header")}</h3> */}
             <h3>An-nyeong ha-se-yo, {name}</h3>
           </div>
           <div className="accountBlock">
@@ -409,7 +403,6 @@ function Account() {
                     >
                       {t2("Email_Partial.Only1")}
                       {/* {t2("Email_Partial.WaitConfirm")}{" "} */}
-                      {/* <span className="theEmail">{pendingEmail}</span> */}
                       <br />
                       {t2("Email_Partial.CheckInbox")}
                     </DismissibleMessage>
@@ -422,60 +415,6 @@ function Account() {
                       {t2("UpdateTryAgain")}
                     </DismissibleMessage>
                   )}
-
-                  {/* {updateStatus.type === "email_sent" && (
-                    <div className="help is-success confirmLinkSent">
-                      {t2("ConfirmationSent")}
-                      <br />
-                      <span
-                        style={{ fontSize: "0.9em", color: "rgb(226, 102, 7)" }}
-                      >
-                        {t2("Email_Sent.SentTo")}
-                        <br />
-                        {t2("Email_Sent.CurrentMail")}{" "}
-                        <span className="theEmail">
-                          {updateStatus.emailData.oldEmail}
-                        </span>
-                        <br />
-                        {t2("Email_Sent.NewMail")}{" "}
-                        <span className="theEmail">
-                          {updateStatus.emailData.newEmail}
-                        </span>
-                        <br />
-                        {t2("Email_Sent.ClickBoth")}
-                        <br />
-                        {t2("Email_Sent.UntilBoth")}
-                      </span>
-                    </div>
-                  )} */}
-
-                  {/* {updateStatus.type === "profileUpdated" && (
-                    <div className="help is-success sentMessageMed">
-                      {t2("ProfileUpdated")}
-                    </div>
-                  )} */}
-                  {/* {updateStatus.type === "email_updated" && (
-                    <div className="help is-success sentMessageMed">
-                      {t2("EmailUpdated")}
-                    </div>
-                  )} */}
-                  {/* {updateStatus.type === "email_partial" && (
-                    <div className="help is-warn emailPartialConfirm">
-                      {t2("Email_Partial.Only1")}
-                      <br />
-                      {t2("Email_Partial.WaitConfirm")}
-                      <span className="theEmail">{pendingEmail}</span>
-                      <br />
-                      {t2("Email_Partial.CheckInbox")}
-                    </div>
-                  )} */}
-                  {/* {updateStatus.type === "error" && (
-                    <div className="help is-error sentMessageMed">
-                      {errors.update}
-                      <br />
-                      {t2("UpdateTryAgain")}
-                    </div>
-                  )} */}
                 </div>
               </div>
 
@@ -490,8 +429,8 @@ function Account() {
                 )}
               </div>
               <HCaptcha
-                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY}
-                // sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
+                // sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY}
+                sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
                 size="invisible"
                 ref={captchaRef}
                 // onLoad={() => console.warn("hCaptcha loaded successfully")}
