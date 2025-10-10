@@ -40,13 +40,6 @@ function Login() {
   let relogMess = t2("Login.relogMess");
   let noCaptchaSet = t2("Login.CaptchaError");
 
-  // let loginSend = "Log in";
-  // let loginSending = "Logging in";
-  // let loginSuccess = "Log in Success";
-  // let loginFailed = "Log in Fail";
-  // let noCaptchaSet = "Please complete Captcha verification";
-  // let relogMess = "Session has expired, please log in again"
-
   // let isThisATest =
   //   process.env.NODE_ENV === "test" ||
   //   process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
@@ -187,7 +180,7 @@ function Login() {
 
             <div className="field">
               <label htmlFor="password" className="formLabel">
-                {t2("LoginRegister.Password")}
+                {t2("Login.Password")}
               </label>
 
               <div className="control">

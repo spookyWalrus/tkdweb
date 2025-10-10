@@ -122,6 +122,3 @@ UserDropdown.propTypes = {
     }),
   }),
 };
-UserDropdown.defaultProps = {
-  data: null,
-};

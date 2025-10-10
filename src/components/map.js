@@ -16,11 +16,12 @@ const Map = () => {
           libraries: ["places", "marker"],
         });
 
-        const [{ Map }, { Marker }, { PlacesService }] = await Promise.all([
-          loader.importLibrary("maps"),
-          loader.importLibrary("marker"),
-          loader.importLibrary("places"),
-        ]);
+        const [{ Map }, { AdvancedMarkerElement }, { PlacesService }] =
+          await Promise.all([
+            loader.importLibrary("maps"),
+            loader.importLibrary("marker"),
+            loader.importLibrary("places"),
+          ]);
 
         let stLouis = { lat: 46.04415925350012, lng: -73.71189315777166 };
 
@@ -29,9 +30,10 @@ const Map = () => {
           center: stLouis,
           zoom: 15,
           disableDefaultUI: true,
+          mapId: "982fb575d51b7a455bdeebb",
         });
 
-        new Marker({
+        new AdvancedMarkerElement({
           position: stLouis,
           map: mapInstance,
           title: "dojang",

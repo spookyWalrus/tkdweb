@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { getPathname, usePathname } from "../i18n/navigation";
+import { usePathname } from "../i18n/navigation";
 import LangSwitcher from "./LangSwitcher";
 import { useIntersection } from "@/utilities/intersectionContext";
 import { useAuth } from "@/utilities/authContexter";
@@ -15,6 +15,7 @@ export default function Navbar() {
   const { showButton } = useIntersection();
   const { user, loading } = useAuth();
   const [showJoin, setShowJoin] = useState(true);
+  let pathname = usePathname();
 
   const t = useTranslations("Navbar");
   const t2 = useTranslations("LoginRegister");
@@ -25,10 +26,31 @@ export default function Navbar() {
     setNavOpen(!navOpen);
   };
 
-  let pathname = usePathname();
-
   useEffect(() => {
     setNavOpen(false);
+
+    const dropdowns = document.querySelectorAll(".navbar-item.has-dropdown");
+    dropdowns.forEach((dropdown) => {
+      dropdown.classList.remove("is-active");
+    });
+    const hoverableDropdowns = document.querySelectorAll(
+      ".navbar-item.has-dropdown.is-hoverable"
+    );
+    hoverableDropdowns.forEach((dropdown) => {
+      dropdown.classList.remove("is-hoverable");
+
+      const dropdownMenu = dropdown.querySelector(".navbar-dropdown");
+      if (dropdownMenu) {
+        dropdownMenu.style.display = "none";
+      }
+
+      setTimeout(() => {
+        dropdown.classList.add("is-hoverable");
+        if (dropdownMenu) {
+          dropdownMenu.style.display = "";
+        }
+      }, 100);
+    });
   }, [pathname]);
 
   const { authStatus, shouldShowJoin } = useMemo(() => {
@@ -41,8 +63,6 @@ export default function Navbar() {
     } else if (pathname !== "/login") {
       authComponent = (
         <Link href="/login" className="topBarLinks">
-          {/* Log In */}
-          {/* {t2("Login.Login")} */}
           {loginMessage}
         </Link>
       );
