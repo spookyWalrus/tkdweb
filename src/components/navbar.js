@@ -104,7 +104,7 @@ export default function Navbar() {
           <div className="fakeLogo"> </div>
           <div className="titleBox2">
             <p className="brandTitleBarRight">{t("Page Title Right")}</p>
-            <h3 className="brandTitleBarRightMobile">Christien Sourdif</h3>
+            <h3 className="brandTitleBarRightMobile">Christian Sourdif</h3>
           </div>
         </div>
         <nav
@@ -142,7 +142,7 @@ export default function Navbar() {
           >
             <div className="navbar-container">
               <div className="navbar-start navbar-links-left">
-                <div className="navbar-item has-dropdown is-hoverable">
+                <div className="navbar-item has-dropdown is-hoverable shortlist">
                   <div className="navbar-link">{t("About Us.Head")}</div>
                   <div className="navbar-dropdown">
                     <Link href="/" className="navbar-item">

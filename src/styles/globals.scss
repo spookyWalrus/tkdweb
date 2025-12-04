@@ -1,5 +1,5 @@
+@use "bulma/sass" as bulma;
 @use "./variables" as vars;
-@use "bulma";
 @use "bulma/sass/utilities/initial-variables" as bul;
 @import "./partials/homepage";
 @import "./partials/navbar";

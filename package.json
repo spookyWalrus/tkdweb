@@ -51,7 +51,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.3.1",
     "@testing-library/user-event": "^14.6.1",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "^10.4.21",
     "cypress-iframe": "^1.0.1",
     "eslint": "^8",
     "eslint-config-next": "13.5.7",
@@ -63,7 +63,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^14.0.1",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.6",
     "postcss-import": "^15.1.0",
     "postcss-scss": "4.0",
     "prettier": "^3.5.1",
@@ -90,5 +90,10 @@
       "prettier --write",
       "stylelint --fix"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
 }

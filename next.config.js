@@ -37,7 +37,7 @@ const nextConfig = {
     optimizePackageImports: ["@supabase/supabase-js"],
   },
   env: {
-    _next_intl_trailing_slash: "false", // or 'true' depending on your preference
+    _next_intl_trailing_slash: "false",
   },
 };
 

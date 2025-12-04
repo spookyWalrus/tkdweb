@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../variables" as vars;
 @use "bulma/sass/utilities/initial-variables" as bulma;
 
@@ -82,9 +83,28 @@
   width: 100%;
   position: relative;
   z-index: 50;
+  color: vars.$background;
+  background-color: rgb(20 22 26);
+  border: 1px solid rgb(144 146 148); /* Add border if not present */
+
+  /* Smooth transition */
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
 
   @media screen and (min-width: vars.$smallTablet) {
     width: 50%;
+  }
+
+  &:hover {
+    background-color: color.adjust(rgb(40 43 49));
+
+    // border-color: color.adjust(rgb(198, 203, 211), $lightness: 15%);
+    // background-color: rgba(40, 44, 52, 1);
+
+    /* Safari compatibility */
+    transform: translateZ(0);
+    transform: translateZ(0);
   }
 }
 

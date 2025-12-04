@@ -290,6 +290,7 @@
 }
 
 .signup-button {
+  color: vars.$background;
   border: none;
   border-radius: 0;
   background-color: vars.$secondary;
@@ -307,4 +308,35 @@
     padding-right: 15px;
     font-size: 1em;
   }
+}
+
+.navbar-dropdown {
+  background-color: vars.$foreground;
+  border: vars.$foreground;
+}
+
+.navbar-link,
+.navbar-dropdown .navbar-item:not(.is-active, .is-selected) {
+  background-color: vars.$foreground !important;
+  color: vars.$background !important;
+}
+
+.navbar-link:hover,
+.navbar-dropdown .navbar-item:not(.is-active, .is-selected):hover {
+  background-color: rgb(51 54 62) !important;
+  color: vars.$background;
+}
+
+.navbar-link:not(.is-arrowless) {
+  display: flex;
+  align-items: center;
+  padding-right: 2.5em;
+  position: relative;
+}
+
+.navbar-link:not(.is-arrowless)::after {
+  position: absolute;
+  right: 1.125em;
+  top: 35%;
+  margin: 0;
 }
