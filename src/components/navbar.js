@@ -91,6 +91,7 @@ export default function Navbar() {
 
   return (
     <div className="header">
+      {/* Topbar begins */}
       <div className="topBar">
         <LangSwitcher />
         {authStatus}
@@ -99,12 +100,14 @@ export default function Navbar() {
         <div className="brandTitleBar">
           <div className="titleBox">
             <p className="brandTitleBarLeft">{t("Page Title Left")}</p>
-            <h3 className="brandTitleBarLeftMobile">Taekwondo</h3>
+            <h3 className="brandTitleBarLeftMobile">{t("Page Title Left")}</h3>
           </div>
           <div className="fakeLogo"> </div>
           <div className="titleBox2">
             <p className="brandTitleBarRight">{t("Page Title Right")}</p>
-            <h3 className="brandTitleBarRightMobile">Christian Sourdif</h3>
+            <h3 className="brandTitleBarRightMobile">
+              {t("Page Title Right")}
+            </h3>
           </div>
         </div>
         <nav
@@ -135,7 +138,7 @@ export default function Navbar() {
               <span aria-hidden="true"></span>
             </a>
           </div>
-
+          {/* End of Topbar */}
           <div
             id="navbarBasicExample"
             className={`navbar-menu ${navOpen ? "is-active" : ""}`}
@@ -197,9 +200,14 @@ export default function Navbar() {
                     </Link>
                   </div>
                 </div>
-                <Link href="/contact" className="navbar-item">
-                  Contact
-                </Link>
+                <div className="navbar-item has-dropdown is-hoverable">
+                  <Link
+                    href="/contact"
+                    className="navbar-item navbar-item-last"
+                  >
+                    Contact
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

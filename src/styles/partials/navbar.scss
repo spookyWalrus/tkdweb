@@ -62,11 +62,17 @@
 .titleBox {
   width: 45%;
   text-align: center;
-  padding-left: 11%;
 
-  @media screen and (min-width: vars.$smallTablet) {
+  // padding-left: 11%;
+  @media screen and (max-width: vars.$desktop) {
+    padding-left: 0%;
+  }
+
+  @media screen and (max-width: vars.$smallTablet) {
     text-align: right;
-    padding-left: 8%;
+    padding-left: 0%;
+    text-wrap: nowrap;
+    white-space: nowrap;
   }
 }
 
@@ -78,7 +84,11 @@
   @media screen and (min-width: vars.$smallTablet) {
     width: 45%;
     padding-left: 0;
-    text-align: left;
+    text-align: center;
+  }
+
+  @media screen and (max-width: vars.$smallTablet) {
+    padding-left: 0%;
   }
 }
 
@@ -100,7 +110,7 @@
 .brandTitleBarLeftMobile {
   // display: flex;
   // font-size: clamp(1rem, 100%, 130%);
-  font-size: 1rem;
+  font-size: 0.9rem;
   flex-grow: 1;
 
   @media screen and (min-width: bulma.$tablet) {
@@ -111,7 +121,7 @@
 .brandTitleBarRightMobile {
   // display: flex;
   // font-size: clamp(1rem, 100%, 130%);
-  font-size: 1rem;
+  font-size: 0.9rem;
   flex-grow: 3;
 
   @media screen and (min-width: bulma.$tablet) {
@@ -131,6 +141,15 @@
 
 .navbar-burger {
   margin-inline-start: 0;
+}
+
+.navbar-menu {
+  background-color: vars.$foreground;
+
+  // padding-top: 1.2rem;
+  @media screen and (max-width: bulma.$tablet) {
+    padding-top: 1.2rem;
+  }
 }
 
 .navbar.is-fixed-top {
@@ -203,6 +222,7 @@
   justify-content: center;
   margin: 0 auto;
   background-color: transparent;
+  z-index: 10;
 
   @media screen and (min-width: vars.$smallTablet) {
     width: 10%;
@@ -246,14 +266,22 @@
 }
 
 .navbar-item-last {
-  margin-left: auto;
-  max-width: 100%;
-  overflow: hidden;
+  background-color: vars.$foreground;
+  color: vars.$background;
+  border: vars.$foreground;
 
-  @media screen and (max-width: bulma.$tablet) {
-    margin-left: 0;
-    max-width: 100%;
+  &:hover {
+    background-color: rgb(51 54 62);
   }
+
+  // margin-left: auto;
+  // max-width: 100%;
+  // overflow: hidden;
+
+  // @media screen and (max-width: bulma.$tablet) {
+  //   margin-left: 0;
+  //   max-width: 100%;
+  // }
 }
 
 .navbar-login {

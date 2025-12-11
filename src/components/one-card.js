@@ -1,6 +1,8 @@
 import Image from "next/image";
 import PropTypes from "prop-types";
 
+// 08 Dec 2025 - Revealing more info on hover for 'blurb' (set with styling in oneCard.scss) , is turned off via commented out
+
 const OneCard = ({ imageSrc, altText, name, position, blurb, blurbclass }) => {
   return (
     <div className="card oneCardCustom">

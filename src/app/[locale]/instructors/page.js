@@ -19,7 +19,7 @@ function Instructors() {
           <OneCard
             imageSrc="/images/gM1.jpg"
             altText="grandMaster"
-            name="Christien Sourdif"
+            name="Christian Sourdif"
             position={t("Card.gmTitle") + ", 9th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}

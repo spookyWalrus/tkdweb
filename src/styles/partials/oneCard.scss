@@ -51,15 +51,15 @@
     transition: opacity 0.4s ease;
   }
 
-  &:hover {
-    .drop-card-top {
-      opacity: 0;
-    }
+  // &:hover {
+  //   .drop-card-top {
+  //     opacity: 0;
+  //   }
 
-    .drop-card-under {
-      opacity: 1;
-    }
-  }
+  //   .drop-card-under {
+  //     opacity: 1;
+  //   }
+  // }
 }
 
 .drop-opaque:hover {
