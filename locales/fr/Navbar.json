@@ -1,1 +1,23 @@
-{"About Taekwondo":{"Head":"À propos du Taekwondo","Item 1":"Histoire du Taekwondo","Item 2":"Philosophie du Taekwondo","Item 3":"Vocabulaire / Glossaire"},"About Us":{"Head":"À propos de nous","Instructors":"Nos instructeurs","TheClub":"Histoire du club"},"Contact":"Contact","Courses":{"ClassesPricing":"Cours et tarifs","Conduct":"Conduite en classe","Head":"Cours","News":"Actualités / Événements actuels"},"Login":"Connexion / Inscription","Page Title Left":"Académie de Taekwondo","Page Title Right":"Club Christien Sourdif"}
+{
+  "About Taekwondo": {
+    "Head": "À propos du Taekwondo",
+    "Item 1": "Histoire du Taekwondo",
+    "Item 2": "Philosophie du Taekwondo",
+    "Item 3": "Vocabulaire / Glossaire"
+  },
+  "About Us": {
+    "Head": "À propos de nous",
+    "Instructors": "Nos instructeurs",
+    "TheClub": "Histoire du club"
+  },
+  "Contact": "Contact",
+  "Courses": {
+    "ClassesPricing": "Cours et tarifs",
+    "Conduct": "Conduite en classe",
+    "Head": "Cours",
+    "News": "Actualités / Événements actuels"
+  },
+  "Login": "Connexion / Inscription",
+  "Page Title Left": "Académie de Taekwondo",
+  "Page Title Right": "Club Christian Sourdif"
+}
