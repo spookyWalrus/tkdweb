@@ -20,7 +20,7 @@ export default function Navbar() {
   const t = useTranslations("Navbar");
   const t2 = useTranslations("LoginRegister");
 
-  const loginMessage = t2("Login.Login");
+  const loginMessage = t("Login");
 
   const toggleMenu = () => {
     setNavOpen(!navOpen);
@@ -165,10 +165,10 @@ export default function Navbar() {
                     <Link href="/conduct" className="navbar-item">
                       {t("Courses.Conduct")}
                     </Link>
-                    <Link href="#" className="navbar-item wraptext">
-                      {t("Courses.News")}
-                      {/* News */}
-                    </Link>
+                    {/* <Link href="#" className="navbar-item wraptext"> */}
+                    {/* {t("Courses.News")} */}
+                    {/* News */}
+                    {/* </Link> */}
                   </div>
                 </div>
               </div>
@@ -205,7 +205,7 @@ export default function Navbar() {
                     href="/contact"
                     className="navbar-item navbar-item-last"
                   >
-                    Contact
+                    {t("Contact")}
                   </Link>
                 </div>
               </div>

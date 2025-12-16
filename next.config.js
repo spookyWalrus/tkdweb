@@ -36,9 +36,10 @@ const nextConfig = {
     // Reduce compilation time
     optimizePackageImports: ["@supabase/supabase-js"],
   },
-  env: {
-    _next_intl_trailing_slash: "false",
-  },
+  trailingSlash: false,
+  // env: {
+  //   _next_intl_trailing_slash: "false",
+  // },
 };
 
 module.exports = withNextIntl(nextConfig);

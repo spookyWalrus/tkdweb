@@ -1,20 +1,71 @@
 @use "../variables" as vars;
 
-.customFooter {
+footer {
+  padding: 1rem;
+  background-color: vars.$primary;
+}
+
+.footerContainer {
   // margin: 0;
-  padding-bottom: 2rem;
+
+  // padding: 1rem;
   background-color: vars.$primary;
   color: vars.$background;
-  margin-bottom: 0 !important;
+
+  // margin-bottom: 0 !important;
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: vars.$smallTablet) {
+    padding: 0;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+.footerInfo {
+  color: hsl(300deg 9% 96%);
+  flex-grow: 1;
+
+  @media screen and (max-width: vars.$smallTablet) {
+    font-size: 0.8rem;
+  }
+}
+
+.footerInfo a {
+  color: hsl(300deg 5% 92% / 70%);
+}
+
+.footerLinks,
+.footerLinks a {
+  color: hsl(300deg 5% 92% / 70%);
+  flex-grow: 1;
 }
 
 .footerIcons {
-  display: block;
-  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+
+  // flex-grow: 0;
+  gap: 1rem;
+
+  @media screen and (max-width: vars.$smallTablet) {
+    gap: 0.5rem;
+  }
+}
+
+.theIcons {
+  flex-grow: 1;
 }
 
 .copyRight {
+  padding-top: 2rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+  font-size: 0.8rem;
+  background-color: vars.$primary;
+  color: hsl(219deg 73% 67%);
 }

@@ -29,7 +29,7 @@ function Instructors() {
           <OneCard
             imageSrc="/images/mf3.jpg"
             altText="instructor-trainer"
-            name="Marie-France Instructor"
+            name="Marie-France Moffat"
             position={t("Card.trainTitle") + ", 6th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
@@ -37,7 +37,7 @@ function Instructors() {
           <OneCard
             imageSrc="/images/zoey2.jpg"
             altText="instructor"
-            name="Zoey Instructor"
+            name="Zoey"
             position={t("Card.insTitle") + ", 5th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
@@ -53,7 +53,7 @@ function Instructors() {
           <OneCard
             imageSrc="/images/kat2.jpg"
             altText="instructor"
-            name="Katrine Gravel"
+            name="Catherine Gravel"
             position={t("Card.assTitle") + ", 1st Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
