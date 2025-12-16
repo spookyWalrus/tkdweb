@@ -13,14 +13,16 @@ const Footer = () => {
           <h6>{t("Page Title Left")}</h6>
           <h6>{t("Page Title Right")}</h6>
           <br />
-          <p>(450) 834-1234</p>
+          <p>(514) 702-2599</p>
           <p>
-            <Link href="mailto:ccstkdrawdon@gmail.com">ccstkd@gmail.com</Link>
+            <Link href="mailto:ccstkdrawdon@gmail.com">
+              ccstkdrawdon@gmail.com
+            </Link>
           </p>
         </div>
         <div className="footerLinks">
           <div>
-            <Link href="/instructors">{t("About Us.TheClub")}</Link>
+            <Link href="/">{t("About Us.TheClub")}</Link>
           </div>
           <div>
             <Link href="/instructors">{t("About Us.Instructors")}</Link>

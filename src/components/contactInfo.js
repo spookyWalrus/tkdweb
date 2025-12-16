@@ -16,14 +16,14 @@ const ContactInfo = () => {
           <FontAwesomeIcon icon={faEnvelope} />
         </span>
         <span className="contactBold">{t("Email")}</span>
-        <span className="contactInfo">tkdccs@gmail.com</span>
+        <span className="contactInfo">ccstkdrawdon@gmail.com</span>
       </div>
       <div className="icon-box">
         <span className="icon isBlue">
           <FontAwesomeIcon icon={faPhone} />
         </span>
         <span className="contactBold">{t("Phone")}</span>
-        <span className="contactInfo">090-123-4567</span>
+        <span className="contactInfo">(514) 702-2599</span>
       </div>
       <div className="icon-box">
         <span className="icon isBlue">
