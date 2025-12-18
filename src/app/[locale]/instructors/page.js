@@ -37,7 +37,7 @@ function Instructors() {
           <OneCard
             imageSrc="/images/zoey2.jpg"
             altText="instructor"
-            name="Zoey"
+            name="Zo&euml; Zelick"
             position={t("Card.insTitle") + ", 5th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
@@ -53,7 +53,7 @@ function Instructors() {
           <OneCard
             imageSrc="/images/kat2.jpg"
             altText="instructor"
-            name="Catherine Gravel"
+            name="Katherine Gravel"
             position={t("Card.assTitle") + ", 1st Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
