@@ -1,1 +1,21 @@
-{"Login":{"AuthenticationFail":"Authentication Failed. Try again","CaptchaError":"Please complete Captcha verification","ForgotPW":"Forgot password? Click here","Header":"Member log in","loginFailed":"Log in failed","loginSend":"Session has expired, please log in again","loginSending":"Logging in","loginSuccess":"Log in success!","noCaptchaSet":"Please complete Captcha verification","Password":"Password"},"SignUp":{"PasswordRules":"Must be min. 8 characters long, have an uppercase and a lower case, 1 number and 1 symbol","SignUp":"Sign Up","SignUpFail":"Sign up Failed. Please try again","SignUpHeader":"Sign up to CCS Taekwondo Academy","SignUpSuccess":"Check your email to confirm sign up."}}
+{
+  "Login": {
+    "AuthenticationFail": "Authentication Failed. Try again",
+    "CaptchaError": "Please complete Captcha verification",
+    "ForgotPW": "Forgot password? Click here",
+    "Header": "Member log in",
+    "loginFailed": "Log in failed",
+    "loginSend": "Session has expired, please log in again",
+    "loginSending": "Logging in",
+    "loginSuccess": "Log in success!",
+    "noCaptchaSet": "Please complete Captcha verification",
+    "Password": "Password"
+  },
+  "SignUp": {
+    "PasswordRules": "Must be min. 8 characters long, have an uppercase and a lower case, 1 number and 1 symbol",
+    "SignUp": "Sign Up",
+    "SignUpFail": "Sign up Failed. Please try again",
+    "SignUpHeader": "Sign up to CCS Taekwondo Academy",
+    "SignUpSuccess": "Check your email to confirm sign up."
+  }
+}

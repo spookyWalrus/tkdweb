@@ -4,6 +4,8 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useTranslations, useLocale } from "next-intl";
 import { PulseLoader } from "react-spinners";
+import Image from "next/image";
+import PWToggle from "@/components/pwToggle";
 
 function Signup() {
   const [status, setStatus] = useState("");
@@ -18,6 +20,7 @@ function Signup() {
   const [captchaToken, setCaptchaToken] = useState(null);
   const [captchaKey, setCaptchaKey] = useState(Date.now());
   const captchaRef = useRef();
+  const [pwtype, setPwtype] = useState("password");
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
@@ -163,14 +166,13 @@ function Signup() {
       <div className="mainMargin">
         <div className="centerHeader">
           {/* <h3>Sign up to CCS Taekwondo Academy</h3> */}
-          <h3>{t2("SignUp.signUpHeader")}</h3>
+          <h3>{t2("SignUp.SignUpHeader")}</h3>
         </div>
         <div className="loginBlock">
           <form onSubmit={submitForm} className="contactForm">
             <div className="field">
               <label htmlFor="name" className="formLabel">
-                {/* {t("Name")} */}
-                {t2("SignUp.signUpName")}
+                {t("Name")}
               </label>
               <div className="control">
                 <input
@@ -243,16 +245,26 @@ function Signup() {
               <label htmlFor="password" className="formLabel">
                 {t2("Login.Password")}
               </label>
-
-              <div className="control">
+              <div className="control inputContainer">
                 <input
-                  type="password "
+                  type={pwtype}
                   name="password"
                   id="password"
+                  minLength="8"
                   placeholder="secret password"
                   value={inputData.password}
                   onChange={handleChange}
+                  className="inputBox"
                 />
+                <PWToggle setPwtype={setPwtype} pwtype={pwtype} />
+                {/* <button type="button" onClick="showPW()">
+                  <Image
+                    src="/logos/showPW16.png"
+                    width={16}
+                    height={16}
+                    alt="show"
+                  />
+                </button> */}
                 <p className="help passwordNote">
                   {t2("SignUp.PasswordRules")}
                 </p>
