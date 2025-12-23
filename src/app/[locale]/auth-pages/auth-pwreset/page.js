@@ -6,6 +6,7 @@ import { validateLogin } from "@/utilities/validateLogin";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { PulseLoader } from "react-spinners";
+import PWToggle from "@/components/pwToggle";
 
 export default function PWReset() {
   const [status, setStatus] = useState(null);
@@ -20,6 +21,9 @@ export default function PWReset() {
   // const [captchaToken, setCaptchaToken] = useState(null);
   const [isUser, setIsUser] = useState(null);
   const [theUser, setTheUser] = useState(null);
+  const [pwtype, setPwtype] = useState("password");
+  const [pwtype2, setPwtype2] = useState("password");
+
   // const [captchaKey, setCaptchaKey] = useState(Date.now());
   const captchaRef = useRef();
   const supabase = createClientComponentClient();
@@ -233,15 +237,18 @@ export default function PWReset() {
                   {/* {t2("Login.Password")} */}
                   Enter new password
                 </label>
-                <div className="control">
+                <div className="control inputContainer">
                   <input
-                    type="password "
+                    type={pwtype}
                     name="nupassword"
                     id="nupassword"
                     placeholder="secret password"
                     value={inputData.nupassword}
                     onChange={handleChange}
+                    className="inputBox"
                   />
+                  <PWToggle setPwtype={setPwtype} pwtype={pwtype} />
+
                   <p className="help passwordNote">
                     {t2("SignUp.PasswordRules")}
                   </p>
@@ -265,13 +272,15 @@ export default function PWReset() {
 
                 <div className="control">
                   <input
-                    type="password "
+                    type={pwtype2}
                     name="passwordrepeat"
                     id="passwordreepat"
                     placeholder="repeat password"
                     value={inputData.passwordrepeat}
                     onChange={handleChange}
+                    className="inputBox"
                   />
+                  <PWToggle setPwtype={setPwtype2} pwtype={pwtype2} />
 
                   {errors.passwordNoMatch && (
                     <p

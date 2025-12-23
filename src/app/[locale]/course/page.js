@@ -81,7 +81,10 @@ export default function CourseFees() {
         </div>
         <div className="bodyTextMarginTop">
           <h4>{t("Fees.Title")}</h4>
-          <table className="table is-striped">
+          <div>
+            <p>{t("Fees.FeeTable")}</p>
+          </div>
+          {/* <table className="table is-striped">
             <thead className="thead">
               <tr>
                 <th></th>
@@ -131,7 +134,7 @@ export default function CourseFees() {
                 <td>Family price$</td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
         </div>
         <div>
           <h4 className="bodyTextMarginTop">{t("Fees.AddCos")}</h4>

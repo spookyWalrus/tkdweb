@@ -28,8 +28,6 @@ function Signup() {
   let lang = useLocale();
 
   let isThisATest = false;
-  // process.env.NODE_ENV !== "production" ||
-  // process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   const showStatus = () => {
     switch (status) {
@@ -257,14 +255,7 @@ function Signup() {
                   className="inputBox"
                 />
                 <PWToggle setPwtype={setPwtype} pwtype={pwtype} />
-                {/* <button type="button" onClick="showPW()">
-                  <Image
-                    src="/logos/showPW16.png"
-                    width={16}
-                    height={16}
-                    alt="show"
-                  />
-                </button> */}
+
                 <p className="help passwordNote">
                   {t2("SignUp.PasswordRules")}
                 </p>
@@ -285,11 +276,6 @@ function Signup() {
                   ref={captchaRef}
                   key={captchaKey}
                   sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
-                  // sitekey={
-                  //   isThisATest
-                  //     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                  //     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                  // }
                   onVerify={(token) => setCaptchaToken(token)}
                   onExpire={resetCaptcha}
                   onError={resetCaptcha}
