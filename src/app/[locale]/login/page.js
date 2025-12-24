@@ -8,6 +8,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { PulseLoader } from "react-spinners";
 import { useAuth } from "@/utilities/authContexter";
+import PWToggle from "@/components/pwToggle";
 
 // import { verifyCaptcha } from "@/utilities/verifyCaptcha";
 
@@ -23,6 +24,7 @@ function Login() {
   const [relogMessage, setRelogMessage] = useState("");
   const [captchaToken, setCaptchaToken] = useState(null);
   const [captchaKey, setCaptchaKey] = useState(Date.now());
+  const [pwtype, setPwtype] = useState("password");
 
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
@@ -183,15 +185,18 @@ function Login() {
                 {t2("Login.Password")}
               </label>
 
-              <div className="control">
+              <div className="control inputContainer">
                 <input
-                  type="password "
+                  type={pwtype}
                   name="password"
                   id="password"
                   placeholder="secret password"
                   value={inputData.password}
                   onChange={handleChange}
+                  className="inputBox"
                 />
+                <PWToggle setPwtype={setPwtype} pwtype={pwtype} />
+
                 <Link href="/pwRecovery" className="passwordNoteReset">
                   {t2("Login.ForgotPW")}
                 </Link>
