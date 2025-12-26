@@ -1,28 +1,36 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
+
+// yyyy-mm-dd is format for date entry to db
 
 export async function GET() {
-  const apikey = process.env.TIMEZONE_API_KEY;
-  try {
-    const response = await fetch(
-      `http://api.timezonedb.com/v2.1/get-time-zone?key=${apikey}&format=json&by=zone&zone=America/Toronto`
-    );
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
 
-    if (!response.ok) {
-      throw new Error(`API call failed with: ${response.status}`);
+  try {
+    const { data, error } = await supabase
+      .from("tkdCCSdb")
+      .select("id,springStart,fallStart,winterStart")
+      .eq("id", 1)
+      .single();
+
+    if (error) {
+      throw new Error(`Database error: ${error.message}`);
     }
-    const result = await response.json();
     return NextResponse.json({
       status: "success",
       data: {
-        timezone: result.zoneName,
-        date: result.formatted,
-        abbreviation: result.abbreviation,
+        spring: data.springStart,
+        fall: data.fallStart,
+        winter: data.winterStart,
       },
     });
   } catch (err) {
     console.error("api fetching error: ", err);
     return NextResponse.json(
-      { error: "failed api:  timezone fetching" },
+      { error: err, message: "Error fetching data" },
       { status: 500 }
     );
   }

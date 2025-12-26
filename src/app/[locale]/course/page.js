@@ -14,6 +14,7 @@ export default function CourseFees() {
       );
     });
   }
+
   return (
     <div className="main">
       <div className="mainMargin">
@@ -24,6 +25,18 @@ export default function CourseFees() {
           <h4>{t("Schedule.Title")}</h4>
           <div>{mapSpaces(t("Schedule.Top"))}</div>
           <SessionStart />
+        </div>
+        <br />
+        <div>
+          <p>
+            Download the calendar: <br />
+            <a
+              href="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/public/TKDcalendar/calendar2025.pdf?download"
+              className="button is-link dlcalendarbutton"
+            >
+              Download Calendar
+            </a>
+          </p>
         </div>
         <div className="bodyTextMarginTop">
           <h4>{t("Schedule.TableHeader")}</h4>

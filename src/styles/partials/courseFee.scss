@@ -1,3 +1,4 @@
+@use "../variables" as vars;
 @use "bulma/sass/utilities/initial-variables" as bulma;
 
 .table .tableHead {
@@ -24,8 +25,10 @@ table > tbody > tr > th {
 
 .blinkyText {
   opacity: 1;
-  animation: 2.5s infinite alternate fadeinout;
-  color: red;
+
+  // animation: 2.5s infinite alternate fadeinout;
+  // color: rgb(164, 41, 41);
+  color: vars.$primary;
   padding-left: 1rem;
 }
 
@@ -43,4 +46,9 @@ table > tbody > tr > th {
 .noBold {
   font-weight: 400;
   font-size: 0.8rem;
+}
+
+.dlcalendarbutton {
+  font-size: 0.7rem;
+  line-height: 1;
 }
