@@ -16,7 +16,6 @@
     "FamilyRate": "Family rate",
     "FamilyRateDesc": "3 people or more",
     "Fees": "Fees",
-    "FeeTable": "Course prices vary per session. Please come visit us in person or contact us for more details",
     "GearPurchase": "Purchase of uniform or equipment to be arranged in person with instructors after registration.",
     "Protection": "Sparring equipment - competitive level.  (Head, body, arm and leg protection)",
     "QTKDblk": "Quebec TKD association fee per person / year (black belts)",
@@ -24,7 +23,8 @@
     "RecCat": "Recreational",
     "RecCatDesc": "beginners, 4yrs+ or parents",
     "SessionCost": "1  person",
-    "Title": "Course fees for every session"
+    "Title": "Course fees for every session",
+    "FeeTable": "Please consult with an instructor in-person or contact us for current course prices."
   },
   "FinalComment": "Try out courses offered, please make inquiries.*n* Registration can be done in person.*n* Payments possible with cash, cheque or e-transfer.*n* E-transfer payments made to:",
   "Header": "Course schedule and fees",
@@ -47,5 +47,9 @@
     "Top": "3 sessions per school year (Fall, Winter, Spring).*n* Length of 1 session: 12 weeks, minimum of 24 classes.*n* 3 classes per week, 1 hour class.*n* On days of extreme weather, class may be cancelled.  Please consult the Current News / Events page for up-to-date information.",
     "Tuesday": "Tuesday",
     "Winter": "Winter"
-  }
+  },
+  "Spring": "spring",
+  "Fall": "fall",
+  "Winter": "winter",
+  "Download": "Download the year calendar here"
 }

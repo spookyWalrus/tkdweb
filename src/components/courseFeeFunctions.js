@@ -1,7 +1,7 @@
 "use client";
-import NewSeason from "../utilities/getDate";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 // Add a function that takes in the start dates of the year Session Fall, Winter, Spring.
 // Date automatically switches if date is past a certain point of the school year.
@@ -9,14 +9,12 @@ import { useTranslations } from "next-intl";
 
 const SessionStart = () => {
   const t = useTranslations("CourseFees");
+  const locale = useLocale();
   const space = " ";
-  const newSeason = NewSeason();
-  let sessionStart;
   const [date, setDate] = useState(null);
   const [err, setError] = useState(null);
-  const [fallStart, setFallStart] = useState(null);
-  const [winterStart, setWinterStart] = useState(null);
-  const [springStart, setSpringStart] = useState(null);
+  const [season, setSeason] = useState(null);
+  const [firstClassSentence, setFirstClassSentence] = useState(null);
 
   useEffect(() => {
     const fetchStartDate = async () => {
@@ -25,23 +23,47 @@ const SessionStart = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch start date");
         }
-        const data = await response.json();
-        let dateOnly = data.data.date;
-        let exactDate = dateOnly.split(" ");
-        setDate(exactDate[0]);
+        const result = await response.json();
+        if (result.status === "success") {
+          setDate(result.date);
+          setSeason(result.theseason);
+        } else {
+          throw new Error(result.message || "API returned error status");
+        }
       } catch (err) {
         setError(err.message);
       }
     };
     fetchStartDate();
-  }, [date]);
+  }, []);
+
+  useEffect(() => {
+    let seasonFRA;
+    if (season === "Spring") {
+      seasonFRA = t("Spring");
+    } else if (season === "Fall") {
+      seasonFRA = t("Fall");
+    } else {
+      seasonFRA = t("Winter");
+    }
+
+    if (locale === "en") {
+      setFirstClassSentence(`The first class of ${season} session starts on: `);
+    } else {
+      setFirstClassSentence(
+        `Le premier cours de la session ${seasonFRA} commence le: `
+      );
+    }
+  }, [season]);
 
   return (
     <div>
       <h6>
-        <span>{t("Schedule.FirstClass")} </span> {space}
-        {newSeason} {space}
-        <span>{t("Schedule.FirstClass2")} </span>
+        {firstClassSentence}
+        {/* {space} */}
+        {/* <span>{t("Schedule.FirstClass")} </span> {space}
+        {season} Session {space} */}
+        {/* <span>{t("Schedule.FirstClass2")} </span> */}
         <span className="blinkyText">{date || "Loading"}</span>
       </h6>
     </div>
