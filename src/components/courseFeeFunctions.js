@@ -3,14 +3,9 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 
-// Add a function that takes in the start dates of the year Session Fall, Winter, Spring.
-// Date automatically switches if date is past a certain point of the school year.
-// Start dates can be set in the admin page of site
-
 const SessionStart = () => {
   const t = useTranslations("CourseFees");
   const locale = useLocale();
-  const space = " ";
   const [date, setDate] = useState(null);
   const [err, setError] = useState(null);
   const [season, setSeason] = useState(null);
@@ -60,10 +55,6 @@ const SessionStart = () => {
     <div>
       <h6>
         {firstClassSentence}
-        {/* {space} */}
-        {/* <span>{t("Schedule.FirstClass")} </span> {space}
-        {season} Session {space} */}
-        {/* <span>{t("Schedule.FirstClass2")} </span> */}
         <span className="blinkyText">{date || "Loading"}</span>
       </h6>
     </div>
