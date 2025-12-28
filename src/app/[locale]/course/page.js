@@ -4,7 +4,6 @@ import SessionStart from "../../../components/courseFeeFunctions";
 import { useLocale } from "next-intl";
 
 export default function CourseFees() {
-  const space = " ";
   const t = useTranslations("CourseFees");
   const lang = useLocale();
 

@@ -26,9 +26,6 @@
     "Title": "Frais de cours pour chaque session",
     "FeeTable": "Veuillez consulter un instructeur en personne ou nous contacter pour connaître les prix actuels des cours."
   },
-  "FinalComment": "Essayez les cours offerts, veuillez vous renseigner.*n* L'inscription peut se faire en personne.*n* Paiements possibles en espèces, par chèque ou par virement électronique.*n* Paiements par virement électronique effectués à :",
-  "Header": "Horaire et tarifs des cours",
-  "PayInfo": "ccstkdrawdon@gmail.com*n* Question : Paiement*n* Réponse : tkd*n* *n* Veuillez laisser un commentaire et préciser à quoi sert le paiement.",
   "Schedule": {
     "Advanced": "Avancé",
     "AdvancedDesc": "12 ans et plus et adultes",
@@ -48,6 +45,9 @@
     "Tuesday": "Mardi",
     "Winter": "Hiver"
   },
+  "FinalComment": "Essayez les cours offerts, veuillez vous renseigner.*n* L'inscription peut se faire en personne.*n* Paiements possibles en espèces, par chèque ou par virement électronique.*n* Paiements par virement électronique effectués à :",
+  "Header": "Horaire et tarifs des cours",
+  "PayInfo": "ccstkdrawdon@gmail.com*n* Question : Paiement*n* Réponse : tkd*n* *n* Veuillez laisser un commentaire et préciser à quoi sert le paiement.",
   "Spring": "du printemps",
   "Fall": "d'automne",
   "Winter": "d'hiver",

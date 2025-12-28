@@ -26,9 +26,6 @@
     "Title": "Course fees for every session",
     "FeeTable": "Please consult with an instructor in-person or contact us for current course prices."
   },
-  "FinalComment": "Try out courses offered, please make inquiries.*n* Registration can be done in person.*n* Payments possible with cash, cheque or e-transfer.*n* E-transfer payments made to:",
-  "Header": "Course schedule and fees",
-  "PayInfo": "ccstkdrawdon@gmail.com*n* \nQuestion: Paiement*n* \nResponse: tkd*n*\n*n* \nPlease leave a comment and specify what the payment is for.",
   "Schedule": {
     "Advanced": "Advanced",
     "AdvancedDesc": "12yr+\nand adults",
@@ -48,6 +45,9 @@
     "Tuesday": "Tuesday",
     "Winter": "Winter"
   },
+  "FinalComment": "Try out courses offered, please make inquiries.*n* Registration can be done in person.*n* Payments possible with cash, cheque or e-transfer.*n* E-transfer payments made to:",
+  "Header": "Course schedule and fees",
+  "PayInfo": "ccstkdrawdon@gmail.com*n* \nQuestion: Paiement*n* \nResponse: tkd*n*\n*n* \nPlease leave a comment and specify what the payment is for.",
   "Spring": "spring",
   "Fall": "fall",
   "Winter": "winter",
