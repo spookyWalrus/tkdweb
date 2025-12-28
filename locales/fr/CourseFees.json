@@ -16,7 +16,6 @@
     "FamilyRate": "Tarif famille",
     "FamilyRateDesc": "3 personnes ou plus",
     "Fees": "Frais",
-    "FeeTable": "Les prix des cours varient selon les sessions. Veuillez nous rencontrer en personne ou nous contacter pour plus de détails.",
     "GearPurchase": "L'achat d'uniforme ou d'équipement doit être organisé en personne avec les instructeurs après l'inscription.",
     "Protection": "Équipement de combat - niveau compétition. (Protection de la tête, du corps, des bras et des jambes)",
     "QTKDblk": "Cotisation de l'association TKD du Québec par personne/an (ceintures noires)",
@@ -24,11 +23,9 @@
     "RecCat": "Récréatif",
     "RecCatDesc": "débutants, 4 ans et plus ou parents",
     "SessionCost": "1 personne",
-    "Title": "Frais de cours pour chaque session"
+    "Title": "Frais de cours pour chaque session",
+    "FeeTable": "Veuillez consulter un instructeur en personne ou nous contacter pour connaître les prix actuels des cours."
   },
-  "FinalComment": "Essayez les cours offerts, veuillez vous renseigner.*n* L'inscription peut se faire en personne.*n* Paiements possibles en espèces, par chèque ou par virement électronique.*n* Paiements par virement électronique effectués à :",
-  "Header": "Horaire et tarifs des cours",
-  "PayInfo": "ccstkdrawdon@gmail.com*n* Question : Paiement*n* Réponse : tkd*n* *n* Veuillez laisser un commentaire et préciser à quoi sert le paiement.",
   "Schedule": {
     "Advanced": "Avancé",
     "AdvancedDesc": "12 ans et plus et adultes",
@@ -47,5 +44,12 @@
     "Top": "3 séances par année scolaire (automne, hiver, printemps).*n* Durée d'une séance : 12 semaines, minimum de 24 cours.*n* 3 cours par semaine, cours d'une heure.*n* En cas de conditions météorologiques extrêmes, le cours pourrait être annulé. Veuillez consulter la page Actualités / Événements pour obtenir des informations à jour.",
     "Tuesday": "Mardi",
     "Winter": "Hiver"
-  }
+  },
+  "FinalComment": "Essayez les cours offerts, veuillez vous renseigner.*n* L'inscription peut se faire en personne.*n* Paiements possibles en espèces, par chèque ou par virement électronique.*n* Paiements par virement électronique effectués à :",
+  "Header": "Horaire et tarifs des cours",
+  "PayInfo": "ccstkdrawdon@gmail.com*n* Question : Paiement*n* Réponse : tkd*n* *n* Veuillez laisser un commentaire et préciser à quoi sert le paiement.",
+  "Spring": "du printemps",
+  "Fall": "d'automne",
+  "Winter": "d'hiver",
+  "Download": "Téléchargez le calendrier ici"
 }

@@ -1,8 +1,29 @@
+"use client";
 import { useTranslations } from "next-intl";
 import SessionStart from "../../../components/courseFeeFunctions";
+import { useLocale } from "next-intl";
 
 export default function CourseFees() {
   const t = useTranslations("CourseFees");
+  const lang = useLocale();
+
+  function seasonCalc() {
+    let season;
+    let now = new Date();
+    let year = now.getFullYear();
+    if (lang === "en") {
+      season = "Season ";
+    } else if (lang === "fr") {
+      season = "Saison ";
+    } else {
+      season = "Season";
+    }
+    let buttonLabel =
+      now.getMonth() >= 8
+        ? `${season} ${year}-${year + 1}`
+        : `${season} ${year - 1}-${year}`;
+    return buttonLabel;
+  }
 
   function mapSpaces(text) {
     return text.split("*n*").map((line, index) => {
@@ -14,6 +35,7 @@ export default function CourseFees() {
       );
     });
   }
+
   return (
     <div className="main">
       <div className="mainMargin">
@@ -21,9 +43,20 @@ export default function CourseFees() {
           <h3>{t("Header")}</h3>
         </div>
         <div>
-          <h4>{t("Schedule.Title")}</h4>
           <div>{mapSpaces(t("Schedule.Top"))}</div>
           <SessionStart />
+        </div>
+        <br />
+        <div>
+          <p>
+            {t("Download")}
+            <a
+              href="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/public/TKDcalendar/calendar2025.pdf?download"
+              className="button is-link dlcalendarbutton"
+            >
+              {seasonCalc()}
+            </a>
+          </p>
         </div>
         <div className="bodyTextMarginTop">
           <h4>{t("Schedule.TableHeader")}</h4>
