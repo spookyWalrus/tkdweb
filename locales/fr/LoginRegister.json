@@ -29,5 +29,6 @@
     "PasswordSame": "La réinitialisation a échoué. Le nouveau mot de passe ne doit pas être identique à l'ancien"
   },
   "TokenFail": "Le lien de vérification a expiré. Redirection vers la page de récupération",
-  "SessionError": "Erreur de session. Veuillez vous reconnecter pour continuer"
+  "SessionError": "Erreur de session. Veuillez vous reconnecter pour continuer",
+  "AuthenFail": "Identifiants de connexion non valides"
 }

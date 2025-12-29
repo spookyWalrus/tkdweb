@@ -41,6 +41,7 @@ function Login() {
   let loginFailed = t2("Login.loginFailed");
   let relogMess = t2("Login.loginAgain");
   let noCaptchaSet = t2("Login.CaptchaError");
+  let authenticationFail = t2("AuthenFail");
 
   // let isThisATest =
   //   process.env.NODE_ENV === "test" ||
@@ -121,12 +122,14 @@ function Login() {
       if (!res.ok) {
         resetCaptcha();
         e.target.disabled = false;
-        throw new Error(
-          data.error?.message ||
-            data.message ||
-            data.error ||
-            "Authentication fail"
-        );
+        setStatus("dude");
+        setIsSubmitting(false);
+        if (res.status === 400) {
+          setErrors({ submit: authenticationFail });
+        } else {
+          setErrors(data.error || data.message || "Authentication fail");
+        }
+        return;
       }
 
       if (data.success) {
@@ -137,16 +140,18 @@ function Login() {
         }, 500);
       }
     } catch (err) {
-      setStatus("");
-      setIsSubmitting(false);
       resetCaptcha();
+      setIsSubmitting(false);
       e.target.disabled = false;
-      if (err instanceof TypeError || err.message.includes("fetch")) {
-        resetCaptcha();
-        setErrors({ submit: err.message || "Network error. Try again" });
-      }
-
-      setErrors({ submit: err.message || "Network error. Try again" });
+      setStatus(" ");
+      setErrors({ submit: "Network error. Try again" });
+      // if (err instanceof TypeError || err.message.includes("fetch")) {
+      //   resetCaptcha();
+      //   setErrors({ submit: err.message || "Network error. Try again" });
+      // }
+      // console.log("error catch: ", err.message);
+      // console.log("error status: ", err.status);
+      console.warn("network error: ", err.message);
     }
   };
 

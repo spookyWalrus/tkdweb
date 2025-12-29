@@ -29,5 +29,6 @@
     "PasswordSame": "Reset failed. New password must not be same as old password"
   },
   "TokenFail": "Verification link expired. Redirecting to recovery page",
-  "SessionError": "Session error. Log in again to continue"
+  "SessionError": "Session error. Log in again to continue",
+  "AuthenFail": "Invalid login credentials"
 }
