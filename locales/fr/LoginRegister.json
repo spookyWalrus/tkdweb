@@ -1,1 +1,34 @@
-{"Login":{"AuthenticationFail":"Échec de l'authentification. Veuillez réessayer.","CaptchaError":"Veuillez compléter la vérification Captcha","ForgotPW":"Mot de passe oublié ? Cliquez ici","Header":"Connexion des membres","loginFailed":"La connexion a échoué","loginSend":"La session a expiré, veuillez vous reconnecter","loginSending":"Connexion","loginSuccess":"Connexion réussie !","noCaptchaSet":"Veuillez compléter la vérification Captcha","Password":"Mot de passe"},"SignUp":{"PasswordRules":"Doit comporter au moins 8 caractères, une majuscule et une minuscule, 1 chiffre et 1 symbole","SignUp":"S'inscrire","SignUpFail":"Échec de l'inscription. Veuillez réessayer.","SignUpHeader":"Inscrivez-vous à la CCS Taekwondo Academy","SignUpSuccess":"Vérifiez votre e-mail pour confirmer votre inscription."}}
+{
+  "Login": {
+    "AuthenticationFail": "Échec de l'authentification. Veuillez réessayer.",
+    "CaptchaError": "Veuillez compléter la vérification Captcha",
+    "ForgotPW": "Mot de passe oublié ? Cliquez ici",
+    "Header": "Connexion des membres",
+    "loginSend": "Se connecter",
+    "loginFailed": "La connexion a échoué",
+    "loginAgain": "La session a expiré, veuillez vous reconnecter",
+    "loginSending": "Connexion",
+    "loginSuccess": "Connexion réussie !",
+    "noCaptchaSet": "Veuillez compléter la vérification Captcha",
+    "Password": "Mot de passe"
+  },
+  "SignUp": {
+    "PasswordRules": "Doit comporter au moins 8 caractères, une majuscule et une minuscule, 1 chiffre et 1 symbole",
+    "SignUp": "S'inscrire",
+    "SignUpFail": "Échec de l'inscription. Veuillez réessayer.",
+    "SignUpHeader": "Inscrivez-vous à la CCS Taekwondo Academy",
+    "SignUpSuccess": "Vérifiez votre e-mail pour confirmer votre inscription."
+  },
+  "Reset": {
+    "ResetPasswordHeader": "Réinitialisez votre mot de passe",
+    "NewPW": "Entrez le nouveau mot de passe",
+    "NewPWAgain": "Re-entrez le nouveau mot de passe",
+    "ResetSend": "Réinitialiser mon mot de passe",
+    "ResetSending": "Réinitialisation du nouveau mot de passe",
+    "ResetSuccess": "Nouveau mot de passe défini! Redirection vers la page du compte",
+    "PasswordSame": "La réinitialisation a échoué. Le nouveau mot de passe ne doit pas être identique à l'ancien"
+  },
+  "TokenFail": "Le lien de vérification a expiré. Redirection vers la page de récupération",
+  "SessionError": "Erreur de session. Veuillez vous reconnecter pour continuer",
+  "AuthenFail": "Identifiants de connexion non valides"
+}

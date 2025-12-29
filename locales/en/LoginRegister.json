@@ -1,1 +1,34 @@
-{"Login":{"AuthenticationFail":"Authentication Failed. Try again","CaptchaError":"Please complete Captcha verification","ForgotPW":"Forgot password? Click here","Header":"Member log in","loginFailed":"Log in failed","loginSend":"Session has expired, please log in again","loginSending":"Logging in","loginSuccess":"Log in success!","noCaptchaSet":"Please complete Captcha verification","Password":"Password"},"SignUp":{"PasswordRules":"Must be min. 8 characters long, have an uppercase and a lower case, 1 number and 1 symbol","SignUp":"Sign Up","SignUpFail":"Sign up Failed. Please try again","SignUpHeader":"Sign up to CCS Taekwondo Academy","SignUpSuccess":"Check your email to confirm sign up."}}
+{
+  "Login": {
+    "AuthenticationFail": "Authentication Failed. Try again",
+    "CaptchaError": "Please complete Captcha verification",
+    "ForgotPW": "Forgot password? Click here",
+    "Header": "Member log in",
+    "loginSend": "Log In",
+    "loginFailed": "Log in failed",
+    "loginAgain": "Session has expired, please log in again",
+    "loginSending": "Logging in",
+    "loginSuccess": "Log in success!",
+    "noCaptchaSet": "Please complete Captcha verification",
+    "Password": "Password"
+  },
+  "SignUp": {
+    "PasswordRules": "Must be min. 8 characters long, have an uppercase and a lower case, 1 number and 1 symbol",
+    "SignUp": "Sign Up",
+    "SignUpFail": "Sign up Failed. Please try again",
+    "SignUpHeader": "Sign up to CCS Taekwondo Academy",
+    "SignUpSuccess": "Check your email to confirm sign up."
+  },
+  "Reset": {
+    "ResetPasswordHeader": "Reset your password",
+    "NewPW": "Enter new password",
+    "NewPWAgain": "Re-enter new password",
+    "ResetSend": "Reset my password",
+    "ResetSending": "Resetting new password",
+    "ResetSuccess": "New password set! Redirecting to account page",
+    "PasswordSame": "Reset failed. New password must not be same as old password"
+  },
+  "TokenFail": "Verification link expired. Redirecting to recovery page",
+  "SessionError": "Session error. Log in again to continue",
+  "AuthenFail": "Invalid login credentials"
+}
