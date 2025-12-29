@@ -38,8 +38,8 @@ function Login() {
   let loginSend = t2("Login.loginSend");
   let loginSending = t2("Login.loginSending");
   let loginSuccess = t2("Login.loginSuccess");
-  let loginFailed = t2("Login.loginFail");
-  let relogMess = t2("Login.relogMess");
+  let loginFailed = t2("Login.loginFailed");
+  let relogMess = t2("Login.loginAgain");
   let noCaptchaSet = t2("Login.CaptchaError");
 
   // let isThisATest =
@@ -47,6 +47,8 @@ function Login() {
   //   process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   useEffect(() => {
+    if (message !== "auth_required") return;
+
     const theSession = localStorage.getItem("hadSession");
     const manualLogout = localStorage.getItem("manualLogout");
 
@@ -230,7 +232,7 @@ function Login() {
             <div className="control controlCenter">
               <div>
                 <button
-                  className="button"
+                  className="button loginbutton"
                   data-action="login"
                   type="submit"
                   onClick={submitForm}

@@ -32,20 +32,14 @@ export default function PWReset() {
   const t = useTranslations("Contact");
   const t2 = useTranslations("LoginRegister");
 
-  let resetSend = "Reset my password";
-  let resetSending = "Resetting new password";
-
-  let isThisATest =
-    process.env.NODE_ENV !== "production" ||
-    process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
-
   const showStatus = () => {
     switch (status) {
       case "success":
         return (
           <p className="help is-success sentMessage">
             {/* {t2("SignUp.SignUpSuccess")} */}
-            New password set! Redirecting to account page...
+            {/* New password set! Redirecting to account page... */}
+            {t2("Reset.ResetSuccess")}
           </p>
         );
       case "fail":
@@ -55,7 +49,7 @@ export default function PWReset() {
           <p className="help is-danger">
             {t2("Login.AuthenticationFail")}
             <br />
-            {errors.submit}
+            {errors.message}
           </p>
         );
       case "noCaptcha":
@@ -69,13 +63,22 @@ export default function PWReset() {
             style={{ margin: "0 auto", width: "50%" }}
           >
             {/* {t2("SignUp.SignUpFail")}  */}
-            Verification link expired. Redirecting to recovery page...
+            {/* Verification link expired. Redirecting to recovery page... */}
+            {t2("TokenFail")}
           </div>
         );
       case "passwordsame":
         return (
           <div className="has-text-danger is-5 ">
-            Reset failed. New password must not be same as old password.
+            {/* Reset failed. New password must not be same as old password. */}
+            {t2("Reset.PasswordSame")}
+          </div>
+        );
+      case "sessionerror":
+        return (
+          <div className="has-text-danger is-5 ">
+            {/* Session error. Log in again to continue. */}
+            {t2("SessionError")}
           </div>
         );
 
@@ -174,6 +177,8 @@ export default function PWReset() {
   const updatePassword = async (e) => {
     if (!isUser || !theUser) return;
     e.preventDefault();
+
+    setStatus(null);
     const actionType = e.target.dataset.action;
 
     const isValid = await validateForm(e, actionType);
@@ -197,8 +202,11 @@ export default function PWReset() {
           setIsSubmitting(false);
           setStatus("passwordsame");
           return;
+        } else {
+          setIsSubmitting(false);
+          setStatus(error.message);
+          throw error;
         }
-        throw error;
       }
       setStatus("success");
       // setIsSubmitting(false);
@@ -206,6 +214,8 @@ export default function PWReset() {
       setTimeout(() => redirect, 10000);
     } catch (error) {
       console.warn("error: ", error.message);
+      setStatus("sessionerror");
+      setErrors(error.message);
     }
     // }
   };
@@ -214,7 +224,8 @@ export default function PWReset() {
       <div className="mainMargin">
         <div className="centerHeader">
           {/* <h3>{t2("Login.Header")}</h3> */}
-          <h3>Reset your password</h3>
+          {/* <h3>Reset your password</h3> */}
+          <h3>{t2("Reset.ResetPasswordHeader")}</h3>
         </div>
 
         {isLoading ? (
@@ -235,7 +246,8 @@ export default function PWReset() {
               <div className="field">
                 <label htmlFor="password" className="formLabel">
                   {/* {t2("Login.Password")} */}
-                  Enter new password
+                  {/* Enter new password */}
+                  {t2("Reset.NewPW")}
                 </label>
                 <div className="control inputContainer">
                   <input
@@ -267,10 +279,11 @@ export default function PWReset() {
               <div className="field">
                 <label htmlFor="password" className="formLabel">
                   {/* {t2("Login.Password")} */}
-                  Re-enter your password
+                  {/* Re-enter your password */}
+                  {t2("Reset.NewPWAgain")}
                 </label>
 
-                <div className="control">
+                <div className="control inputContainer">
                   <input
                     type={pwtype2}
                     name="passwordrepeat"
@@ -317,7 +330,7 @@ export default function PWReset() {
               <div className="field">
                 <div className="control controlCenter">
                   <button
-                    className="button"
+                    className="button pwresetbutton"
                     data-action="pwreset"
                     type="submit"
                     onClick={updatePassword}
@@ -325,7 +338,7 @@ export default function PWReset() {
                   >
                     {isSubmitting ? (
                       <>
-                        <span>{resetSending}</span>
+                        <span>{t2("Reset.ResetSending")}</span>
                         <PulseLoader
                           color="blue"
                           loading={isSubmitting}
@@ -335,7 +348,7 @@ export default function PWReset() {
                         />
                       </>
                     ) : (
-                      resetSend
+                      t2("Reset.ResetSend")
                     )}
                   </button>
                   {showStatus()}

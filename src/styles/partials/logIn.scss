@@ -41,3 +41,11 @@
     transform-origin: 0 0;
   }
 }
+
+.loginbutton,
+.pwresetbutton {
+  max-width: 100%;
+  white-space: normal;
+  background-color: vars.$foreground;
+  color: vars.$background;
+}
