@@ -35,11 +35,8 @@ export default function ContactForm() {
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-
       return;
     }
-
-    // const isCaptchaRequired = process.env.NODE_ENV !== "test";
 
     if (!captchaToken) {
       setErrors((prev) => ({
@@ -48,31 +45,28 @@ export default function ContactForm() {
       }));
       return;
     }
-
     setStatus("submitting");
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          hCaptchaToken: captchaToken,
-        }),
+        body: JSON.stringify({ ...formData, token: captchaToken }),
       });
-      const result = await res.json();
 
       if (res.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", message: "" });
         setCaptchaToken(null);
       } else {
+        const errorData = await res.json();
         setStatus(contactFailed);
-        setErrors({ submit: result.error || contactFailed });
+        setErrors({ submit: t("SiteError") });
       }
     } catch (error) {
       setStatus("Error on submit");
-      setErrors({ submit: "Network error. Try again" });
+      setStatus(false);
+      setErrors({ submit: t("NetworkError") || "Request Failed" });
     }
   };
 
@@ -133,12 +127,13 @@ export default function ContactForm() {
           </div>
         </div>
         <div className="field">
-          <div className="controL">
+          <div className="control">
             <HCaptcha
               sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
-              // sitqekey={process.env.NEXT_PUBLIC_HCAPTCHA_FREESITE_KEY || ""}
+              reCaptchaCompat={false}
               onVerify={(token) => setCaptchaToken(token)}
               onExpire={() => setCaptchaToken(null)}
+              onError={(err) => console.error("hCaptcha Error:", err)}
             />
             {errors.captcha && (
               <p className="help is-danger">{errors.captcha}</p>
@@ -148,7 +143,7 @@ export default function ContactForm() {
         <div className="field">
           <div className="control">
             <button
-              className="button"
+              className="button loginbutton"
               type="submit"
               disabled={status === "submitting"}
             >

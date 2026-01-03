@@ -16,5 +16,8 @@
   "Phone": "Numéro de téléphone",
   "PWError": "Vérifier le mot de passe",
   "Send": "Envoyer",
-  "Subject": "Sujet"
+  "Subject": "Sujet",
+  "NetworkError": "Erreur de réseau. Échec du traitement de la requête",
+  "SiteError": "Erreur du site. Échec de l'envoi du message",
+  "CaptchaError": "Erreur de Captcha. Veuillez rafraîchir la page"
 }

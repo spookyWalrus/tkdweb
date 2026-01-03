@@ -3,9 +3,10 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function POST(request) {
+  const body = await request.json();
+  const { name, email, message, token } = body;
+
   try {
-    const body = await request.json();
-    const { name, email, message, hCaptchaToken } = body;
     if (!name || name.length < 2) {
       return NextResponse.json({ error: "Invalid name" }, { status: 400 });
     }
@@ -17,30 +18,62 @@ export async function POST(request) {
     if (!message || message.length < 10) {
       return NextResponse.json({ error: "Invalid message" }, { status: 400 });
     }
+    if (!token) {
+      return NextResponse.json({ error: "Invalid token" }, { status: 400 });
+    }
 
-    const formData = new FormData();
-    formData.append("access_key", process.env.NEXT_PUBLIC_WEB3_TKDCCSADM_KEY);
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("message", message);
-    formData.append("h-captcha-response", hCaptchaToken);
-
-    const res = await fetch("https://api.web3forms.com/submit", {
+    const captchaResponse = await fetch("https://hcaptcha.com/siteverify", {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `response=${token}&secret=${process.env.HCAPTCHA_KEY}`,
+    });
+    const result = await captchaResponse.json();
+    if (!result.success) {
+      return NextResponse.json({ error: "Invalid captcha" }, { status: 400 });
+    }
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Captcha service error" },
+      { status: 503 }
+    );
+  }
+  try {
+    const brevosend = "https://api.brevo.com/v3/smtp/email";
+
+    const res = await fetch(brevosend, {
+      method: "POST",
+      headers: {
+        "api-key": process.env.BREVO_API_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        templateId: parseInt(process.env.BREVO_TEMPLATE_ID),
+        to: [
+          {
+            name: "TKD Admin",
+            email: process.env.BREVO_RECIPIENT_EMAIL,
+          },
+        ],
+        params: {
+          senderName: name,
+          senderEmail: email,
+          message: message,
+          submittedAt: new Date().toLocaleString(),
+        },
+      }),
     });
 
-    const result = await res.json();
+    if (!res.ok) {
+      const result = await res.json();
 
-    if (result.success) {
       return NextResponse.json(
-        { message: "Message sent successfully" },
-        { status: 200 }
+        { error: result.message || "Failed to send message" },
+        { status: res.status }
       );
     } else {
       return NextResponse.json(
-        { error: "Failed to send message" },
-        { status: 400 }
+        { message: "Message sent successfully" },
+        { status: 200 }
       );
     }
   } catch (error) {
