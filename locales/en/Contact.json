@@ -16,5 +16,8 @@
   "Phone": "Phone number",
   "PWError": "Check password",
   "Send": "Send",
-  "Subject": "Subject"
+  "Subject": "Subject",
+  "NetworkError": "Network error. Failed to process request",
+  "SiteError": "Site error. Failed to send message",
+  "CaptchaError": "Captcha Error. Refresh the page"
 }
