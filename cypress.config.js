@@ -8,10 +8,10 @@ module.exports = defineConfig({
       // implement node event listeners here
       return config;
     },
-    // baseUrl: "http://localhost:3000",
-    baseUrl: process.env.CI
-      ? "http://127.0.0.1:3000"
-      : "http://test.tkdweb.com:3000",
+    baseUrl: "http://localhost:3000",
+    // baseUrl: process.env.CI
+    //   ? "http://127.0.0.1:3000"
+    //   : "http://test.tkdweb.com:3000",
     supportFile: "cypress/support/e2e.js",
     specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
     pageLoadTimeout: 120000,
@@ -22,8 +22,12 @@ module.exports = defineConfig({
       runMode: 2,
       openMode: 0,
     },
-    video: process.env.CI ? false : true,
-    screenshotOnRunFailure: false,
+    video: false,
+    screenshotOnRunFailure: true,
+    env: {
+      NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY:
+        process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY,
+    },
   },
   component: {
     devServer: {
@@ -31,9 +35,4 @@ module.exports = defineConfig({
       bundler: "webpack",
     },
   },
-  // pageLoadTimeout: 120000,
-  // defaultCommandTimeout: 15000,
-  // requestTimeout: 10000,
-  // responseTimeout: 30000,
-  // video: process.env.CI ? false : true,
 });

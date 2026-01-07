@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env.local
 .env
+.env.test
 
 # vercel
 .vercel
@@ -38,6 +39,10 @@ next-env.d.ts
 
 # Turborepo
 .turbo
+
+# cypress testing files
+cypress/screenshots
+cypress/videos
 
 # translation files
 # locales/**/*.json

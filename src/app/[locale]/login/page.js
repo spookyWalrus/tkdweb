@@ -43,10 +43,6 @@ function Login() {
   let noCaptchaSet = t2("Login.CaptchaError");
   let authenticationFail = t2("AuthenFail");
 
-  // let isThisATest =
-  //   process.env.NODE_ENV === "test" ||
-  //   process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
-
   useEffect(() => {
     if (message !== "auth_required") return;
 
@@ -145,13 +141,6 @@ function Login() {
       e.target.disabled = false;
       setStatus(" ");
       setErrors({ submit: "Network error. Try again" });
-      // if (err instanceof TypeError || err.message.includes("fetch")) {
-      //   resetCaptcha();
-      //   setErrors({ submit: err.message || "Network error. Try again" });
-      // }
-      // console.log("error catch: ", err.message);
-      // console.log("error status: ", err.status);
-      console.warn("network error: ", err.message);
     }
   };
 
@@ -219,11 +208,6 @@ function Login() {
                 ref={captchaRef}
                 key={captchaKey}
                 sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
-                // sitekey={
-                //   isThisATest
-                //     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                //     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                // }
                 onVerify={(token) => setCaptchaToken(token)}
                 onExpire={resetCaptcha}
                 onError={resetCaptcha}

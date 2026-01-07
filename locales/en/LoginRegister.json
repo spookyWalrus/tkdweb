@@ -28,6 +28,14 @@
     "ResetSuccess": "New password set! Redirecting to account page",
     "PasswordSame": "Reset failed. New password must not be same as old password"
   },
+  "Recovery": {
+    "recoveryBlurb": "Recovery link will be sent to this email address",
+    "recoverySend": "Send Recovery Request",
+    "recoverySending": "Sending Request",
+    "codeSent": "Recovery code sent",
+    "tokenExpired": "Captcha token expired. Please re-do the Captcha",
+    "PasswordRecover": "Recover your password"
+  },
   "TokenFail": "Verification link expired. Redirecting to recovery page",
   "SessionError": "Session error. Log in again to continue",
   "AuthenFail": "Invalid login credentials"

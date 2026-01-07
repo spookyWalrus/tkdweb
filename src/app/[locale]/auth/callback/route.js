@@ -2,6 +2,7 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+// to confirm sign up
 export async function GET(request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
@@ -17,10 +18,9 @@ export async function GET(request) {
     }
 
     return NextResponse.redirect(
-      new URL(`/${locale}/member/account`, requestUrl.origin)
+      new URL(`/${locale}/auth-pages/auth-confirm`, requestUrl.origin)
     );
   } catch (error) {
-    console.error("Auth callback error:", error);
     return NextResponse.redirect(
       `/${locale}/auth-pages/auth-error`,
       requestUrl.origin

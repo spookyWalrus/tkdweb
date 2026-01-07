@@ -15,11 +15,13 @@
     "CurrentMail": "1. Your current email:",
     "NewMail": "2. Your new email:",
     "ClickBoth": "Please click the confirmation links in BOTH emails to finalize email change.",
-    "UntilBoth": "Your email will not be updated until both confirmations are complete."
+    "UntilBoth": "Your email will not be updated until both confirmations are complete.",
+    "NewEmailOnly": "A confirmation link has been sent to your new email:",
+    "CheckInbox": "Please check your inbox and click the confirmation link to complete the email change."
   },
-  "Email_Partial": {
-    "Only1": "Confirmation received for only 1 email address.",
-    "WaitConfirm": "Waiting confirmation from:",
-    "CheckInbox": "Please check your inboxes and click both confirmation links to complete the change."
+  "Email_Pending": {
+    "Title": "Email change pending confirmation",
+    "NewEmail": "Awaiting confirmation for:",
+    "CheckInbox": "Please check your inbox for the confirmation link. Your current email will remain active until you confirm the new one."
   }
 }

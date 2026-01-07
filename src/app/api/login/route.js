@@ -19,10 +19,6 @@ export async function POST(request) {
 
   if (action == "signup") {
     try {
-      // if (isTest) {
-      //   console.warn("test mode");
-      //   const checkCaptcha = await confirmCaptcha(token);
-      // }
       const { data, error } = await supabase.auth.signUp({
         email,
         password,

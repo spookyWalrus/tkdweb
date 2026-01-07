@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/utilities/authContexter";
 import { validateLogin } from "@/utilities/validateLogin";
@@ -8,6 +7,7 @@ import { useSearchParams, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { PulseLoader } from "react-spinners";
 import DismissibleMessage from "@/components/messageBox";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 function Account() {
   const { user, loading, refreshUser } = useAuth();
@@ -37,9 +37,9 @@ function Account() {
   const reason = params.get("reason");
   const nuEmail = params.get("nu");
   const router = useRouter();
-  const captchaRef = useRef();
   const t = useTranslations("Contact");
   const t2 = useTranslations("MemberAccount");
+  const supabase = createClientComponentClient();
 
   useEffect(() => {
     if (user) {
@@ -50,38 +50,48 @@ function Account() {
         email: user.email,
         name: user.user_metadata.first_name,
         lastname: user.user_metadata.last_name,
-        // belt: user.belt
       });
     }
   }, [user]);
 
   useEffect(() => {
     if (!user) return;
-    if (message === "password_updated") {
-      setNotify(true);
-    }
-    if (message === "partial_confirm") {
-      setUpdateStatus({
-        type: "email_partial",
-        emailData: { oldEmail: "", newEmail: "" },
-        errorReason: null,
-      });
-      setIsSubmitting(false);
-      // window.history.replaceState({}, "", window.location.pathname);
-    }
-    if (message === "email_both_confirmed") {
-      refreshUser();
-      setUpdateStatus({
-        type: "email_updated",
-        emailData: { oldEmail: "", newEmail: "" },
-        // pendingEmail: null,
-        errorReason: null,
-      });
-      setIsSubmitting(false);
-      // window.history.replaceState({}, "", window.location.pathname);
-    }
+
+    // if (message === "password_updated") {
+    //   setNotify(true);
+    // }
+
+    // Check if email update is pending confirmation
+    const checkEmailStatus = async () => {
+      const {
+        data: { user: usersuper },
+      } = await supabase.auth.getUser();
+
+      if (usersuper && usersuper.new_email) {
+        // Email change is pending - awaiting confirmation
+        setUpdateStatus({
+          type: "email_pending",
+          emailData: {
+            oldEmail: usersuper.email,
+            newEmail: usersuper.new_email,
+          },
+          errorReason: null,
+        });
+      } else if (message === "email_confirmed") {
+        // Email has been successfully confirmed and updatedq
+        await refreshUser();
+        setUpdateStatus({
+          type: "email_updated",
+          emailData: { oldEmail: "", newEmail: "" },
+          errorReason: null,
+        });
+        setIsSubmitting(false);
+      }
+    };
+
+    // checkEmailStatus();
+
     if (message === "email_sent") {
-      // if (!newEmail) return;
       setUpdateStatus({
         type: "email_sent",
         emailData: {
@@ -91,27 +101,26 @@ function Account() {
         errorReason: null,
       });
       setIsSubmitting(false);
-    }
-    if (message === "profile_updated") {
+    } else if (message === "profile_updated") {
       setUpdateStatus({
         type: "profile_updated",
         emailData: { oldEmail: "", newEmail: "" },
         errorReason: null,
       });
       setIsSubmitting(false);
-    }
-    if (message === "email_update_fail") {
+      setNotify(true);
+    } else if (message === "email_update_fail") {
       setUpdateStatus({
         type: "error",
         emailData: { oldEmail: "", newEmail: "" },
-        // pendingEmail: null,
         errorReason: reason,
       });
       setIsSubmitting(false);
       setErrors({ update: reason });
-      // window.history.replaceState({}, "", window.location.pathname);
+    } else {
+      checkEmailStatus();
     }
-  }, [message, reason, user, refreshUser, nuEmail]);
+  }, [message, reason, user, refreshUser, nuEmail, supabase.auth]);
 
   const goReset = () => {
     router.push("/auth-pages/auth-pwreset");
@@ -123,7 +132,6 @@ function Account() {
       emailData: { oldEmail: "", newEmail: "" },
       errorReason: null,
     });
-
     setErrors({});
   };
 
@@ -143,7 +151,6 @@ function Account() {
       setUpdateStatus({
         type: null,
         emailData: { oldEmail: "", newEmail: "" },
-        pendingEmail: null,
         errorReason: null,
       });
       return false;
@@ -159,7 +166,6 @@ function Account() {
     setUpdateStatus({
       type: null,
       emailData: { oldEmail: "", newEmail: "" },
-      pendingEmail: null,
       errorReason: null,
     });
 
@@ -171,13 +177,13 @@ function Account() {
       setUpdateStatus({
         type: "error",
         emailData: { oldEmail: "", newEmail: "" },
-        pendingEmail: null,
         errorReason: t2("NothingUpdate"),
       });
       setErrors({ update: t2("NothingUpdate") });
       setIsSubmitting(false);
       return;
     }
+
     const isFormValid = await validateForm(actionType);
     if (!isFormValid) {
       setIsSubmitting(false);
@@ -185,17 +191,11 @@ function Account() {
     }
 
     try {
-      if (!captchaRef.current) {
-        throw new Error("hCaptcha not initialized");
-      }
-      const token = await captchaRef.current.execute();
-
       const formData = new FormData();
       formData.append("email", inputData.email);
       formData.append("name", inputData.name);
       formData.append("lastname", inputData.lastname);
       formData.append("action", actionType);
-      formData.append("captcha", token);
 
       const res = await fetch("/api/dataRecovery", {
         method: "POST",
@@ -204,8 +204,10 @@ function Account() {
 
       const result = await res.json();
 
-      if (!result.success) {
-        throw new Error(result.error || `HTTP error! status: ${res.status}`);
+      if (!res.ok) {
+        throw new Error(
+          result.error?.message || `HTTP error! status: ${res.status}`
+        );
       }
 
       if (result.success == "new_email_requested") {
@@ -215,16 +217,15 @@ function Account() {
             oldEmail: result.oldEmail,
             newEmail: result.newEmail,
           },
-          // pendingEmail: null,
           errorReason: null,
         });
         setIsSubmitting(false);
         router.push(
           `${pathname}?message=email_sent&nu=${encodeURIComponent(result.newEmail)}`,
-          // router.push(`?message=email_sent&new=${result.newEmail}`, {
           { scroll: false }
         );
       }
+
       if (result.success == "name_updated") {
         setUpdateStatus({
           type: "profile_updated",
@@ -239,17 +240,16 @@ function Account() {
       setUpdateStatus({
         type: "error",
         emailData: { oldEmail: "", newEmail: "" },
-        // pendingEmail: null,
         errorReason: error.message,
       });
+      setInputData((prev) => ({
+        ...prev,
+        email: userEmail,
+      }));
       setIsSubmitting(false);
       setErrors({ update: error.message });
     }
   };
-  // Debug logging
-  // useEffect(() => {
-  //   console.log("Current updateStatus:", updateStatus);
-  // }, [updateStatus]);
 
   return loading ? (
     <div>Loading...</div>
@@ -360,20 +360,31 @@ function Account() {
                       <span
                         style={{ fontSize: "0.9em", color: "rgb(226, 102, 7)" }}
                       >
-                        {t2("Email_Sent.SentTo")} <br />
-                        {t2("Email_Sent.CurrentMail")}{" "}
-                        <span className="theEmail">
-                          {updateStatus.emailData.oldEmail}
-                        </span>
+                        {t2("Email_Sent.NewEmailOnly")}
                         <br />
-                        {t2("Email_Sent.NewMail")}{" "}
                         <span className="theEmail">
                           {updateStatus.emailData.newEmail}
                         </span>
                         <br />
-                        {t2("Email_Sent.ClickBoth")}
+                        {t2("Email_Sent.CheckInbox")}
+                      </span>
+                    </DismissibleMessage>
+                  )}
+
+                  {updateStatus.type === "email_pending" && (
+                    <DismissibleMessage
+                      type="warning"
+                      onDismiss={handleDismiss}
+                    >
+                      {t2("Email_Pending.Title")}
+                      <br />
+                      <span style={{ fontSize: "0.9em" }}>
+                        {t2("Email_Pending.NewEmail")}{" "}
+                        <span className="theEmail">
+                          {updateStatus.emailData.newEmail}
+                        </span>
                         <br />
-                        {t2("Email_Sent.UntilBoth")}
+                        {t2("Email_Pending.CheckInbox")}
                       </span>
                     </DismissibleMessage>
                   )}
@@ -393,18 +404,6 @@ function Account() {
                       onDismiss={handleDismiss}
                     >
                       {t2("EmailUpdated")}
-                    </DismissibleMessage>
-                  )}
-
-                  {updateStatus.type === "email_partial" && (
-                    <DismissibleMessage
-                      type="warning"
-                      onDismiss={handleDismiss}
-                    >
-                      {t2("Email_Partial.Only1")}
-                      {/* {t2("Email_Partial.WaitConfirm")}{" "} */}
-                      <br />
-                      {t2("Email_Partial.CheckInbox")}
                     </DismissibleMessage>
                   )}
 
@@ -428,17 +427,6 @@ function Account() {
                   </div>
                 )}
               </div>
-              <HCaptcha
-                // sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY}
-                sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
-                size="invisible"
-                ref={captchaRef}
-                // onLoad={() => console.warn("hCaptcha loaded successfully")}
-                // onError={(error) =>
-                //   console.warn("hCaptcha failed to load:", error)
-                // }
-                // onVerify={(token) => console.warn("hCaptcha verified:", token)}
-              />
             </div>
           </div>
         </div>

@@ -27,8 +27,6 @@ function Signup() {
 
   let lang = useLocale();
 
-  let isThisATest = false;
-
   const showStatus = () => {
     switch (status) {
       case "success":
@@ -107,7 +105,6 @@ function Signup() {
     formData.append("name", inputData.name);
     formData.append("lastname", inputData.lastname);
     formData.append("captcha", captchaToken);
-    // formData.append("isTest", isThisATest);
 
     try {
       const res = await fetch("/api/login?action=signup", {
@@ -117,25 +114,24 @@ function Signup() {
       if (!res.ok) {
         const errorData = await res.json();
 
-        let errorMessage;
-        let errorToThrow;
-        if (isThisATest) {
-          errorMessage = JSON.stringify(
-            {
-              message: errorData.error?.message,
-              code: errorData.error?.code,
-              status: errorData.error?.status,
-              details: errorData.error?.details,
-            },
-            null,
-            2
-          );
-          errorToThrow = new Error(errorMessage);
-        } else {
-          errorMessage =
-            errorData.error?.message ?? "Authentication failed. Try again";
-          errorToThrow = new Error(errorMessage);
-        }
+        // let errorMessage;
+        // let errorToThrow;
+        // if (isThisATest) {
+        //   errorMessage = JSON.stringify(
+        //     {
+        //       message: errorData.error?.message,
+        //       code: errorData.error?.code,
+        //       status: errorData.error?.status,
+        //       details: errorData.error?.details,
+        //     },
+        //     null,
+        //     2
+        //   );
+        //   errorToThrow = new Error(errorMessage);
+        // } else {
+        let errorMessage =
+          errorData.error?.message ?? "Authentication failed. Try again";
+        // }
         setErrors((prev) => ({
           ...prev,
           submit: errorMessage,
@@ -144,18 +140,16 @@ function Signup() {
         resetCaptcha();
         setIsSubmitting(false);
         e.target.disabled = false;
-        // throw errorToThrow;
+        let errorToThrow = new Error(errorMessage);
+
+        throw errorToThrow;
       }
 
       setStatus("success");
       setIsSubmitting(false);
       e.target.disabled = true;
     } catch (err) {
-      if (isThisATest) {
-        const errorObj = JSON.parse(err.message);
-        console.warn("Test mode error details: ", errorObj);
-      }
-      // console.warn("error: ", err.message);
+      console.warn("error: ", err.message);
     }
   };
 

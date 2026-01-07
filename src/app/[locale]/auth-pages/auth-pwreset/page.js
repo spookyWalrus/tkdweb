@@ -88,59 +88,78 @@ export default function PWReset() {
   };
 
   useEffect(() => {
-    const handleTokenVerification = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token_hash = urlParams.get("token_hash");
-      const type = urlParams.get("type");
+    const checkSession = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-      if (token_hash && type) {
-        const { data, error } = await supabase.auth.verifyOtp({
-          type: type,
-          token_hash,
-        });
-
-        if (!error && data.user) {
-          // Clean up URL
-          window.history.replaceState(
-            {},
-            document.title,
-            window.location.pathname
-          );
-
-          setIsUser(true);
-          setTheUser(data.user.last_name);
-          setIsLoading(false);
-        } else {
-          setIsLoading(false);
-          setStatus("tokenfail");
-          setTimeout(
-            () => router.push("/pwRecovery?message=token_expired"),
-            5000
-          );
-        }
+      if (user) {
+        setIsUser(true);
+        setTheUser(user.user_metadata.first_name);
+        setIsLoading(false);
       } else {
-        // no token, so checking if user exists or session exists
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-
-        if (user) {
-          // user is logged in
-          setIsUser(true);
-          setTheUser(
-            user.user_metadata.first_name,
-            user.user_metadata.last_name
-          );
-          setIsLoading(false);
-
-          return;
-        } else {
-          router.push("/signup");
-        }
+        // No session - redirect to login
+        router.push("/login");
       }
     };
-    handleTokenVerification();
-  });
+
+    checkSession();
+  }); // Add dependency array!
+
+  // useEffect(() => {
+  //   const handleTokenVerification = async () => {
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     const token_hash = urlParams.get("token_hash");
+  //     const type = urlParams.get("type");
+
+  //     if (token_hash && type) {
+  //       const { data, error } = await supabase.auth.verifyOtp({
+  //         type: type,
+  //         token_hash,
+  //       });
+
+  //       if (!error && data.user) {
+  //         // Clean up URL
+  //         window.history.replaceState(
+  //           {},
+  //           document.title,
+  //           window.location.pathname
+  //         );
+
+  //         setIsUser(true);
+  //         setTheUser(data.user.last_name);
+  //         setIsLoading(false);
+  //       } else {
+  //         setIsLoading(false);
+  //         setStatus("tokenfail");
+  //         setTimeout(
+  //           () => router.push("/pwRecovery?message=token_expired"),
+  //           5000
+  //         );
+  //       }
+  //     } else {
+  //       // no token, so checking if user exists or session exists
+  //       const {
+  //         data: { user },
+  //       } = await supabase.auth.getUser();
+
+  //       if (user) {
+  //         // user is logged in
+  //         setIsUser(true);
+  //         setTheUser(
+  //           user.user_metadata.first_name,
+  //           user.user_metadata.last_name
+  //         );
+  //         setIsLoading(false);
+
+  //         return;
+  //       } else {
+  //         router.push("/signup");
+  //       }
+  //     }
+  //   };
+  //   handleTokenVerification();
+  // });
 
   const handleChange = (e) => {
     const { name, value } = e.target;

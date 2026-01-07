@@ -130,7 +130,6 @@ export default function ContactForm() {
           <div className="control">
             <HCaptcha
               sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
-              reCaptchaCompat={false}
               onVerify={(token) => setCaptchaToken(token)}
               onExpire={() => setCaptchaToken(null)}
               onError={(err) => console.error("hCaptcha Error:", err)}

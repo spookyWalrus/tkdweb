@@ -11,6 +11,7 @@ function PWRecovery() {
   const [status, setStatus] = useState("");
   const [inputData, setInputData] = useState({
     email: "",
+    action: "",
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,10 +28,6 @@ function PWRecovery() {
 
   // let recoverySend = "Recover my password";
   // let recoverySending = "Sending recovery request";
-
-  let isThisATest =
-    process.env.NODE_ENV !== "production" ||
-    process.env.NEXT_PUBLIC_HCAPTCHA_TEST === "true";
 
   const showStatus = () => {
     switch (status) {
@@ -112,10 +109,11 @@ function PWRecovery() {
 
     const formData = new FormData();
     formData.append("email", inputData.email);
+    formData.append("action", inputData.action);
     formData.append("captcha", captchaToken);
 
     try {
-      const res = await fetch("/api/dataRecover?action=pwrecover", {
+      const res = await fetch("/api/dataRecovery", {
         method: "POST",
         body: formData,
       });
@@ -123,25 +121,9 @@ function PWRecovery() {
       if (!res.ok) {
         const errorData = await res.json();
 
-        let errorMessage;
-        let errorToThrow;
-        if (isThisATest) {
-          errorMessage = JSON.stringify(
-            {
-              message: errorData.error?.message,
-              code: errorData.error?.code,
-              status: errorData.error?.status,
-              details: errorData.error?.details,
-            },
-            null,
-            2
-          );
-          errorToThrow = new Error(errorMessage);
-        } else {
-          errorMessage =
-            errorData.error.message || "Authentication failed. Try again";
-          errorToThrow = new Error(errorMessage);
-        }
+        let errorMessage =
+          errorData.error.message || "Authentication failed. Try again";
+        let errorToThrow = new Error(errorMessage);
         setErrors((prev) => ({
           ...prev,
           submit: errorMessage,
@@ -154,12 +136,8 @@ function PWRecovery() {
       }
 
       setStatus("success");
-      setIsSubmitting(true);
+      setIsSubmitting(false);
     } catch (error) {
-      if (isThisATest) {
-        const errorObj = JSON.parse(error.message);
-        console.warn("Test mode error details: ", error);
-      }
       console.warn("error: ", error.message);
     }
   };
@@ -168,8 +146,6 @@ function PWRecovery() {
     <div className="main">
       <div className="mainMargin">
         <div className="centerHeader">
-          {/* <h3>{t2("Login.Header")}</h3> */}
-          {/* <h3>Password recovery</h3> */}
           <h3>{t2("Recovery.PasswordRecover")}</h3>
           {warning && (
             <div
@@ -211,11 +187,6 @@ function PWRecovery() {
                   ref={captchaRef}
                   key={captchaKey}
                   sitekey={process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY}
-                  // sitekey={
-                  //   isThisATest
-                  //     ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                  //     : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                  // }
                   onVerify={(token) => setCaptchaToken(token)}
                   onExpire={resetCaptcha}
                   onError={resetCaptcha}
@@ -235,6 +206,7 @@ function PWRecovery() {
                   type="submit"
                   onClick={submitForm}
                   disabled={isSubmitting}
+                  value={inputData.action}
                   // disabled={status === "submitting"}
                 >
                   {isSubmitting ? (

@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-// export const dynamic = "force-dynamic";
-
+// endpoint for name change, email change or password change
 export async function POST(request) {
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
@@ -18,29 +17,37 @@ export async function POST(request) {
   try {
     if (action === "nameupdate") {
       const { error } = await supabase.auth.updateUser({
-        captchaToken: token,
         data: { first_name: firstName, last_name: lastName },
       });
       if (error) {
-        return Response.json({ success: false, error: error.message });
+        return NextResponse.json(
+          {
+            success: false,
+            error: { message: error.message },
+          },
+          { status: 400 }
+        );
+      } else {
+        return NextResponse.json({ success: "name_updated" }, { status: 200 });
       }
-      return Response.json({ success: "name_updated" });
     }
 
     if (action === "emailupdate") {
       const { data, error } = await supabase.auth.updateUser(
         {
           email: email,
-          captchaToken: token,
         },
         {
-          emailRedirectTo: `${requestUrl.origin}/api/auth/confirm`,
+          emailRedirectTo: `${requestUrl.origin}`,
         }
       );
       if (error) {
-        return Response.json({ success: false, error: error.message });
+        return NextResponse.json(
+          { success: false, error: { message: error.message } },
+          { status: 400 }
+        );
       }
-      return Response.json({
+      return NextResponse.json({
         success: "new_email_requested",
         oldEmail: data?.user?.email,
         newEmail: email,
@@ -48,25 +55,40 @@ export async function POST(request) {
     }
 
     if (action === "pwrecover") {
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email);
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        captchaToken: token,
+      });
       if (error) {
-        throw error;
+        return NextResponse.json(
+          {
+            success: false,
+            error: { message: error.message },
+          },
+          { status: 400 }
+        );
       }
       return NextResponse.json({
         success: true,
         data,
       });
     }
+    return NextResponse.json(
+      {
+        success: false,
+        error: { message: "Invalid action" },
+      },
+      { status: 400 }
+    );
   } catch (error) {
     return NextResponse.json(
       {
+        success: false,
         error: {
           message: error.message,
           code: error.code,
-          status: error.status,
         },
       },
-      { status: 400 }
+      { status: 500 }
     );
   }
 }

@@ -15,12 +15,14 @@
     "SentTo": "Nous avons envoyé des courriels de confirmation à:",
     "CurrentMail": "1. Votre courriel actuel :",
     "NewMail": "2. Votre nouveau courriel :",
-    "ClickBoth": "Veuillez cliquer sur les liens de confirmation dans LES DEUX courriels pour finaliser le changement de courriel.",
-    "UntilBoth": "Votre courriel ne sera pas mis à jour avant que les deux confirmations soient complétées."
+    "ClickBoth": "Veuillez cliquer sur les liens de confirmation dans LES DEUX courriels pour finaliser le changement de courriel",
+    "UntilBoth": "Votre courriel ne sera pas mis à jour avant que les deux confirmations soient complétées",
+    "NewEmailOnly": "Un lien de confirmation a été envoyé à votre nouvelle adresse courriel :",
+    "CheckInbox": "Veuillez consulter votre boîte de réception et cliquer sur le lien de confirmation pour finaliser la modification de votre adresse e-mail"
   },
-  "Email_Partial": {
-    "Only1": "Confirmation reçue pour une seule adresse courriel.",
-    "WaitConfirm": "En attente de la confirmation de :",
-    "CheckInbox": "Veuillez vérifier votre boîtes de réception et cliquer sur les liens de confirmation pour compléter le changement."
+  "Email_Pending": {
+    "Title": "Changement d'adresse courriel en attente de confirmation",
+    "NewEmail": "En attente de confirmation pour :",
+    "CheckInbox": "Veuillez consulter votre boîte de réception pour le lien de confirmation. Votre adresse courriel actuelle restera active jusqu'à ce que vous confirmiez la nouvelle"
   }
 }

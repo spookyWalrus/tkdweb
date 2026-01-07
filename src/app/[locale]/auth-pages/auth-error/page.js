@@ -5,9 +5,9 @@ export default function confirmButAuthError() {
         <div className="centerHeader">
           <h3>Uh Oh!</h3>
           <p>
-            Something went wrong with confirmation.
+            Something went wrong.
             <br />
-            Please try signing up again.
+            Please try again.
             <br />
             If issue persists, contact web adminstration.
           </p>
