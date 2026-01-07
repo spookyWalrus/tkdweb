@@ -183,6 +183,19 @@ function isPathMatch(pathname, targetPath, locale = null) {
   return normalized === normalizedTarget;
 }
 
+function hasAuthToken(req) {
+  const { searchParams } = req.nextUrl;
+  const token_hash = searchParams.get("token_hash");
+  const code = searchParams.get("code");
+  const type = searchParams.get("type");
+
+  // Check if this is an auth-related request with tokens
+  return (
+    !!(token_hash || code) &&
+    (type === "email_change" || type === "recovery" || code)
+  );
+}
+
 // authenticate pages middleware
 const supaMiddleware = async (req) => {
   const res = NextResponse.next();
@@ -337,6 +350,12 @@ export default function middleWareHandler(req) {
   const isMemberPath = normalizedPath.includes("/member");
 
   if (isMemberPath) {
+    if (hasAuthToken(req)) {
+      // Apply rate limiting but don't require session
+      const tokenRateLimit = checkRateLimit(req, 30); // 30 req/min for token requests
+      if (tokenRateLimit) return tokenRateLimit;
+      return intlMiddleware(req);
+    }
     // Apply rate limiting to member pages (120 req/min)
     const memberRateLimit = checkRateLimit(req, 120);
     if (memberRateLimit) return memberRateLimit;
