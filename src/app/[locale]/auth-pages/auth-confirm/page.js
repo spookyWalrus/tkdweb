@@ -8,6 +8,7 @@ export default function SignUpConfirm() {
   const route = useRouter();
   const locale = useLocale();
   const supabase = createClientComponentClient();
+  const t = useTranslations("LoginRegister.SignUpSuccess");
 
   useEffect(() => {
     let attempts = 0;
@@ -41,9 +42,11 @@ export default function SignUpConfirm() {
       <div className="mainMargin">
         <div className="centerHeader">
           <h3>
-            Sign Up Confirmed!
-            <br /> Welcome to Taekwondo academy CCS
-            <br /> Redirecting you to your account page...
+            {t("Confirmed")}
+            <br />
+            {t("Welcome")}
+            <br />
+            t({"Redirect"})
           </h3>
         </div>
       </div>

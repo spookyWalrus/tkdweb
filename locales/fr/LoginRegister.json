@@ -15,9 +15,12 @@
   "SignUp": {
     "PasswordRules": "Doit comporter au moins 8 caractères, une majuscule et une minuscule, 1 chiffre et 1 symbole",
     "SignUp": "S'inscrire",
+    "signingUp": "Inscription en cours",
     "SignUpFail": "Échec de l'inscription. Veuillez réessayer.",
-    "SignUpHeader": "Inscrivez-vous à la CCS Taekwondo Academy",
-    "SignUpSuccess": "Vérifiez votre e-mail pour confirmer votre inscription."
+    "SignUpHeader": "Inscrivez-vous à l'Académie de Taekwondo CCS",
+    "SignUpSuccess": "Vérifiez votre e-mail pour confirmer votre inscription.",
+    "EmailUsed": "L'inscription par courriel a échoué. Veuillez réessayer.",
+    "RegFail": "L'inscription a échoué. Veuillez réessayer."
   },
   "Reset": {
     "ResetPasswordHeader": "Réinitialisez votre mot de passe",
@@ -35,6 +38,21 @@
     "codeSent": "Code de récupération envoyé",
     "tokenExpired": "Le Captcha a expiré. Veuillez le refaire",
     "PasswordRecover": "Récupérez votre mot de passe"
+  },
+  "AuthFail": {
+    "uhoh": "Oh Oh!",
+    "SomethingWrong": "Quelque chose a mal marché",
+    "TryAgain": "Veuillez réessayer.",
+    "ContactAdm": "Si le problème persiste, veuillez contacter l'administration.",
+    "expired": "Lien expiré",
+    "invalid": "Lien Invalide",
+    "noSession": "Session expirée",
+    "noUser": "Utilisateur introuvable"
+  },
+  "SignUpSuccess": {
+    "Confirmed": "Inscription confirmée !",
+    "Welcome": "Bienvenue à l'Académie de Taekwondo CCS",
+    "Redirect": "Redirection vers votre page de compte..."
   },
   "TokenFail": "Le lien de vérification a expiré. Redirection vers la page de récupération",
   "SessionError": "Erreur de session. Veuillez vous reconnecter pour continuer",

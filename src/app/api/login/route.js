@@ -36,11 +36,9 @@ export async function POST(request) {
     } catch (error) {
       return NextResponse.json(
         {
-          error: {
-            message: error.message,
-            code: error.code,
-            status: error.status,
-          },
+          message: error.message,
+          code: error.code,
+          status: error.status,
         },
         { status: 400 }
       );

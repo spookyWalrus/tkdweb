@@ -38,13 +38,7 @@ function Signup() {
       case "fail":
         return <p className="help is-fail ">{t2("SignUp.SignUpFail")}</p>;
       case "error":
-        return (
-          <p className="help is-danger">
-            {errors.submit}
-            <br />
-            {t2("Login.AuthenticationFail")}
-          </p>
-        );
+        return <p className="help is-danger">{errors.submit}</p>;
       case "noCaptcha":
         return (
           <p className="help is-danger hcapError">{t2("Login.CaptchaError")}</p>
@@ -114,24 +108,14 @@ function Signup() {
       if (!res.ok) {
         const errorData = await res.json();
 
-        // let errorMessage;
-        // let errorToThrow;
-        // if (isThisATest) {
-        //   errorMessage = JSON.stringify(
-        //     {
-        //       message: errorData.error?.message,
-        //       code: errorData.error?.code,
-        //       status: errorData.error?.status,
-        //       details: errorData.error?.details,
-        //     },
-        //     null,
-        //     2
-        //   );
-        //   errorToThrow = new Error(errorMessage);
-        // } else {
-        let errorMessage =
-          errorData.error?.message ?? "Authentication failed. Try again";
-        // }
+        let errorMessage;
+        if (errorData.code === "user_already_exists") {
+          errorMessage = t2("SignUp.EmailUsed");
+          // ("Registration with email failed. Try again");
+        } else {
+          errorMessage = t2("SignUp.RegFail");
+          // ("Registration failed. Try again");
+        }
         setErrors((prev) => ({
           ...prev,
           submit: errorMessage,
@@ -149,7 +133,7 @@ function Signup() {
       setIsSubmitting(false);
       e.target.disabled = true;
     } catch (err) {
-      console.warn("error: ", err.message);
+      console.error("error: ", errors.submit);
     }
   };
 

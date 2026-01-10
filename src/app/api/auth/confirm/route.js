@@ -46,11 +46,6 @@ export async function GET(request) {
     }
 
     if (token_hash) {
-      //     if (type === "recovery") {
-      //       //pw change
-      //       redirectUrl = `${requestUrl.origin}/${locale}/auth-pages/auth-pwreset?token_hash=${token_hash}&type=${type}`;
-      //       return NextResponse.redirect(redirectUrl);
-      //     }
       if (type === "email_change") {
         // change email
 
