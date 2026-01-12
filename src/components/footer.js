@@ -53,21 +53,23 @@ const Footer = () => {
             href="https://www.facebook.com/groups/829367239393546"
             className="theIcons"
           >
-            <Image
+            <img
               className="footerIcons cell"
               src="/logos/facebook-wt.svg"
               alt="FBLogo"
-              width={50}
-              height={50}
+              width="50"
+              height="50"
+              loading="lazy"
             />
           </Link>
           <Link href="https://rawdon.ca" className="theIcons">
-            <Image
+            <img
               className="footerIcons cell"
               src="/logos/rawdon-Rsymbol-colorNu.svg"
               alt="RawdonLogo"
-              width={50}
-              height={50}
+              width="50"
+              height="50"
+              loading="lazy"
             />
           </Link>
         </div>

@@ -50,9 +50,14 @@ footer {
 
   // flex-grow: 0;
   gap: 1rem;
+  height: auto;
 
   @media screen and (max-width: vars.$smallTablet) {
     gap: 0.5rem;
+  }
+
+  img {
+    height: auto;
   }
 }
 
