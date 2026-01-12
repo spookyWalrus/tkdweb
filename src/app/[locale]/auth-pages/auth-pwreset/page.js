@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
-// import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { validateLogin } from "@/utilities/validateLogin";
 import { useRouter } from "@/i18n/navigation";
@@ -106,61 +105,6 @@ export default function PWReset() {
     checkSession();
   }); // Add dependency array!
 
-  // useEffect(() => {
-  //   const handleTokenVerification = async () => {
-  //     const urlParams = new URLSearchParams(window.location.search);
-  //     const token_hash = urlParams.get("token_hash");
-  //     const type = urlParams.get("type");
-
-  //     if (token_hash && type) {
-  //       const { data, error } = await supabase.auth.verifyOtp({
-  //         type: type,
-  //         token_hash,
-  //       });
-
-  //       if (!error && data.user) {
-  //         // Clean up URL
-  //         window.history.replaceState(
-  //           {},
-  //           document.title,
-  //           window.location.pathname
-  //         );
-
-  //         setIsUser(true);
-  //         setTheUser(data.user.last_name);
-  //         setIsLoading(false);
-  //       } else {
-  //         setIsLoading(false);
-  //         setStatus("tokenfail");
-  //         setTimeout(
-  //           () => router.push("/pwRecovery?message=token_expired"),
-  //           5000
-  //         );
-  //       }
-  //     } else {
-  //       // no token, so checking if user exists or session exists
-  //       const {
-  //         data: { user },
-  //       } = await supabase.auth.getUser();
-
-  //       if (user) {
-  //         // user is logged in
-  //         setIsUser(true);
-  //         setTheUser(
-  //           user.user_metadata.first_name,
-  //           user.user_metadata.last_name
-  //         );
-  //         setIsLoading(false);
-
-  //         return;
-  //       } else {
-  //         router.push("/signup");
-  //       }
-  //     }
-  //   };
-  //   handleTokenVerification();
-  // });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputData((prev) => ({
@@ -168,11 +112,6 @@ export default function PWReset() {
       [name]: value,
     }));
   };
-
-  // const resetCaptcha = useCallback(() => {
-  //   setCaptchaToken(null);
-  //   setCaptchaKey(Date.now());
-  // }, []);
 
   const validateForm = async (e, action) => {
     e.preventDefault();
@@ -324,27 +263,6 @@ export default function PWReset() {
                   )}
                 </div>
               </div>
-
-              {/* <div className="field">
-                <div className="control h-captcha">
-                  <HCaptcha
-                    ref={captchaRef}
-                    key={captchaKey}
-                    sitekey={
-                      isThisATest
-                        ? process.env.NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
-                        : process.env.NEXT_PUBLIC_TKD_HCAPTCHA_SITE_KEY
-                    }
-                    onVerify={(token) => setCaptchaToken(token)}
-                    onExpire={resetCaptcha}
-                    onError={resetCaptcha}
-                    data-testid="hcaptcha-widget"
-                  />
-                  {errors.captcha && (
-                    <p className="help is-danger hcapError">{errors.captcha}</p>
-                  )}
-                </div>
-              </div> */}
 
               <div className="field">
                 <div className="control controlCenter">

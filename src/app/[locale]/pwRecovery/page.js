@@ -82,7 +82,7 @@ function PWRecovery() {
     e.preventDefault();
     setErrors({});
     setStatus("submitting");
-    const validationErrors = validateLogin(inputData, t, action);
+    const validationErrors = validateLogin(inputData, t, action) || {};
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -113,7 +113,7 @@ function PWRecovery() {
     formData.append("captcha", captchaToken);
 
     try {
-      const res = await fetch("/api/dataRecovery", {
+      const res = await fetch("/api/dataRecovery?action=pwrecover", {
         method: "POST",
         body: formData,
       });
@@ -202,7 +202,7 @@ function PWRecovery() {
               <div className="control controlCenter">
                 <button
                   className="button"
-                  data-action="pwrecovery"
+                  data-action="pwrecover"
                   type="submit"
                   onClick={submitForm}
                   disabled={isSubmitting}

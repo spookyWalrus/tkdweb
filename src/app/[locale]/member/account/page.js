@@ -117,6 +117,8 @@ function Account() {
       });
       setIsSubmitting(false);
       setErrors({ update: reason });
+    } else if (message === "password_updated") {
+      setNotify(true);
     } else {
       checkEmailStatus();
     }

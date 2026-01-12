@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-// endpoint for name change, email change or password change
+// endpoint for name change, email change or password change request
 export async function POST(request) {
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
@@ -10,7 +10,8 @@ export async function POST(request) {
   const firstName = formData.get("name");
   const lastName = formData.get("lastname");
   const token = formData.get("captcha");
-  const action = formData.get("action");
+  // const action = formData.get("action");
+  const action = requestUrl.searchParams.get("action");
   const cookieStore = cookies();
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 
@@ -57,6 +58,7 @@ export async function POST(request) {
     if (action === "pwrecover") {
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
         captchaToken: token,
+        emailRedirectTo: `${requestUrl.origin}/api/auth/confirm`,
       });
       if (error) {
         return NextResponse.json(
@@ -72,6 +74,7 @@ export async function POST(request) {
         data,
       });
     }
+    // if no action type or code
     return NextResponse.json(
       {
         success: false,
@@ -79,13 +82,13 @@ export async function POST(request) {
       },
       { status: 400 }
     );
-  } catch (error) {
+  } catch (err) {
     return NextResponse.json(
       {
         success: false,
         error: {
-          message: error.message,
-          code: error.code,
+          message: err.message,
+          code: err.code,
         },
       },
       { status: 500 }
