@@ -40,4 +40,4 @@ next-env.d.ts
 .turbo
 
 # translation files
-# locales/**/*.json
+locales/**/*.json

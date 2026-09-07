@@ -1,18 +1,28 @@
 @use "../variables" as vars;
 @use "bulma/sass/utilities/initial-variables" as bulma;
 
+.HeroBlockContainer {
+  background: linear-gradient(to bottom, #ffff 90px, #000 210px);
+  min-height: 100vh;
+}
+
 .HeroBlock {
-  background-color: vars.$foreground;
+  background-color: transparent;
+
+  // background-color: vars.$foreground;
   background-repeat: no-repeat;
   background-size: 70%;
   background-position: 100% 100%;
 
   // background-image: url("/images/tkd-HeroBack800.png");
   // background-image: url("/images/tkd-HeroBack5.png");
-  background-image: var(--hero-bg);
+  // background-image: var(--hero-bg);
+  background-image: url("/images/tkd-Heroblack-mask.png");
+
+  // background-image: linear-gradient(135deg, rgba(30, 58, 138, 0.7), rgba(236, 72, 153, 0.7)), var(--hero-bg);
 
   @media screen and (min-width: vars.$smallTablet) {
-    background-size: 60%;
+    background-size: 51%;
   }
 
   @media screen and (min-width: bulma.$desktop) {
