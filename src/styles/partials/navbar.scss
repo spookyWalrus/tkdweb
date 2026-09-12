@@ -279,12 +279,13 @@
 }
 
 .navbar-item-last {
-  background-color: vars.$foreground;
-  color: vars.$background;
-  border: vars.$foreground;
+  background-color: #fff;
+  color: #000;
+
+  // border: vars.$foreground;
 
   &:hover {
-    background-color: rgb(51 54 62);
+    background-color: vars.$background;
   }
 
   // margin-left: auto;
