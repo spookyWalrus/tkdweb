@@ -8,7 +8,8 @@
 }
 
 .topBar {
-  background-color: vars.$primary;
+  // background-color: vars.$primary;
+  background-color: #ffff;
   position: fixed;
   width: 100vw;
   height: vars.$topBarHeight;
@@ -21,7 +22,7 @@
     padding: 0.25rem 1rem;
   }
 
-  z-index: 1050;
+  z-index: 10;
 }
 
 .topBarLinks {
@@ -46,8 +47,10 @@
   top: var(--top-bar-height, vars.$brandHeight);
   width: 100vw;
   height: vars.$brandHeight;
-  color: vars.$background;
-  background-color: vars.$foreground;
+  color: vars.$foreground;
+
+  // background-color: vars.$background;
+  background-color: #ffff;
   padding: 0 1rem;
 
   // font-size: 1.5rem;
@@ -63,16 +66,8 @@
   width: 45%;
   text-align: center;
 
-  // padding-left: 11%;
-  @media screen and (max-width: vars.$desktop) {
-    padding-left: 0%;
-  }
-
-  @media screen and (max-width: vars.$smallTablet) {
-    text-align: right;
-    padding-left: 0%;
-    text-wrap: nowrap;
-    white-space: nowrap;
+  @media screen and (min-width: vars.$smallTablet) {
+    padding-left: 8%;
   }
 }
 
@@ -153,7 +148,8 @@
 }
 
 .navbar.is-fixed-top {
-  background-color: transparent;
+  // background-color: vars.$background;
+  background-color: #ffff;
   top: vars.$navbarTotalHeight;
   z-index: 101;
   width: 100vw;
@@ -161,7 +157,9 @@
   @media screen and (min-width: bulma.$tablet) {
     height: 2rem;
     top: 4rem;
-    background-color: vars.$foreground;
+    background-color: #ffff;
+
+    // background-color: vars.$background;
   }
 }
 
@@ -170,6 +168,8 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
+  position: relative;
+  overflow: visible;
 
   // width: 100vw;
   max-width: 100vw;
@@ -209,6 +209,15 @@
 .navbar-brand {
   min-height: 0;
   background-color: vars.$foreground;
+}
+
+#navbar-c-main {
+  padding: 0;
+}
+
+#navbar-c-main-link {
+  display: block;
+  line-height: 0;
 }
 
 .navbar-logo {
@@ -251,6 +260,9 @@
 .navbar-center-logo {
   width: auto;
   height: auto;
+  position: relative;
+  top: -70px;
+  z-index: 11;
 }
 
 .navbar-item {

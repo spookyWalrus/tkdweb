@@ -94,7 +94,7 @@ export default function Navbar() {
       {/* Topbar begins */}
       <div className="topBar">
         <LangSwitcher />
-        {authStatus}
+        {/* {authStatus} */}
       </div>
       <div className="navbar-section">
         <div className="brandTitleBar">
@@ -119,7 +119,7 @@ export default function Navbar() {
             <a href="/">
               <Image
                 className="navbar-logo"
-                src="/logos/tkdBasic-web.png"
+                src="/logos/ccs-Logo-hiRes-noBG.webp"
                 alt="Logo"
                 width="100"
                 height="100"
@@ -165,22 +165,23 @@ export default function Navbar() {
                     <Link href="/conduct" className="navbar-item">
                       {t("Courses.Conduct")}
                     </Link>
-                    {/* <Link href="#" className="navbar-item wraptext"> */}
-                    {/* {t("Courses.News")} */}
-                    {/* News */}
-                    {/* </Link> */}
+                    <Link href="/infoletter" className="navbar-item wraptext">
+                      {/* {t("Courses.News")} */}
+                      {/* News */}
+                      Info Letter
+                    </Link>
                   </div>
                 </div>
               </div>
 
-              <div className="navbar-center">
-                <Link href="/">
+              <div className="navbar-center" id="navbar-c-main">
+                <Link href="/" id="navbar-c-main-link">
                   <Image
                     className="navbar-center-logo"
-                    src="/logos/tkdBasic-web.png"
+                    src="/logos/ccs-Logo-hiRes-noBG.webp"
                     alt="Logo"
-                    width="100"
-                    height="100"
+                    width="500"
+                    height="378"
                   />
                 </Link>
               </div>

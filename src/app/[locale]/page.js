@@ -15,16 +15,18 @@ export default function Home() {
 
   return (
     <main className="main">
-      <div className="HeroBlock" id="hero" ref={heroRef} style={heroStyle}>
-        <div className="HeroTitles">
-          <h1 className="HeroHeader">{t("HeroHeader")}</h1>
-          <div className="HeroSubHeader">
-            <h2>{t("HeroSubHeader")}</h2>
-            <Link href="/signup" className="button joinus">
-              {t("JoinUs")}
-            </Link>
+      <div className="HeroBlockContainer">
+        <div className="HeroBlock" id="hero" ref={heroRef} style={heroStyle}>
+          <div className="HeroTitles">
+            <h1 className="HeroHeader">{t("HeroHeader")}</h1>
+            <div className="HeroSubHeader">
+              <h2>{t("HeroSubHeader")}</h2>
+              <Link href="/signup" className="button joinus">
+                {t("JoinUs")}
+              </Link>
+            </div>
+            <div className="filler"> </div>
           </div>
-          <div className="filler"> </div>
         </div>
       </div>
 
