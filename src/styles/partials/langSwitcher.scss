@@ -25,6 +25,7 @@
 
 .custom-dropdown {
   padding-right: 1rem;
+  z-index: 50;
 
   @media screen and (min-width: bulma.$tablet) {
     padding-right: 1rem;
@@ -54,7 +55,7 @@
 }
 
 .customDropDownContent {
-  background-color: vars.$primary;
+  background-color: vars.$background;
   padding: 0;
   width: fit-auto;
   border-radius: 0;
@@ -66,8 +67,8 @@
 
 .langCustomDropDownMenuItem {
   width: fit-content !important;
-  background-color: vars.$primary !important;
-  color: vars.$background;
+  background-color: vars.$background !important;
+  color: vars.$primary;
 }
 
 .customDropDownMenuItem {
@@ -80,5 +81,5 @@
 }
 
 .langCustomDropDownMenuItem:hover {
-  background-color: #3476f0 !important;
+  background-color: #acadae !important;
 }

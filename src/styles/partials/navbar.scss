@@ -22,7 +22,7 @@
     padding: 0.25rem 1rem;
   }
 
-  z-index: 10;
+  z-index: 20;
 }
 
 .topBarLinks {
@@ -36,7 +36,7 @@
   position: sticky;
   top: vars.$topBarHeight;
   background: vars.$foreground;
-  z-index: 101;
+  z-index: 20;
 }
 
 .brandTitleBar {
@@ -55,7 +55,7 @@
 
   // font-size: 1.5rem;
   font-weight: bold;
-  z-index: 100;
+  z-index: 20;
 
   @media screen and (min-width: bulma.$desktop) {
     justify-content: space-evenly;
@@ -139,7 +139,7 @@
 }
 
 .navbar-menu {
-  background-color: vars.$foreground;
+  background-color: #fff;
 
   // padding-top: 1.2rem;
   @media screen and (max-width: bulma.$tablet) {
@@ -151,7 +151,8 @@
   // background-color: vars.$background;
   background-color: #ffff;
   top: vars.$navbarTotalHeight;
-  z-index: 101;
+
+  // z-index: 101;
   width: 100vw;
 
   @media screen and (min-width: bulma.$tablet) {
@@ -231,7 +232,7 @@
   justify-content: center;
   margin: 0 auto;
   background-color: transparent;
-  z-index: 10;
+  z-index: 50;
 
   @media screen and (min-width: vars.$smallTablet) {
     width: 10%;
@@ -261,8 +262,8 @@
   width: auto;
   height: auto;
   position: relative;
-  top: -70px;
-  z-index: 11;
+  margin-top: -70px;
+  z-index: 50;
 }
 
 .navbar-item {
@@ -351,20 +352,20 @@
 }
 
 .navbar-dropdown {
-  background-color: vars.$foreground;
-  border: vars.$foreground;
+  background-color: #fff;
+  border: #fff;
 }
 
 .navbar-link,
 .navbar-dropdown .navbar-item:not(.is-active, .is-selected) {
-  background-color: vars.$foreground !important;
-  color: vars.$background !important;
+  background-color: #fff !important;
+  color: vars.$foreground !important;
 }
 
 .navbar-link:hover,
 .navbar-dropdown .navbar-item:not(.is-active, .is-selected):hover {
-  background-color: rgb(51 54 62) !important;
-  color: vars.$background;
+  background-color: vars.$background !important;
+  color: vars.$foreground;
 }
 
 .navbar-link:not(.is-arrowless) {
