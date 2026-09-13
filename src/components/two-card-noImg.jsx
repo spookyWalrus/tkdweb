@@ -4,11 +4,11 @@ const TwoCardNI = ({ heading, body, heading2, body2 }) => {
   return (
     <div className="twoCard">
       <div className="card-text">
-        <h3>{heading}</h3>
+        <h5>{heading}</h5>
         <section className="cardSection">{body}</section>
       </div>
       <div className="card-text">
-        <h3>{heading2}</h3>
+        <h5>{heading2}</h5>
         <section className="cardSection">{body2}</section>
       </div>
     </div>

@@ -21,7 +21,7 @@ export default function Home() {
             <h1 className="HeroHeader">{t("HeroHeader")}</h1>
             <div className="HeroSubHeader">
               <h2>{t("HeroSubHeader")}</h2>
-              <Link href="/signup" className="button joinus">
+              <Link href="/contact" className="button joinus">
                 {t("JoinUs")}
               </Link>
             </div>

@@ -1,5 +1,13 @@
 @use "../variables" as vars;
 
+.contactMarginTop {
+  margin-top: 5rem;
+}
+
+.mainContact {
+  margin: 15% 18% 8%;
+}
+
 .icon-box {
   display: grid;
   grid-template-columns: 24px 1fr 1fr; // [Icon] [Label] [Info]

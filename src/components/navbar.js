@@ -82,7 +82,12 @@ export default function Navbar() {
   }, [loginMessage, loading, user, pathname, showButton]);
 
   useEffect(() => {
-    if (user || pathname == "/login" || pathname == "/signup") {
+    if (
+      user ||
+      pathname == "/login" ||
+      pathname == "/signup" ||
+      pathname == "/contact"
+    ) {
       setShowJoin(false);
     } else {
       setShowJoin(true);
@@ -216,7 +221,7 @@ export default function Navbar() {
         {shouldShowJoin && (
           <div className="signup-button-container">
             {showJoin && (
-              <Link href="/signup" className="button signup-button">
+              <Link href="/contact" className="button signup-button">
                 {t2("SignUp.SignUp")}
                 {/* Join Us */}
               </Link>
