@@ -21,9 +21,9 @@ const Footer = () => {
           </p>
         </div>
         <div className="footerLinks">
-          <div>
+          {/* <div>
             <Link href="/">{t("About Us.TheClub")}</Link>
-          </div>
+          </div> */}
           <div>
             <Link href="/instructors">{t("About Us.Instructors")}</Link>
           </div>
