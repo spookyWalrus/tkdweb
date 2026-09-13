@@ -13,6 +13,7 @@ import CourseFees from "./CourseFees.json";
 import Instructors from "./Instructors.json";
 import LoginRegister from "./LoginRegister.json";
 import MemberAccount from "./MemberAccount.json";
+import InfoLetter from "./InfoLetter.json";
 
 const translations = {
   AboutBlock,
@@ -30,5 +31,6 @@ const translations = {
   Instructors,
   LoginRegister,
   MemberAccount,
+  InfoLetter,
 };
 export default translations;
