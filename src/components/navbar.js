@@ -153,9 +153,9 @@ export default function Navbar() {
                 <div className="navbar-item has-dropdown is-hoverable shortlist">
                   <div className="navbar-link">{t("About Us.Head")}</div>
                   <div className="navbar-dropdown">
-                    <Link href="/" className="navbar-item">
+                    {/* <Link href="/" className="navbar-item">
                       {t("About Us.TheClub")}
-                    </Link>
+                    </Link> */}
                     <Link href="/instructors" className="navbar-item">
                       {t("About Us.Instructors")}
                     </Link>
