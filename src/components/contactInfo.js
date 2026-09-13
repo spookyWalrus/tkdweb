@@ -31,6 +31,7 @@ const ContactInfo = () => {
         </span>
         <span className="contactBold">{t("Address")}</span>
         <div className="contactInfo">
+          <p>École des Cascades - Pavillon Saint-Louis</p>
           <p>3763 rue Albert</p>
           <p>Rawdon (Québec)</p>
           <p>Canada J0K 1S0 </p>
