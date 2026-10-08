@@ -4,6 +4,23 @@ import { NextResponse } from "next/server";
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
 const intlMiddleware = createMiddleware(routing);
+
+// ============================================================================
+// DISABLED ROUTES (kept in the codebase for future use)
+// Remove an entry from this list to re-enable that section.
+// Entries must be lowercase (paths are normalized to lowercase before matching).
+// ============================================================================
+const DISABLED_ROUTES = [
+  "login",
+  "_login",
+  "signup",
+  "pwrecovery",
+  "member",
+  "_member",
+  "auth",
+  "auth-pages",
+];
+
 // rate limiting
 class RateLimiter {
   constructor() {
@@ -171,6 +188,7 @@ function normalizePathname(pathname) {
   normalized = normalized.replace(/\/+/g, "/");
   return normalized;
 }
+
 function isPathMatch(pathname, targetPath, locale = null) {
   const normalized = normalizePathname(pathname);
   const normalizedTarget = normalizePathname(targetPath);
@@ -181,6 +199,29 @@ function isPathMatch(pathname, targetPath, locale = null) {
   }
 
   return normalized === normalizedTarget;
+}
+
+// Returns the locale found in the first path segment, or the default locale
+function getLocaleFromPath(pathname) {
+  const first = pathname.split("/").filter(Boolean)[0]?.toLowerCase();
+  return (
+    routing.locales.find((l) => l.toLowerCase() === first) ||
+    routing.defaultLocale
+  );
+}
+
+// True if the first segment after the (optional) locale is a disabled route.
+// Matches "/login", "/en/login", "/en/member/account", "/fr/auth-pages/auth-error"
+// but not "/en/blog/login-tips".
+function isDisabledRoute(pathname) {
+  const segments = normalizePathname(pathname).split("/").filter(Boolean);
+  const lowerLocales = routing.locales.map((l) => l.toLowerCase());
+
+  if (segments.length > 0 && lowerLocales.includes(segments[0])) {
+    segments.shift(); // drop the locale prefix
+  }
+
+  return segments.length > 0 && DISABLED_ROUTES.includes(segments[0]);
 }
 
 function hasAuthToken(req) {
@@ -251,7 +292,7 @@ const supaMiddleware = async (req) => {
   }
 };
 
-//  checks authentication for API routes
+// checks authentication for API routes
 const apiMiddleware = async (req) => {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
@@ -303,7 +344,10 @@ export default function middleWareHandler(req) {
     "/auth/confirm",
   ];
 
-  // api route proection
+  // ============================================================================
+  // 1. API ROUTE PROTECTION
+  // (runs first so API and auth callback routes are never redirected below)
+  // ============================================================================
   if (normalizedPath.startsWith("/api")) {
     const isPublicApi = publicApiPaths.some((path) =>
       normalizedPath.startsWith(normalizePathname(path))
@@ -322,11 +366,25 @@ export default function middleWareHandler(req) {
     return apiMiddleware(req);
   }
 
-  // public path check
+  // ============================================================================
+  // 2. REDIRECT DISABLED ROUTES
+  // login, signup, pwRecovery, member, auth, auth-pages (and everything under them)
+  // Pages stay in the codebase; visitors are sent to the localized homepage.
+  // 307 = temporary redirect, so search engines don't treat it as permanent.
+  // To re-enable a section, remove it from DISABLED_ROUTES at the top of the file.
+  // ============================================================================
+  if (isDisabledRoute(pathname)) {
+    const targetLocale = getLocaleFromPath(pathname);
+    return NextResponse.redirect(new URL(`/${targetLocale}`, req.url), 307);
+  }
+
+  // ============================================================================
+  // 3. PUBLIC PATHS
+  // (currently unreachable for disabled routes; kept for when they're re-enabled)
+  // ============================================================================
   const isPublicPath = publicPaths.some((path) => {
-    return routing.locales.some(
-      // (locale) => pathname === `/${locale}${path}` || pathname === path
-      (locale) => isPathMatch(pathname, path, locale)
+    return routing.locales.some((locale) =>
+      isPathMatch(pathname, path, locale)
     );
   });
 
@@ -346,7 +404,10 @@ export default function middleWareHandler(req) {
     return intlMiddleware(req);
   }
 
-  // member area protection
+  // ============================================================================
+  // 4. MEMBER AREA PROTECTION
+  // (currently unreachable while "member" is in DISABLED_ROUTES)
+  // ============================================================================
   const isMemberPath = normalizedPath.includes("/member");
 
   if (isMemberPath) {
@@ -364,7 +425,7 @@ export default function middleWareHandler(req) {
     return supaMiddleware(req);
   }
 
-  //default is internationalization
+  // default is internationalization
   return intlMiddleware(req);
 }
 
