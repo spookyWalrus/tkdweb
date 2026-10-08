@@ -200,6 +200,12 @@
     @media screen and (max-width: bulma.$tablet) {
       justify-content: flex-start;
     }
+
+    @media screen and (min-width: bulma.$desktop) {
+      .navbar-item.has-dropdown .navbar-dropdown {
+        inset-inline: auto 0;
+      }
+    }
   }
 
   &.navbar-links-right {
@@ -255,6 +261,8 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
+    position: relative;
+    z-index: 60;
   }
 }
 
@@ -355,6 +363,7 @@
 .navbar-dropdown {
   background-color: #fff;
   border: #fff;
+  z-index: 40;
 }
 
 .navbar-link,
