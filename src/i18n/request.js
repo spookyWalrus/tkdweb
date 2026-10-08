@@ -23,7 +23,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const messages = await loadTranslations(locale);
 
   return {
-    locale: requestLocale,
+    // locale: requestLocale,
+    locale,
     messages,
   };
 });
