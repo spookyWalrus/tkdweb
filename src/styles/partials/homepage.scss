@@ -4,30 +4,28 @@
 
 .HeroBlockContainer {
   background: linear-gradient(to bottom, #ffff 90px, #000 210px);
-  min-height: 100vh;
+  min-height: 0;
+
+  @media screen and (min-width: vars.$smallTablet) {
+    min-height: 10vh;
+  }
 }
 
 .HeroBlock {
-  background-color: transparent;
-
-  // background-color: vars.$foreground;
   background-repeat: no-repeat;
-  background-size: 70%;
   background-position: 100% 100%;
-
-  // background-image: url("/images/tkd-HeroBack800.png");
-  // background-image: url("/images/tkd-HeroBack5.png");
-  // background-image: var(--hero-bg);
   background-image: url("/images/tkd-Heroblack-mask.png");
 
-  // background-image: linear-gradient(135deg, rgba(30, 58, 138, 0.7), rgba(236, 72, 153, 0.7)), var(--hero-bg);
+  // image width = the smaller of a % of the block or a fixed maximum
+  background-size: min(70%, 18rem) auto;
 
   @media screen and (min-width: vars.$smallTablet) {
-    background-size: 51%;
+    background-size: min(51%, 26rem) auto;
   }
 
   @media screen and (min-width: bulma.$desktop) {
     margin-top: 4%;
+    background-size: min(55%, 38rem) auto;
   }
 }
 
@@ -92,7 +90,7 @@
 .HeroBlock > .HeroTitles > .HeroSubHeader > a.joinus {
   width: 100%;
   position: relative;
-  z-index: 50;
+  z-index: 10;
   color: vars.$background;
   background-color: rgb(20 22 26);
   border: 1px solid rgb(144 146 148); /* Add border if not present */
@@ -132,3 +130,20 @@
     padding-bottom: 17rem;
   }
 }
+
+@media screen and (max-width: vars.$desktopMax) {
+  .HeroBlockContainer {
+    background: linear-gradient(
+      to bottom,
+      #fff var(--logo-hang),
+      #000 calc(var(--logo-hang) + 2rem)
+    );
+  }
+
+  .HeroHeader {
+    padding-top: 3rem;
+  }
+}
+
+// #fff 0,
+// #000 3rem

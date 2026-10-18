@@ -123,11 +123,12 @@ export default function Navbar() {
           <div className="navbar-brand">
             <a href="/">
               <Image
-                className="navbar-logo"
+                // className="navbar-logo"
+                className={`navbar-logo ${navOpen ? "navbar-logo--hidden" : ""}`}
                 src="/logos/ccs-Logo-hiRes-noBG.webp"
                 alt="Logo"
-                width="100"
-                height="100"
+                width={500}
+                height={378}
               />
             </a>
             <a

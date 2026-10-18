@@ -215,7 +215,9 @@
 
 .navbar-brand {
   min-height: 0;
-  background-color: vars.$foreground;
+
+  // background-color: vars.$navbar-background-color;
+  background-color: #fff;
 }
 
 #navbar-c-main {
@@ -242,12 +244,18 @@
 
   @media screen and (min-width: vars.$smallTablet) {
     width: 10%;
+    transition: opacity 0.2s ease;
   }
 
   @media screen and (min-width: bulma.$desktop) {
     display: none;
     top: 0;
   }
+}
+
+.navbar-logo--hidden {
+  opacity: 0;
+  pointer-events: none; // so the invisible logo can't be tapped
 }
 
 .navbar-center {
@@ -270,7 +278,7 @@
   width: auto;
   height: auto;
   position: relative;
-  margin-top: -70px;
+  margin-top: -50px;
   z-index: 50;
 }
 
@@ -390,4 +398,172 @@
   right: 1.125em;
   top: 35%;
   margin: 0;
+}
+
+// ============================================================
+// Header variables (single top-level :root in the file)
+// ============================================================
+:root {
+  --topbar-h: #{vars.$topBarHeight}; // white strip with the language switcher
+  --brand-h: 2.75rem; // white strip with the two titles
+  --nav-h: 2.75rem; // dark strip with the burger
+  --logo-w: clamp(7rem, 36vw, 11rem); // logo size on mobile and tablet
+  --logo-hang: 2rem; // how far the logo hangs below the header
+  --header-h: calc(var(--topbar-h) + var(--brand-h) + var(--nav-h));
+  --title-size: clamp(0.7rem, 4.3vw, 1.05rem);
+  --title-wrap: normal;
+}
+
+// ============================================================
+// Mobile + tablet header (everything below the desktop breakpoint)
+// ============================================================
+@media screen and (max-width: vars.$desktopMax) {
+  // 1. Title band: [left title] [logo spacer] [right title]
+  .brandTitleBar {
+    display: grid;
+    grid-template-columns: 1fr calc(var(--logo-w) * 0.75) 1fr;
+    align-items: center;
+    justify-content: normal;
+    top: var(--topbar-h);
+    height: var(--brand-h);
+    padding: 0 0.5rem;
+  }
+
+  .titleBox,
+  .titleBox2 {
+    width: auto;
+    padding: 0;
+    text-align: center;
+  }
+
+  .fakeLogo {
+    display: block;
+    width: 100%;
+    flex: none;
+  }
+
+  // Use the h3 versions of the titles everywhere below desktop
+  .brandTitleBarLeft,
+  .brandTitleBarRight {
+    display: none;
+  }
+
+  .brandTitleBarLeftMobile,
+  .brandTitleBarRightMobile {
+    display: block;
+    flex-grow: 0;
+    margin: 0;
+    font-size: var(--title-size);
+    line-height: 1.15;
+    text-wrap: balance;
+    white-space: var(--title-wrap);
+  }
+
+  // 2. Navbar bar: position and height come from the variables
+  .navbar.is-fixed-top {
+    --bulma-navbar-height: var(--nav-h);
+
+    top: calc(var(--topbar-h) + var(--brand-h));
+    height: auto;
+  }
+
+  .navbar-brand {
+    min-height: var(--nav-h);
+  }
+
+  // 3. Logo: hanging over the header
+  .navbar-logo {
+    top: auto;
+    bottom: calc(-1 * var(--logo-hang));
+    width: var(--logo-w);
+    height: auto;
+    display: block;
+  }
+
+  // 4. Opened hamburger menu: clear the logo and allow scrolling
+  .navbar-menu {
+    padding-top: calc(var(--logo-hang) + 0.5rem);
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+  }
+
+  // 5. Sign Up button: sits flush under the navbar
+  .signup-button {
+    top: var(--header-h);
+    padding-left: 7%;
+    padding-right: 0.75rem;
+    font-size: 0.8em;
+  }
+}
+
+// ============================================================
+// Title size overrides per screen range (variables only)
+// ============================================================
+
+// Large phones and small tablets: 576px to 768px
+@media screen and (min-width: vars.$smallTablet) and (max-width: vars.$tabletMax) {
+  :root {
+    --title-size: clamp(1rem, 3vw, 2rem);
+    --title-wrap: nowrap;
+  }
+}
+
+// Tablets: 769px to 1023px
+@media screen and (min-width: bulma.$tablet) and (max-width: vars.$desktopMax) {
+  :root {
+    --title-size: clamp(1.1rem, 2.6vw, 1.5rem);
+    --title-wrap: nowrap;
+  }
+}
+
+// ============================================================
+// iPad Pro / small laptops: 1024px to 1399px (one merged block)
+// ============================================================
+@media screen and (min-width: vars.$desktop) and (max-width: vars.$wideDesktopMax) {
+  :root {
+    --center-logo-w: 180px; // desktop default is 500px
+  }
+
+  // Logo keeps its size: don't let the flex row squeeze it
+  .navbar-center {
+    flex: none;
+  }
+
+  .navbar-center-logo {
+    width: var(--center-logo-w);
+    height: auto;
+    margin-top: calc(var(--center-logo-w) * -0.14);
+  }
+
+  // The two link groups can shrink to fit the leftover space
+  .navbar-links-left,
+  .navbar-links-right {
+    min-width: 0;
+  }
+
+  // Tighter links: smaller text and less side padding
+  .navbar-item,
+  .navbar-link {
+    font-size: clamp(0.75rem, 1.4vw, 1rem);
+    padding-inline: 0.5rem;
+  }
+
+  .navbar-link:not(.is-arrowless) {
+    padding-right: 1.75em;
+  }
+
+  .navbar-link:not(.is-arrowless)::after {
+    right: 0.6em; // arrow sits closer to the text
+  }
+
+  // Desktop titles on a single line
+  .brandTitleBarLeft,
+  .brandTitleBarRight {
+    white-space: nowrap;
+    font-size: clamp(1rem, 3vw, 1.7rem);
+  }
+
+  .titleBox {
+    padding-left: 0; // removes the 8% push so the text has more room
+  }
 }

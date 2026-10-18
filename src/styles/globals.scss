@@ -86,19 +86,35 @@ h6 {
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
-
-  // padding-top: vars.$topBarHeight + vars.$brandHeight;
-  padding-top: 6rem;
   background-color: vars.$background;
 
-  @media screen and (min-width: bul.$tablet) {
-    padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
-  }
+  // below desktop: header height + logo overhang
+  padding-top: var(--header-h);
 
   @media screen and (min-width: bul.$desktop) {
-    padding-top: vars.$topBarHeight + vars.$brandHeight;
+    padding-top: vars.$topBarHeight + vars.$brandHeight; // unchanged
   }
 }
+
+// .main {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   align-items: center;
+//   min-height: 100vh;
+
+//   // padding-top: vars.$topBarHeight + vars.$brandHeight;
+//   padding-top: 6rem;
+//   background-color: vars.$background;
+
+//   @media screen and (min-width: bul.$tablet) {
+//     padding-top: calc(#{vars.$navbarTotalHeight} + var(--bulma-navbar-height));
+//   }
+
+//   @media screen and (min-width: bul.$desktop) {
+//     padding-top: vars.$topBarHeight + vars.$brandHeight;
+//   }
+// }
 
 .mainMargin {
   margin: 6% 8%;
@@ -117,6 +133,12 @@ h6 {
 
   @media screen and (min-width: bul.$desktop) {
     padding: 2rem;
+  }
+}
+
+@media screen and (max-width: vars.$desktopMax) {
+  .centerHeader {
+    padding-top: calc(1rem + var(--logo-hang));
   }
 }
 

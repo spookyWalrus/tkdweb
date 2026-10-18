@@ -10,3 +10,7 @@ $brandHeight: 2rem;
 $navbarTotalHeight: $topBarHeight + $brandHeight;
 $smallTablet: 576px;
 $desktop: 1024px;
+$tabletMax: 768px;
+$desktopMax: $desktop - 1px; // 1023px
+$wideDesktop: 1400px;
+$wideDesktopMax: $wideDesktop - 1px; // 1399px
