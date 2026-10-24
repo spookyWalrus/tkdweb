@@ -1,0 +1,14 @@
+{
+    
+     "Metadata":{
+        "title": "Page d'accueil",
+        "description":"Page d'accueil principale"
+    },
+    "HeroBlock":{
+       "HeroHeader":"Cultivez un esprit indomptable","HeroSubHeader":"Nous nous engageons à vous aider à apprendre, aimer et perfectionner tous les aspects du Taekwondo.","JoinUs":"Rejoignez-nous !"
+    },
+    "AboutBlock":{
+       "AboutBody":"Pour apprendre la discipline du Taekwondo, notre vision est de développer la force mentale et physique dans un environnement convivial et accessible. Nos cours structurés sont donnés par des instructeurs expérimentés pour guider le développement de vos compétences. Des jeunes enfants aux adultes chevronnés, nous avons une place pour vous dans notre école. ","AboutHeader":"Faites partie de la famille"
+    }
+    
+}

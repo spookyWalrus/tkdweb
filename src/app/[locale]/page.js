@@ -1,34 +1,44 @@
-"use client";
-import { useTranslations } from "next-intl";
+// "use client";
+import PropTypes from "prop-types";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import HeroBlock from "../../components/HeroBlock";
 import TwoCardLeft from "../../components/two-card-left";
-import { useIntersection } from "@/utilities/intersectionContext";
+// import { useIntersection } from "@/utilities/intersectionContext";
 import Link from "next/link";
-import Image from "next/image";
+import { buildAlternates } from "@/utilities/seo";
+// import Image from "next/image";
 
-export default function Home() {
-  const t = useTranslations("HeroBlock");
-  const t2 = useTranslations("AboutBlock");
-  const { heroRef } = useIntersection();
-  const heroStyle = {
-    "--hero-bg": "url(/images/tkd-HeroBack5.png)",
+export async function generateMetadata({ params }) {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "Home.Metadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: buildAlternates(locale),
   };
+}
+
+export default async function Home({ params }) {
+  const { locale } = params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Home.HeroBlock");
+  const t2 = await getTranslations("Home.AboutBlock");
 
   return (
     <main className="main">
-      <div className="HeroBlockContainer">
-        <div className="HeroBlock" id="hero" ref={heroRef} style={heroStyle}>
-          <div className="HeroTitles">
-            <h1 className="HeroHeader">{t("HeroHeader")}</h1>
-            <div className="HeroSubHeader">
-              <h2>{t("HeroSubHeader")}</h2>
-              <Link href="/contact" className="button joinus">
-                {t("JoinUs")}
-              </Link>
-            </div>
-            <div className="filler"> </div>
+      <HeroBlock>
+        <div className="HeroTitles">
+          <h1 className="HeroHeader">{t("HeroHeader")}</h1>
+          <div className="HeroSubHeader">
+            <h2>{t("HeroSubHeader")}</h2>
+            <Link href="/contact" className="button joinus">
+              {t("JoinUs")}
+            </Link>
           </div>
+          <div className="filler"> </div>
         </div>
-      </div>
+      </HeroBlock>
 
       <div className="mainMargin">
         <TwoCardLeft
@@ -41,3 +51,9 @@ export default function Home() {
     </main>
   );
 }
+
+Home.propTypes = {
+  params: PropTypes.shape({
+    locale: PropTypes.string.isRequired,
+  }).isRequired,
+};

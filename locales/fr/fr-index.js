@@ -14,6 +14,7 @@ import Instructors from "./Instructors.json";
 import LoginRegister from "./LoginRegister.json";
 import MemberAccount from "./MemberAccount.json";
 import InfoLetter from "./InfoLetter.json";
+import Home from "./Home.json";
 
 const translations = {
   AboutBlock,
@@ -32,5 +33,6 @@ const translations = {
   LoginRegister,
   MemberAccount,
   InfoLetter,
+  Home,
 };
 export default translations;
