@@ -1,27 +1,41 @@
 @use "bulma/sass/utilities/initial-variables" as bulma;
+@use "../variables" as vars;
 
 .card-grid-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 300px));
+  // grid-template-columns: repeat(2, 1fr);
 
   // grid-template-columns: repeat(4, minmax(150px, 1fr));
-
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
-  max-width: 1200px; /* Adjust as needed */
+  max-width: 1200px;
   margin: 0 auto;
 
-  @media screen and (min-width: bulma.$tablet) {
-    grid-template-columns: repeat(4, minmax(150px, 1fr));
+  // @media screen and (min-width: bulma.$tablet) {
+  //   grid-template-columns: repeat(4, minmax(150px, 1fr));
+  // }
+  > * {
+    flex: 1 1 100%;
+    max-width: 300px;
+
+    @media screen and (min-width: vars.$mobileSize) {
+      flex: 1 1 200px;
+    }
   }
 }
 
-.centerCard {
-  width: 60%;
-  margin: 0 auto;
+@media screen and (min-width: vars.$desktop) {
+  .centerCard .oneCardCustom {
+    max-width: 450px;
+    margin-inline: auto;
+  }
 
-  @media screen and (min-width: bulma.$tablet) {
-    width: 40%;
+  .centerCard .portraitStyle {
+    width: 100%;
+    height: auto;
   }
 }
 

@@ -21,10 +21,13 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { locale } = params;
-  const metadata = await getTranslations({ locale, namespace: "Metadata" });
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
   return {
-    title: metadata.title,
-    description: metadata.description,
+    metadataBase: new URL("https://ccstkdrawdon.com"),
+    title: t("title"),
+    description: t("description"),
+    robots: { index: true, follow: true },
   };
 }
 

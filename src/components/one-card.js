@@ -1,9 +1,20 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import PropTypes from "prop-types";
 
 // 08 Dec 2025 - Revealing more info on hover for 'blurb' (set with styling in oneCard.scss) , is turned off via commented out
 
-const OneCard = ({ imageSrc, altText, name, position, blurb, blurbclass }) => {
+const OneCard = ({
+  imageSrc,
+  altText,
+  name,
+  position,
+  blurb,
+  blurbclass,
+  cvUrl,
+}) => {
+  const t = useTranslations("Instructors.Card");
+
   return (
     <div className="card oneCardCustom">
       <div className="card-image">
@@ -35,6 +46,19 @@ const OneCard = ({ imageSrc, altText, name, position, blurb, blurbclass }) => {
           </div>
         </div>
       </div>
+      {cvUrl && (
+        <footer className="card-footer">
+          <a
+            href={cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card-footer-item cv-button"
+            aria-label={t("CV")}
+          >
+            {t("CV")}
+          </a>
+        </footer>
+      )}
     </div>
   );
 };
@@ -45,6 +69,7 @@ OneCard.propTypes = {
   position: PropTypes.node.isRequired,
   blurb: PropTypes.string,
   blurbclass: PropTypes.string,
+  cvUrl: PropTypes.string,
   // imgHeight: PropTypes.string,
 };
 

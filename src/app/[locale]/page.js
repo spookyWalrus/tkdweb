@@ -1,12 +1,9 @@
-// "use client";
 import PropTypes from "prop-types";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import HeroBlock from "../../components/HeroBlock";
 import TwoCardLeft from "../../components/two-card-left";
-// import { useIntersection } from "@/utilities/intersectionContext";
 import Link from "next/link";
 import { buildAlternates } from "@/utilities/seo";
-// import Image from "next/image";
 
 export async function generateMetadata({ params }) {
   const { locale } = params;
