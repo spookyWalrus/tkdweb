@@ -18,5 +18,10 @@
     "Send": "Envoyer",
     "Subject": "Sujet",
     "Register":"Veuillez vous présenter en personne et nous parler pour vous inscrire",
-    "MakeContact":"Ou envoyez-nous un message ou envoyez-nous un courriel. On aimerait avoir de vos nouvelles!"
+    "Visit":"Mardi ou jeudi à 18 h, ou le samedi à 13 h",
+    "MakeContact":"Envoyez-nous un message.  On aimerait avoir de vos nouvelles!",
+    "Metadata":{
+     "description": "Passez nous voir pour vous inscrire. Consultez notre emplacement exact et comment nous joindre. Envoyez-nous un message via notre formulaire de contact.",
+    "title": "Contactez-nous - Emplacement et inscription | Académie de Taekwondo CCS"
+    }
 }

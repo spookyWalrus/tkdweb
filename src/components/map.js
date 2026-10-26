@@ -1,59 +1,74 @@
-import React, { useState, useEffect, useRef } from "react";
+"use client";
+
+import { useEffect, useRef } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
-let MAP_API_KEY = process.env.NEXT_PUBLIC_MAPS_API_KEY;
+const CENTER = { lat: 46.04415925350012, lng: -73.71189315777166 };
 
-const Map = () => {
-  const [map, setTheMap] = useState(null);
-  const [placesService, setPlacesService] = useState(null);
+// Created once per page load, shared across mounts
+let librariesPromise = null;
+function loadLibraries() {
+  if (!librariesPromise) {
+    const loader = new Loader({
+      apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY,
+      version: "weekly",
+    });
+    librariesPromise = Promise.all([
+      loader.importLibrary("maps"),
+      loader.importLibrary("marker"),
+    ]).catch((err) => {
+      librariesPromise = null; // allow a retry on next mount
+      throw err;
+    });
+  }
+  return librariesPromise;
+}
+
+const ContactMap = () => {
+  const mapRef = useRef(null);
 
   useEffect(() => {
-    const initMap = async () => {
-      try {
-        const loader = new Loader({
-          apiKey: MAP_API_KEY,
-          version: "weekly",
-          libraries: ["places", "marker"],
-        });
+    let cancelled = false;
+    let marker = null;
 
-        const [{ Map }, { AdvancedMarkerElement }, { PlacesService }] =
-          await Promise.all([
-            loader.importLibrary("maps"),
-            loader.importLibrary("marker"),
-            loader.importLibrary("places"),
-          ]);
+    loadLibraries()
+      .then(([{ Map: GoogleMap }, { AdvancedMarkerElement }]) => {
+        if (cancelled || !mapRef.current) return;
 
-        let stLouis = { lat: 46.04415925350012, lng: -73.71189315777166 };
-
-        let mapElement = document.getElementById("map");
-        let mapInstance = new Map(mapElement, {
-          center: stLouis,
+        const mapInstance = new GoogleMap(mapRef.current, {
+          center: CENTER,
           zoom: 15,
           disableDefaultUI: true,
           mapId: "982fb575d51b7a455bdeebb",
         });
 
-        new AdvancedMarkerElement({
-          position: stLouis,
+        marker = new AdvancedMarkerElement({
+          position: CENTER,
           map: mapInstance,
           title: "dojang",
         });
+      })
+      .catch((err) => {
+        console.error("Google Maps failed to load:", err);
+      });
 
-        setTheMap(mapInstance);
-      } catch (error) {
-        return error;
-      }
+    return () => {
+      cancelled = true;
+      if (marker) marker.map = null;
     };
-    initMap();
   }, []);
 
   return (
     <div className="mapBack">
-      <div id="map" className="map" style={{ height: "300px", width: "100%" }}>
+      <div
+        ref={mapRef}
+        className="map"
+        style={{ height: "300px", width: "100%" }}
+      >
         we are here
       </div>
     </div>
   );
 };
 
-export default Map;
+export default ContactMap;

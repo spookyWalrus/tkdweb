@@ -18,5 +18,11 @@
     "Send": "Send",
     "Subject": "Subject",
     "Register":"Please come in person to sign up",
-    "MakeContact":"Or send us a message or email us. We would love to hear from you!"
+    "Visit":"Tuesday or Thursday at 6pm or Saturday at 1pm.",
+    "MakeContact":"Or send us a message. We would love to hear from you!",
+    "Metadata":{
+        "description": "Come by for a visit to sign up. See our exact location and how to reach us. Send us a mesasge on our contact form.",
+        "title":"Contact Us - Location & Sign-Up | CCS Taekwondo Academy"
+    }
+
 }
