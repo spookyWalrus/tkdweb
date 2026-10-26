@@ -43,7 +43,7 @@ export default async function Instructors({ params }) {
             position={t("Card.gmTitle") + ", 9th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
-            cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/sign/CV/GM-CV3.pdf?token=eyJraWQiOiI0YzRlM2ExZS1hMWRmLTQxNGQtYTZkYy02NGEyMGZjYzM2YWUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDVi9HTS1DVjMucGRmIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5Mjk3MzA4NCwiZXhwIjoxODI0NTA5MDg0fQ.ra0ZbME4DPars4HPdB9alydJwZcezjOleyuKc-utRsc"
+            cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/public/CV/GM-CV3.pdf"
           />
         </div>
         <div className="bodyTextMarginTop card-grid-container">
@@ -54,7 +54,7 @@ export default async function Instructors({ params }) {
             position={t("Card.trainTitle") + ", 5th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
-            cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/sign/CV/MF-CV2.pdf?token=eyJraWQiOiI0YzRlM2ExZS1hMWRmLTQxNGQtYTZkYy02NGEyMGZjYzM2YWUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDVi9NRi1DVjIucGRmIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5Mjk3Mjg1MCwiZXhwIjoxODI0NTA4ODUwfQ._iMOxofSHY87hAgQCyYFl9Es4V-p1O_AsGXqN4aM9EY"
+            cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/public/CV/MF-CV2.pdf"
           />
           <OneCard
             imageSrc="/images/zoey2.jpg"
