@@ -43,8 +43,7 @@ export default async function Instructors({ params }) {
             position={t("Card.gmTitle") + ", 9th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
-            // cvUrl="#"
-            // cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/sign/CV/InfoLettre.pdf?token=eyJraWQiOiI0YzRlM2ExZS1hMWRmLTQxNGQtYTZkYy02NGEyMGZjYzM2YWUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDVi9JbmZvTGV0dHJlLnBkZiIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTI4ODcxODgsImV4cCI6MTc5MzQ5MTk4OH0.2SmcMSutKM_Ke6sSMMwgj1dBqmuasHMgBmj31N1u28c"
+            cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/sign/CV/GM-CV3.pdf?token=eyJraWQiOiI0YzRlM2ExZS1hMWRmLTQxNGQtYTZkYy02NGEyMGZjYzM2YWUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDVi9HTS1DVjMucGRmIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5Mjk3MzA4NCwiZXhwIjoxODI0NTA5MDg0fQ.ra0ZbME4DPars4HPdB9alydJwZcezjOleyuKc-utRsc"
           />
         </div>
         <div className="bodyTextMarginTop card-grid-container">
@@ -52,20 +51,19 @@ export default async function Instructors({ params }) {
             imageSrc="/images/mf3.jpg"
             altText="instructor-trainer"
             name="Marie-France Moffat"
-            position={t("Card.trainTitle") + ", 6th Dan"}
+            position={t("Card.trainTitle") + ", 5th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
-            // cvUrl="#"
-            // cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/sign/CV/slides.png?token=eyJraWQiOiI0YzRlM2ExZS1hMWRmLTQxNGQtYTZkYy02NGEyMGZjYzM2YWUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDVi9zbGlkZXMucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5Mjg4NzM1MywiZXhwIjoxNzkzNDkyMTUzfQ.F4jfARQMkN4iyxO0cGvfhwSJW1Rdr9WMc5dgB0Zp_Hc"
+            cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/sign/CV/MF-CV2.pdf?token=eyJraWQiOiI0YzRlM2ExZS1hMWRmLTQxNGQtYTZkYy02NGEyMGZjYzM2YWUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJDVi9NRi1DVjIucGRmIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5Mjk3Mjg1MCwiZXhwIjoxODI0NTA4ODUwfQ._iMOxofSHY87hAgQCyYFl9Es4V-p1O_AsGXqN4aM9EY"
           />
-          {/* <OneCard
+          <OneCard
             imageSrc="/images/zoey2.jpg"
             altText="instructor"
             name="Zo&euml; Zelick"
-            position={t("Card.insTitle") + ", 5th Dan"}
+            position={t("Card.insTitle") + ", 5th Dan Kukiwon et Jidokwan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
-          /> */}
+          />
           {/* <OneCard
             imageSrc="/images/instructor1.jpg"
             altText="instructor"
