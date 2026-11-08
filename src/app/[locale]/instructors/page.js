@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
   return {
     title: t("title"),
     description: t("description"),
-    alternates: buildAlternates(locale, "/Instructors"),
+    alternates: buildAlternates(locale, "/instructors"),
   };
 }
 
@@ -43,7 +43,7 @@ export default async function Instructors({ params }) {
             position={t("Card.gmTitle") + ", 9th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
-            cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/public/CV/GM-CV3.pdf"
+            cvUrl="/documents/GM-CV3.pdf"
           />
         </div>
         <div className="bodyTextMarginTop card-grid-container">
@@ -54,7 +54,7 @@ export default async function Instructors({ params }) {
             position={t("Card.trainTitle") + ", 5th Dan"}
             blurbclass={checkBlurb(t("Card.assTitle"))}
             blurb={t("Card.assTitle")}
-            cvUrl="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/public/CV/MF-CV2.pdf"
+            cvUrl="/documents/MF-CV2.pdf"
           />
           <OneCard
             imageSrc="/images/zoey2.jpg"

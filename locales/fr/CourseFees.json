@@ -68,5 +68,9 @@
         "CompList3":"Entraînement au combat et au contact",
         "CompList4":"Préparation physique et mentale aux compétitions",
         "CompList5":"Conseils et préparation pour les parents d'élèves d'élite"
-    }
+    },
+     "Metadata":{
+        "title": "Horaire des cours et frais - Inscription et informations de paiement",
+        "description": "Consultez notre horaire complet de cours et nos frais de cours. Apprenez comment vous inscrire, effectuer des paiements et compléter votre inscription."
+     }
 }

@@ -1,11 +1,29 @@
-"use client";
-import { useTranslations } from "next-intl";
-import SessionStart from "../../../components/courseFeeFunctions";
-import { useLocale } from "next-intl";
+// "use client";
+// import { useTranslations } from "next-intl";
+import PropTypes from "prop-types";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { buildAlternates } from "@/utilities/seo";
+// import SessionStart from "../../../components/courseFeeFunctions";
 
-export default function CourseFees() {
-  const t = useTranslations("CourseFees");
-  const lang = useLocale();
+export async function generateMetadata({ params }) {
+  const { locale } = params;
+  const t = await getTranslations({
+    locale,
+    namespace: "CourseFees.Metadata",
+  });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: buildAlternates(locale, "/course"),
+  };
+}
+
+export default async function CourseFees({ params }) {
+  const { locale } = params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "CourseFees" });
+  const lang = locale;
 
   function seasonCalc() {
     let season;
@@ -56,7 +74,7 @@ export default function CourseFees() {
           <p>
             {t("Schedule.Download")}
             <a
-              href="https://oqcbfcberasludcppgxy.supabase.co/storage/v1/object/public/TKDcalendar/2026-27-calendar.jpg"
+              href="/documents/2026-27-calendar.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="button is-link dlcalendarbutton"
@@ -199,3 +217,9 @@ export default function CourseFees() {
     </div>
   );
 }
+
+CourseFees.propTypes = {
+  params: PropTypes.shape({
+    locale: PropTypes.string.isRequired,
+  }).isRequired,
+};
